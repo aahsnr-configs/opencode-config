@@ -9,10 +9,10 @@ class ExaMigration(unittest.TestCase):
     def test_exact_single_exa_and_no_firecrawl(self):
         cfg = json.loads((ROOT / "opencode.jsonc").read_text())
         servers = cfg["mcp"]["servers"]
-        self.assertEqual(len(servers), 9)
+        self.assertEqual(len(servers), 10)
         self.assertEqual(sum(n == "exa" for n in servers), 1)
         self.assertNotIn("firecrawl", servers)
-        self.assertEqual(servers["exa"]["url"], "https://mcp.exa.ai/mcp")
+        self.assertEqual(servers["exa"]["url"], "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,agent_run")
         self.assertTrue(
             all(s["disabled"] and s["codemode"] is False for s in servers.values())
         )
@@ -52,9 +52,9 @@ class ExaMigration(unittest.TestCase):
             legacy.write_text("my custom script")
             self.assertEqual(mod.main(["--config-dir", str(config), "--apply"]), 3)
             self.assertTrue(legacy.exists())
-            old = ROOT / "references/original-user-agents/web-researcher.md"
-            # Archive reference must remain untouched: it is not installed.
-            self.assertTrue(old.is_file())
+            # Refusing an unknown user command must neither move it nor create an archive.
+            self.assertEqual(legacy.read_text(), "my custom script")
+            self.assertFalse((config / "archive").exists())
 
     def test_manual_controller_whitelist(self):
         m = (ROOT / "scripts/mcpctl.py").read_text()

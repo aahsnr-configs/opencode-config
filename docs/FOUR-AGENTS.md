@@ -1,6 +1,6 @@
 # Four new OpenCode V2 specialty agents — migration and usage
 
-Source files: `compactor.md`, `Explore.md`, `git-gh.md`, `web-researcher.md`, copied unchanged into `references/original-user-agents/`. The files in `agents/` are corrected OpenCode **V2** definitions.
+Source files: `compactor.md`, `Explore.md`, `git-gh.md`, `web-researcher.md`, previously referenced as uploaded artifacts (the archive directory is absent from this repository). The files in `agents/` are corrected OpenCode **V2** definitions.
 
 ## Model choices and compatibility
 
@@ -22,7 +22,7 @@ Source files: `compactor.md`, `Explore.md`, `git-gh.md`, `web-researcher.md`, co
 
 ## Explicit Exa MCP, without auto-connect
 
-Exa is already configured as the `exa` server using the official `https://mcp.exa.ai/mcp` endpoint. **Do not add a duplicate.** Its default MCP tools are `web_search_exa` and `web_fetch_exa`; the OpenCode V2 permission action names are `exa_web_search_exa` and `exa_web_fetch_exa`. Only these two actions are available to this web-researcher agent, and both require per-call approval.
+Exa is already configured as the `exa` server using the official `https://mcp.exa.ai/mcp` endpoint. **Do not add a duplicate.** The shared server explicitly exposes `web_search_exa`, `web_fetch_exa` and authenticated `agent_run`; the OpenCode V2 permission action names are `exa_web_search_exa` and `exa_web_fetch_exa`. Only these two actions are available to this web-researcher agent, and both require per-call approval.
 
 1. The *human* manually connects Exa through `/mcps`, OpenChamber Settings → MCP, or `python3 scripts/mcpctl.py session exa` on the correct backend.
 2. The *human* explicitly requests `@web-researcher` or `/exa-research` and names Exa in the request. Generic research does not authorize this agent or activate Exa.
@@ -31,7 +31,7 @@ Exa is already configured as the `exa` server using the official `https://mcp.ex
 
 Exa supports limited anonymous usage and separate OAuth/API-key authentication for expanded access. Authentication is not inherited from ChatGPT. Exa's optional `agent_run` and advanced search capabilities are excluded from this agent. See https://github.com/exa-labs/exa-mcp-server and https://exa.ai/mcp .
 
-The archived original uploaded web-researcher agent is preserved *unchanged* in `references/original-user-agents/web-researcher.md` as a source document. It is NOT an installed agent and its Firecrawl requirements do not apply to the converted agent.
+The originally referenced uploaded web-researcher archive is absent from this repository. The converted agent uses Exa; no Firecrawl source artifact is claimed as preserved.
 
 ## Security adjustments made during migration
 

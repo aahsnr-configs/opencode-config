@@ -17,3 +17,5 @@ description: Conduct peer-reviewed literature reviews, paper discovery, DOI vali
 
 
 **Explicit-only MCP gate:** This skill does not authorize MCP use. Do not connect or invoke MCP servers based on task matching. The user must explicitly name the MCP server and operation and approve each tool call; respect disconnected defaults.
+
+For iterative research with recorded evidence, resumable jobs and deliverables, load deep-research and use the deep-research agent. For SciSpace access checks or exported tables, load scispace.

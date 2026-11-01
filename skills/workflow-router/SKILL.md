@@ -18,3 +18,5 @@ description: Route requests to relevant local capabilities and independently con
 
 
 **Explicit-only MCP gate:** This skill does not authorize MCP use. Do not connect or invoke MCP servers based on task matching. The user must explicitly name the MCP server and operation and approve each tool call; respect disconnected defaults.
+
+Route multi-pass research to deep-research, tutoring to learn, library operations to zotero and supported SciSpace operations to scispace. Read-only research remains available for synthesis. These routes do not authorize provider connection or paid jobs.

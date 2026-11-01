@@ -57,7 +57,8 @@ for policy in conf["policies"]:
     assert policy["effect"] in ("deny", "allow")
 
 servers = conf["mcp"]["servers"]
-assert len(servers) == 9
+inventory = json.loads((root / "schemas/config-inventory.json").read_text())
+assert set(servers) == set(inventory["servers"])
 for n, c in servers.items():
     assert (
         c["type"] in ("local", "remote")
@@ -77,26 +78,18 @@ for n, c in servers.items():
         if "protocol" in c:
             assert c["protocol"] in ("legacy", "auto", "2026-07-28")
     else:
-        assert len(c["command"]) >= 2 and c["command"][0] == "npx"
+        assert len(c["command"]) >= 2
+        if n == "zotero":
+            assert c["command"] == ["opencode-research-tools", "serve-zotero"]
+        else:
+            assert c["command"][0] == "npx"
 try:
     import yaml
 except ImportError:
     yaml = None
-expected_agents = {
-    "chat",
-    "work",
-    "coder",
-    "research",
-    "reviewer",
-    "digest",
-    "compactor",
-    "explore-scout",
-    "git-gh",
-    "web-researcher",
-}
-assert {p.stem for p in (root / "agents").glob("*.md")} == expected_agents
-assert len(list((root / "commands").glob("*.md"))) == 13
-assert len(list((root / "skills").glob("*/SKILL.md"))) == 59
+assert {p.stem for p in (root / "agents").glob("*.md")} == set(inventory["agents"])
+assert {p.stem for p in (root / "commands").glob("*.md")} == set(inventory["commands"])
+assert {p.parent.name for p in (root / "skills").glob("*/SKILL.md")} == set(inventory["skills"])
 assert "Kilo" not in (root / "AGENTS.md").read_text()
 for p in [
     *(root / "agents").glob("*.md"),

@@ -108,3 +108,7 @@ See [docs/CONTEXT7-AUDIT.md](docs/CONTEXT7-AUDIT.md). The MCP controller now ref
 ## Life-sciences research
 
 The integration includes the complete 50-skill public OpenAI Life Science Research plugin 1.0.3 snapshot with all 161 skill files. See [setup and scope](docs/LIFE-SCIENCES.md) and the [audit](docs/LIFE-SCIENCES-AUDIT.md). Hosted OpenAI platform features and scientific validation remain outside this file-complete port.
+
+## Research integrations and learning
+
+Zotero, optional provider-confirmed SciSpace access, resumable deep research and learning workflows are documented in [RESEARCH-SETUP.md](docs/RESEARCH-SETUP.md). See [RESEARCH-AUDIT.md](docs/RESEARCH-AUDIT.md) for tested behavior and live-access limits.

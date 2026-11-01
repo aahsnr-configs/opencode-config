@@ -14,7 +14,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-ALLOWED = ("context7", "exa", "consensus", "alphaxiv", "undermind", "tamarind", "github", "ticktick", "playwright")
+ALLOWED = ("context7", "exa", "consensus", "alphaxiv", "undermind", "tamarind", "github", "ticktick", "playwright", "zotero", "scispace")
 
 class ControlError(Exception):
     pass

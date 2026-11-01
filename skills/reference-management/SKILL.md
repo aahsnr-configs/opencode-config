@@ -16,3 +16,5 @@ description: Use Zotero or local BibTeX files for citations, LaTeX writing, and 
 
 
 **Explicit-only MCP gate:** This skill does not authorize MCP use. Do not connect or invoke MCP servers based on task matching. The user must explicitly name the MCP server and operation and approve each tool call; respect disconnected defaults.
+
+For executable Zotero access load the zotero skill; use real item keys and optional Better BibTeX citekeys. The local bridge and scoped Web mode are supplied by integrations/research-tools.

@@ -59,3 +59,4 @@ for f in "${files[@]}"; do
 done
 if [[ -d "$backup" ]]; then echo "Backups: $backup"; fi
 echo "Installed to $target . No credentials or MCP logins were configured."
+echo 'Zotero/research helpers require a separate Python package install; see docs/RESEARCH-SETUP.md.'

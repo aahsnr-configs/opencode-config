@@ -64,7 +64,7 @@ check 'agent discovery (OpenCode V2)' agents opencode debug agents || {
   exit 3
 }
 missing=0
-for agent in chat work coder research reviewer digest compactor explore-scout git-gh web-researcher; do
+for agent in chat work coder research reviewer digest compactor explore-scout git-gh web-researcher deep-research learn; do
   if grep -Fwq -- "$agent" "$tmp/agents.log"; then
     printf 'PASS: agent %s discovered\n' "$agent"
   else
@@ -83,3 +83,9 @@ echo 'PASS: CLI diagnostics completed. Skills were checked locally; verify skill
 echo 'This does not test model authentication, live MCP OAuth, or OpenChamber.'
 
 # Inspect active MCP state separately with: python3 scripts/mcpctl.py status
+
+if command -v opencode-research-tools >/dev/null 2>&1; then
+  check 'research helper dependencies (offline)' research opencode-research-tools doctor || exit 3
+else
+  echo 'NOTICE: research helper package is not on PATH; see docs/RESEARCH-SETUP.md.'
+fi

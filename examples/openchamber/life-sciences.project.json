@@ -1,7 +1,37 @@
 {
   "version": 1,
   "draftStarters": [
-    {"type": "command", "name": "life-science"},
-    {"type": "skill", "name": "research-router-skill"}
+    {
+      "type": "command",
+      "name": "life-science"
+    },
+    {
+      "type": "skill",
+      "name": "research-router-skill"
+    },
+    {
+      "type": "command",
+      "name": "deep-research"
+    },
+    {
+      "type": "command",
+      "name": "zotero"
+    },
+    {
+      "type": "command",
+      "name": "scispace"
+    },
+    {
+      "type": "command",
+      "name": "learn"
+    },
+    {
+      "type": "command",
+      "name": "quiz"
+    },
+    {
+      "type": "command",
+      "name": "explain-paper"
+    }
   ]
 }

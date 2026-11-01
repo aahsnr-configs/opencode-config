@@ -19,12 +19,12 @@ with tempfile.TemporaryDirectory(prefix="opencode-doctor-mock-") as d:
             capture_output=True,
         )
 
-    # Current V2 CLI and six custom agents
+    # Current V2 CLI and the expected custom agents
     mock.write_text("""#!/usr/bin/env bash
 case "$*" in
   --version) echo '2.0.mock'; exit 0 ;;
   'debug config') echo 'global config'; exit 0 ;;
-  'debug agents') printf 'build\nchat\nwork\ncoder\nresearch\nreviewer\ndigest\ncompactor\nexplore-scout\ngit-gh\nweb-researcher\n'; exit 0 ;;
+  'debug agents') printf 'build\nchat\nwork\ncoder\nresearch\nreviewer\ndigest\ncompactor\nexplore-scout\ngit-gh\nweb-researcher\ndeep-research\nlearn\n'; exit 0 ;;
   'mcp list') echo 'all disabled'; exit 0 ;;
   *) echo 'unexpected V1 CLI command: '"$*" >&2; exit 70 ;;
 esac

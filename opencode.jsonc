@@ -200,6 +200,11 @@
       "action": "opencode_read_mcp_resource",
       "resource": "*",
       "effect": "ask"
+    },
+    {
+      "action": "zotero_*",
+      "resource": "*",
+      "effect": "ask"
     }
   ],
   "mcp": {
@@ -212,7 +217,7 @@
       },
       "exa": {
         "type": "remote",
-        "url": "https://mcp.exa.ai/mcp",
+        "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,agent_run",
         "disabled": true,
         "codemode": false
       },
@@ -261,6 +266,15 @@
           "@playwright/mcp",
           "--headless",
           "--isolated"
+        ],
+        "disabled": true,
+        "codemode": false
+      },
+      "zotero": {
+        "type": "local",
+        "command": [
+          "opencode-research-tools",
+          "serve-zotero"
         ],
         "disabled": true,
         "codemode": false
@@ -316,6 +330,11 @@
     {
       "action": "mcp.use",
       "resource": "playwright",
+      "effect": "allow"
+    },
+    {
+      "action": "mcp.use",
+      "resource": "zotero",
       "effect": "allow"
     }
   ]

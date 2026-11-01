@@ -73,7 +73,7 @@ class TestManual(unittest.TestCase):
                 for x in cfg["mcp"]["servers"].values()
             )
         )
-        self.assertEqual(len(cfg["mcp"]["servers"]), 9)
+        self.assertEqual(len(cfg["mcp"]["servers"]), 10)
         self.assertEqual(Handler.calls, [])
 
     def test_refuses_remote_target(self):

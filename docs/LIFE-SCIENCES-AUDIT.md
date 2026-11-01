@@ -117,3 +117,7 @@ See LIFE-SCIENCES.md for primary-source links and UPSTREAM-NOTICE.md for attribu
 - `tpmi-phewas-skill`
 - `ukb-topmed-phewas-skill`
 - `uniprot-skill`
+
+## Later research-extension audit
+
+See [RESEARCH-AUDIT.md](RESEARCH-AUDIT.md) for the subsequent Zotero/SciSpace/research/learning extension and current repository checks. The six baseline test failures recorded above are historical; the later isolated environment resolves dependencies and corrects the absent-archive assertion.

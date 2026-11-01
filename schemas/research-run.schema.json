@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local research or learning run",
+  "type": "object",
+  "required": ["id", "kind", "question", "state", "revision", "scope", "evidence", "attempts", "history"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "kind": {"enum": ["research", "learning"]},
+    "question": {"type": "string", "minLength": 1},
+    "scope": {"type": "object"},
+    "state": {"enum": ["planned", "running", "paused", "awaiting_approval", "completed", "failed", "cancelled"]},
+    "revision": {"type": "integer", "minimum": 0},
+    "evidence": {"type": "array", "items": {"type": "object", "required": ["id", "title", "url", "provider", "access", "retrieved_utc"], "properties": {"access": {"enum": ["metadata", "abstract", "fulltext"]}}}},
+    "attempts": {"type": "array"},
+    "history": {"type": "array"}
+  }
+}

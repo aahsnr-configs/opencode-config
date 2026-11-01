@@ -14,9 +14,10 @@ The endpoints below have been checked against published documentation as of 2026
 | Tamarind Bio | `tamarind` | Paid/scientific compute and jobs; `protocol: auto` supports protocol negotiation; test catalog only before submitting. |
 | GitHub | `github` | Uses GitHub's `/mcp/readonly` endpoint. Still confirm tool scopes and authorization. OpenChamber has a separate Git host integration. |
 | TickTick | `ticktick` | Can create/change/delete tasks. Review scopes and actions before use. |
+| Zotero | `zotero` (local stdio) | Install research-tools[mcp]; local Desktop API or explicit Web mode; disabled by default. |
 | Playwright | `playwright` | Local isolated headless browser. Downloads npm package at first use; requires Node/npm and compatible browser installation. |
 
-Not preconfigured with guessed URLs: SciSpace, Rowan MCP, Zotero Desktop, Google Workspace, or the dozens of public life-sciences APIs. Use OpenChamber Settings → Integrations or add a provider's current verified endpoint. Rowan can be used with its official Python SDK; Zotero via its local API/CLI after separate installation. Life-sciences REST/GraphQL APIs are best exposed through focused Python scripts or skills, not as unverified MCP endpoints. Google's Workspace MCP is developer preview with eligibility requirements and requires its own OAuth. Do not put access tokens in JSON config or repository files.
+Not preconfigured with guessed URLs: SciSpace, Rowan MCP, Google Workspace, or the dozens of public life-sciences APIs. Use OpenChamber Settings → Integrations or add a provider's current verified endpoint. Rowan can be used with its official Python SDK; Zotero via its local API/CLI after separate installation. Life-sciences REST/GraphQL APIs are best exposed through focused Python scripts or skills, not as unverified MCP endpoints. Google's Workspace MCP is developer preview with eligibility requirements and requires its own OAuth. Do not put access tokens in JSON config or repository files.
 
 ## Enable one service
 
@@ -55,4 +56,8 @@ Prioritize Context7, Exa, Playwright, GitHub and Zotero. Add Gmail, Google Drive
 
 ## Exa (manual research only)
 
-The configured `exa` remote server points to `https://mcp.exa.ai/mcp` with `disabled: true` and `codemode: false`. Exa's *default* hosted MCP tools are `web_search_exa` and `web_fetch_exa` (normalized OpenCode permission names `exa_web_search_exa` and `exa_web_fetch_exa`). The restricted `web-researcher` subagent can use only these two tools after a human has manually connected Exa and explicitly asked for Exa research. All calls require per-call **Allow once** approvals. No automatic task-driven connection or provider substitution. See `docs/FOUR-AGENTS.md`.
+The configured `exa` remote server points to `https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,agent_run` with `disabled: true` and `codemode: false`. The shared server explicitly exposes `web_search_exa`, `web_fetch_exa` and authenticated `agent_run` (normalized OpenCode permission names `exa_web_search_exa` and `exa_web_fetch_exa`). The restricted `web-researcher` subagent can use only these two tools after a human has manually connected Exa and explicitly asked for Exa research. All calls require per-call **Allow once** approvals. No automatic task-driven connection or provider substitution. See `docs/FOUR-AGENTS.md`.
+
+## Research extension
+
+See RESEARCH-SETUP.md. SciSpace can be added by a human with a provider-confirmed endpoint; it is not shipped with a guessed URL. The Exa server explicitly includes authenticated agent_run for the new deep-research agent. Restricted web-researcher remains limited to search/fetch.
