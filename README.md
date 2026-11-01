@@ -104,3 +104,7 @@ This release removes the Firecrawl MCP definition and replaces the old research 
 ## Latest audit and MCP-controller hardening
 
 See [docs/CONTEXT7-AUDIT.md](docs/CONTEXT7-AUDIT.md). The MCP controller now refuses a second connection during pending authentication/initialization and rejects malformed status responses. Static checks do not guarantee runtime compatibility.
+
+## Life-sciences foundation
+
+See [docs/LIFE-SCIENCES.md](docs/LIFE-SCIENCES.md) for the initial research command, public-data lookup utility, verified status, and remaining work. This is not yet the complete ecosystem described in the research report.

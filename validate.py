@@ -95,8 +95,8 @@ expected_agents = {
     "web-researcher",
 }
 assert {p.stem for p in (root / "agents").glob("*.md")} == expected_agents
-assert len(list((root / "commands").glob("*.md"))) == 12
-assert len(list((root / "skills").glob("*/SKILL.md"))) == 8
+assert len(list((root / "commands").glob("*.md"))) == 13
+assert len(list((root / "skills").glob("*/SKILL.md"))) == 9
 assert "Kilo" not in (root / "AGENTS.md").read_text()
 for p in [
     *(root / "agents").glob("*.md"),
