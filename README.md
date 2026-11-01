@@ -105,6 +105,6 @@ This release removes the Firecrawl MCP definition and replaces the old research 
 
 See [docs/CONTEXT7-AUDIT.md](docs/CONTEXT7-AUDIT.md). The MCP controller now refuses a second connection during pending authentication/initialization and rejects malformed status responses. Static checks do not guarantee runtime compatibility.
 
-## Life-sciences foundation
+## Life-sciences research
 
-See [docs/LIFE-SCIENCES.md](docs/LIFE-SCIENCES.md) for the initial research command, public-data lookup utility, verified status, and remaining work. This is not yet the complete ecosystem described in the research report.
+The integration includes the complete 50-skill public OpenAI Life Science Research plugin 1.0.3 snapshot with all 161 skill files. See [setup and scope](docs/LIFE-SCIENCES.md) and the [audit](docs/LIFE-SCIENCES-AUDIT.md). Hosted OpenAI platform features and scientific validation remain outside this file-complete port.

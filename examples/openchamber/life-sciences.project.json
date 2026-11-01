@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "draftStarters": [
+    {"type": "command", "name": "life-science"},
+    {"type": "skill", "name": "research-router-skill"}
+  ]
+}

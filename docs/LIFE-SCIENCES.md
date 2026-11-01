@@ -1,33 +1,46 @@
-# Life-sciences integration: initial foundation
+# Life Sciences Research for OpenCode and OpenChamber
 
-This is an incomplete foundation for the attached research report, not the report's claimed full deliverable. The report itself did not include source code, benchmark data, or logs. Its numerical validation claims have not been reproduced. Use only public, non-sensitive queries. No component is intended for clinical decisions.
+## Scope and completeness
 
-## Use
+The integration now contains every file from the 50 skill directories of the public OpenAI Life Science Research plugin 1.0.3 at commit `0722921d5542fc593105c27bd52630babd8b8c2a`. The machine-readable source inventory is [upstream-lock.json](../life-sciences/upstream-lock.json). All 161 Git blob hashes match upstream. Source scripts are unchanged. This is file completeness for that pinned plugin, not demonstrated runtime or scientific parity with the entire hosted OpenAI ecosystem.
 
-Run `./install.sh --dry-run`, review, and follow the existing installer instructions to install the new `/life-science` command and skill with the base configuration. OpenChamber uses the same OpenCode setup; availability in its UI has not been tested here. The script below remains in the repository; the installer does not copy it.
+The public plugin provides source-specific API helpers and research routing. GPT-Rosalind access, Workbench molecular viewers, guided NGS execution, hosted jobs, commercial providers and other ChatGPT plugins are separate capabilities. This repository does not implement them. The original report's custom STAR/GATK/Nextflow/container architecture and benchmark claims are also not delivered by this plugin.
+
+## Setup
+
+1. Create a Python environment and install `life-sciences/requirements.txt`. `requests` is needed by API scripts; `matplotlib` is used by optional locus-to-gene plots. Dependencies use bounded ranges, not a fully reproducible lock; record the resolved versions for research runs.
+2. Run `./install.sh --dry-run`. Review existing configuration conflicts before using `--apply` or the existing opt-in `--replace` behavior. This installs the complete skill folders and command under the selected XDG OpenCode configuration directory. It does not install Python dependencies.
+3. Ensure OpenCode/OpenChamber uses that configuration directory and can run the selected Python interpreter. OpenChamber documents `OPENCODE_CONFIG_DIR` for config discovery and Settings → General → Environment variables for its backend environment. A shell virtual environment is not automatically inherited by a separately launched app.
+4. In OpenCode invoke `/life-science <question>`. In OpenChamber use `/` at the start to select the command or `$` to select a skill. For broad questions choose `research-router-skill`; use specific database skills for narrow questions.
+5. Read the selected SKILL.md and run helpers from that skill directory with the documented JSON input. Helpers call public APIs directly; this bundle has no MCP server and requires no automatic MCP activation. Existing manual MCP policy remains in force for separately connected services.
+
+Example without network execution during installation:
 
 ```sh
-python3 life-sciences/lookup.py alphafold P00520
-python3 life-sciences/lookup.py literature 'TP53 AND cancer' --limit 5
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r life-sciences/requirements.txt
+python3 -m unittest discover -s tests -p 'test_*life_sciences.py'
 ```
 
-These commands send their arguments to external public services. Output contains the upstream JSON, request URL, and retrieval time; redirect it to a file if a record is needed. Network access is required. Avoid sensitive material. AlphaFold returns precomputed predictions, not a new fold, and model confidence is not experimental confirmation.
+The earlier `life-sciences/lookup.py` utility remains available for Europe PMC searches and AlphaFold metadata. It is a supplementary utility, not the core router. It remains in the checkout rather than the global installer destination.
 
-## Coverage and evidence
+An optional [OpenChamber project example](../examples/openchamber/life-sciences.project.json) supplies a draft starter. Merge it manually into a research project's `.openchamber/project.json` after installing the skills; it is not auto-installed and creates no background tasks.
 
-| Capability | Status |
-| --- | --- |
-| Europe PMC literature and AlphaFold DB metadata | Implemented; offline mocked tests only, live requests not verified in this environment |
-| OpenCode command and skill | Added; installer behavior tested; OpenCode and OpenChamber runtime discovery not tested |
-| BLAST, SAMtools, STAR adapters; MCP server | Not implemented |
-| Nextflow pipelines, containers, execution manager, full tool registry | Not implemented |
-| GIAB, ENCODE, spike-in, docking and pathway benchmarks | Not run; report's results unverified |
-| Protected clinical data | Not supported |
+## Verification limits
 
-Do not infer dataset quality or biological validity from an HTTP success. A complete implementation still needs actual pinned workflows, controlled inputs, external dependencies, logs, reproducible reference datasets, and independent scientific validation. There is no generic shell adapter or service listening on a network port.
+Offline tests check all 161 source hashes, parse every upstream Python source, exercise the supplementary lookup with controlled responses, and validate base config metadata. A temporary XDG installation was also checked byte-for-byte for all 161 files. No real OpenCode/OpenChamber executable is available here. A live Europe PMC probe returned HTTP 200; an AlphaFold DB probe timed out. This is not an all-source availability test. Authentication, provider quotas and scientific results remain unverified. File equality does not establish API correctness or biological validation.
 
-## Sources
+See [LIFE-SCIENCES-AUDIT.md](LIFE-SCIENCES-AUDIT.md) for findings and [UPSTREAM-NOTICE.md](../life-sciences/UPSTREAM-NOTICE.md) for attribution and the unresolved upstream license status. Review scripts and endpoint terms before using sensitive data or redistributing upstream content.
 
-- [OpenCode V2 configuration](https://opencode.ai/v2/docs/config/) and [MCP](https://opencode.ai/v2/docs/mcp-servers/).
-- [AlphaFold DB API](https://alphafold.ebi.ac.uk/api-docs), [Europe PMC REST API](https://europepmc.org/RestfulWebService).
-- [nf-core/rnaseq documentation](https://nf-co.re/rnaseq/latest/docs/usage/): candidate upstream workflow, not installed or tested here. Pin a release and follow its own documentation before using it.
+## Primary references checked
+
+- https://github.com/openai/plugins/tree/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/life-science-research
+- https://openai.com/index/introducing-gpt-rosalind/
+- https://help.openai.com/en/articles/20001193-gpt-rosalind-for-life-sciences-research
+- https://opencode.ai/v2/docs/skills/
+- https://opencode.ai/v2/docs/commands/
+- https://docs.openchamber.dev/skills/
+- https://docs.openchamber.dev/chat-input/
+- https://docs.openchamber.dev/environment/
+- https://docs.openchamber.dev/repository-config/

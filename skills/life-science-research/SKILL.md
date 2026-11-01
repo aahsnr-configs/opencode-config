@@ -1,12 +1,14 @@
 ---
 name: life-science-research
-description: Plan and assess reproducible life-science research, public literature lookups, and protein structure metadata with explicit evidence and provenance.
+description: Coordinate the complete 50-skill public OpenAI Life Science Research plugin port for OpenCode, with explicit provenance and validation limits.
 ---
 
-# Life science research
+# Life science research in OpenCode
 
-1. Specify the biological question, species, inputs, references, constraints, and intended output. Do not imply clinical suitability.
-2. Read docs/LIFE-SCIENCES.md in the configuration repository for capability status and usage. Ask the user for its location if it is not available. The local lookup script is not an MCP server and is not installed by install.sh; run it from the repository checkout.
-3. For public data, the user may run the lookup script for Europe PMC or AlphaFold DB. Review the returned provenance and primary references. AlphaFold DB returns existing predictions, not a new prediction; model confidence is not experimental validation.
-4. For workflows, identify reference versions, software and container versions, resource needs, controls, and validation data before execution. Preserve inputs, commands, versions, checksums, logs, and parameters. Validate outputs against appropriate reference material.
-5. Never state that an analysis, benchmark, database query, or experiment ran unless there is evidence. Respect the repository's explicit MCP policy, provider terms, data privacy requirements, and paid-compute approval rules.
+Load research-router-skill for broad or multi-source questions. For narrow lookups, load the appropriate database skill directly. All 50 source skills retain their bundled Python scripts and references; scripts and references are relative to the directory containing the selected SKILL.md. Run Python helpers with JSON on stdin as documented by that skill. Use a Python environment with requests installed; locus-to-gene plotting additionally uses matplotlib.
+
+Resolve identifiers, species, assembly, tissue, units, and study context before combining evidence. Record query parameters, retrieval dates, sources, output paths and limitations. Distinguish association from causality and computed predictions from experimental observations. Never claim benchmark or biological validation merely because a helper succeeds.
+
+Respect AGENTS.md. This port grants no model, account, paid compute, clinical data, or MCP authorization. Use only tools available in this OpenCode installation. Codex subagent references in upstream text describe optional coordination; use OpenCode's available task mechanism only when permitted. Do not invent missing agent APIs.
+
+The source snapshot is file complete for the public plugin version 1.0.3. Hosted Rosalind Workbench features and other plugins are outside that snapshot. Read the repository docs/LIFE-SCIENCES.md for setup and the validation ledger; ask for the checkout location if needed.

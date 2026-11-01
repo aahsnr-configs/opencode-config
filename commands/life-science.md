@@ -1,6 +1,6 @@
 ---
-description: Plan and review a life-science research task
+description: Route life-science questions across the full public research skill set
 agent: research
 ---
 
-For $ARGUMENTS, load the life-science-research skill. Identify the question, inputs, organism and reference versions. Consult docs/LIFE-SCIENCES.md for available capabilities and their verification status. Distinguish plans from executed analysis, cite primary evidence, and report uncertainties and provenance. Follow AGENTS.md, including the explicit MCP authorization policy. Do not invent tool outputs or validation results.
+Research $ARGUMENTS. Load life-science-research, then research-router-skill for broad questions or the matching source-specific skill for focused questions. Resolve identifiers, use the smallest useful evidence set, run bundled scripts from their skill directory, and synthesize sources and uncertainties. Follow AGENTS.md and its explicit MCP authorization policy. Public API scripts do not require MCP; do not activate servers automatically. Keep analysis plans distinct from observed results.

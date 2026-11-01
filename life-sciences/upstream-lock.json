@@ -1,0 +1,652 @@
+{
+  "repository": "https://github.com/openai/plugins",
+  "commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "plugin_version": "1.0.3",
+  "skill_count": 50,
+  "files": [
+    {
+      "path": "skills/alphafold-skill/SKILL.md",
+      "git_blob_sha1": "61d66801be896fda114ead49adcd632243b44880"
+    },
+    {
+      "path": "skills/alphafold-skill/agents/openai.yaml",
+      "git_blob_sha1": "6e63d263cc9bf7f6fea9b2810114aeba9edd9c91"
+    },
+    {
+      "path": "skills/alphafold-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/bgee-skill/SKILL.md",
+      "git_blob_sha1": "5882216d7fc0a3f15aad75785928da92587dd00d"
+    },
+    {
+      "path": "skills/bgee-skill/agents/openai.yaml",
+      "git_blob_sha1": "6680873586de290a324f2bbfc0dc1a89467e7ef5"
+    },
+    {
+      "path": "skills/bgee-skill/scripts/sparql_request.py",
+      "git_blob_sha1": "c1ad1839890bf98ad9480665f1aef7ab3633dcb8"
+    },
+    {
+      "path": "skills/bindingdb-skill/SKILL.md",
+      "git_blob_sha1": "8f27873c190c5c6d3ba41b14d76e19be264d7cff"
+    },
+    {
+      "path": "skills/bindingdb-skill/agents/openai.yaml",
+      "git_blob_sha1": "4219d672103d20c0da411979d82aa03b5a0b56f4"
+    },
+    {
+      "path": "skills/bindingdb-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/SKILL.md",
+      "git_blob_sha1": "d0bee3a4a1594d13c6463d2139ba320829a3501a"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/agents/openai.yaml",
+      "git_blob_sha1": "384ca2c6d2eb32c403eae43382a963a6ef929354"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/biobankjapan_phewas.py",
+      "git_blob_sha1": "18e1f6519ef47e76552f87f9ccf374af3b8699b5"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/variant_resolution.py",
+      "git_blob_sha1": "cf52103096600cb905325f455666be62083621b3"
+    },
+    {
+      "path": "skills/biorxiv-skill/SKILL.md",
+      "git_blob_sha1": "d8e657a5fe77b9aac863199db94f0f5a27022f94"
+    },
+    {
+      "path": "skills/biorxiv-skill/agents/openai.yaml",
+      "git_blob_sha1": "0cdc33291e9139c92d966dac3b5d3b5c8541459d"
+    },
+    {
+      "path": "skills/biorxiv-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/SKILL.md",
+      "git_blob_sha1": "2e9d0c9460d16f18d7bacc6346c6744de9c834a1"
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/agents/openai.yaml",
+      "git_blob_sha1": "8f67834001f5368abfd439a15d22b7c061db0f1d"
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/cbioportal-skill/SKILL.md",
+      "git_blob_sha1": "ed882d89b9336dc6b83ef7161b0d17418a5157f9"
+    },
+    {
+      "path": "skills/cbioportal-skill/agents/openai.yaml",
+      "git_blob_sha1": "83348333f032468437322141c3cd5fd0e19b0a65"
+    },
+    {
+      "path": "skills/cbioportal-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/cellxgene-skill/SKILL.md",
+      "git_blob_sha1": "688593cb37a0c4a578fcc5afeab850e8b3572b79"
+    },
+    {
+      "path": "skills/cellxgene-skill/agents/openai.yaml",
+      "git_blob_sha1": "8b32425f84ebe1689b572e24501745c3b94c1803"
+    },
+    {
+      "path": "skills/cellxgene-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/chebi-skill/SKILL.md",
+      "git_blob_sha1": "c2b0300cd7c4520cbba28e4716e85eb032f7bc59"
+    },
+    {
+      "path": "skills/chebi-skill/agents/openai.yaml",
+      "git_blob_sha1": "ab9e06b015db8d032d302464fce104033b6b9ccc"
+    },
+    {
+      "path": "skills/chebi-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/chembl-skill/SKILL.md",
+      "git_blob_sha1": "d5518e264ba0937dfec8e4feaf498b537d8e4b41"
+    },
+    {
+      "path": "skills/chembl-skill/agents/openai.yaml",
+      "git_blob_sha1": "c033fd075457a96e16f23442d89faed635ad0e6f"
+    },
+    {
+      "path": "skills/chembl-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/civic-skill/SKILL.md",
+      "git_blob_sha1": "91801c24dda169f1ee5a423d0e53cf2ae16c4a1f"
+    },
+    {
+      "path": "skills/civic-skill/agents/openai.yaml",
+      "git_blob_sha1": "7518caa31475c3f07b56380bd5cc3a4374dc2437"
+    },
+    {
+      "path": "skills/civic-skill/scripts/civic_graphql.py",
+      "git_blob_sha1": "5f9dea76ebf3c7ebc89de9f1dcc15ec3c15241df"
+    },
+    {
+      "path": "skills/clinicaltrials-skill/SKILL.md",
+      "git_blob_sha1": "7f1911d47f5058cbece35f9227fdc46cc94906dd"
+    },
+    {
+      "path": "skills/clinicaltrials-skill/agents/openai.yaml",
+      "git_blob_sha1": "d0612ed558079f3d1a9f4508ef63203d1615141a"
+    },
+    {
+      "path": "skills/clinicaltrials-skill/scripts/clinicaltrials_client.py",
+      "git_blob_sha1": "5e399f966b50608933a543f4880815cba8380451"
+    },
+    {
+      "path": "skills/clinvar-variation-skill/SKILL.md",
+      "git_blob_sha1": "e2bc215882bf7a765df52dce660eeb309b01cfe9"
+    },
+    {
+      "path": "skills/clinvar-variation-skill/agents/openai.yaml",
+      "git_blob_sha1": "6238e40d19cab4107c73007e6fa3238bd2f2a4e5"
+    },
+    {
+      "path": "skills/clinvar-variation-skill/scripts/clinvar_variation.py",
+      "git_blob_sha1": "ce5d23becbdd905b99b5b6735c3edfc40d57b6ab"
+    },
+    {
+      "path": "skills/efo-ontology-skill/SKILL.md",
+      "git_blob_sha1": "bb0a1511295e7579eeadc336cace6c926a71036f"
+    },
+    {
+      "path": "skills/efo-ontology-skill/agents/openai.yaml",
+      "git_blob_sha1": "7ad851b8e5faefefd7f11360705b92cddc04c1fd"
+    },
+    {
+      "path": "skills/efo-ontology-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/encode-skill/SKILL.md",
+      "git_blob_sha1": "b085fcd8f0ec4a1dd34adfda0d803ac9680ea245"
+    },
+    {
+      "path": "skills/encode-skill/agents/openai.yaml",
+      "git_blob_sha1": "93044b0262769a7148ec1cd3a2cda81efda98b48"
+    },
+    {
+      "path": "skills/encode-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/ensembl-skill/SKILL.md",
+      "git_blob_sha1": "653dc437371ce908c7d81defc327beabe73266bf"
+    },
+    {
+      "path": "skills/ensembl-skill/agents/openai.yaml",
+      "git_blob_sha1": "5a9cf259a6b31a399ad7dc449f2da23590a5e798"
+    },
+    {
+      "path": "skills/ensembl-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/epigraphdb-skill/SKILL.md",
+      "git_blob_sha1": "ca58a98815504b8800215634e3a0dc8490c18171"
+    },
+    {
+      "path": "skills/epigraphdb-skill/agents/openai.yaml",
+      "git_blob_sha1": "7df58b613f0397cbe41c0eb47270aa8936055e76"
+    },
+    {
+      "path": "skills/epigraphdb-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/SKILL.md",
+      "git_blob_sha1": "f0a151c6eba18a93a2faf57f4a88c0431ec81176"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/agents/openai.yaml",
+      "git_blob_sha1": "1757358a3e2edead0f63283e4b80af774d59e14d"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/rest_request.py",
+      "git_blob_sha1": "7a8c1eafcbf75a80a55dc1e01514ef4a43d952a2"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/test_rest_request.py",
+      "git_blob_sha1": "8b41bc294efd19af39138980b6a653aa084f4912"
+    },
+    {
+      "path": "skills/eva-skill/SKILL.md",
+      "git_blob_sha1": "76e357fe7dc6f1861160d12ef81b67d65359782d"
+    },
+    {
+      "path": "skills/eva-skill/agents/openai.yaml",
+      "git_blob_sha1": "95cd98eb017e9bda3237467dfe77b333d0100e07"
+    },
+    {
+      "path": "skills/eva-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/SKILL.md",
+      "git_blob_sha1": "14e02252d380e8eb435fe7ef909650f96ddd1a9c"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/agents/openai.yaml",
+      "git_blob_sha1": "52cd3c119af3ff2815fadac9bb0e712d7cebbbcd"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/finngen_phewas.py",
+      "git_blob_sha1": "1cfcee457c856a9def9c306712aea630f5535d45"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/variant_resolution.py",
+      "git_blob_sha1": "cf52103096600cb905325f455666be62083621b3"
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/SKILL.md",
+      "git_blob_sha1": "a997c7a31d9b5420c33e096e518f5d75f4684e34"
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/agents/openai.yaml",
+      "git_blob_sha1": "297702f052971aeb5c3474c7ab8c97cd57cdfcd6"
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/scripts/genebass_gene_burden.py",
+      "git_blob_sha1": "c4c74959a693127e4b2607f3a8f3f251327e554f"
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/SKILL.md",
+      "git_blob_sha1": "f38ed6b474937454d34ab384856f45c1943e155f"
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/agents/openai.yaml",
+      "git_blob_sha1": "dd7ead438ce4fce7777c4285c49687b038d84642"
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/scripts/gnomad_graphql.py",
+      "git_blob_sha1": "7057e25aa1e442e0670f9c529514290119dbf905"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/SKILL.md",
+      "git_blob_sha1": "2cbe3c3a33755ced5681a84cdb7fcffdfa8c101c"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/agents/openai.yaml",
+      "git_blob_sha1": "ee751533dc0be433651f18f579aa5f6f6c31c8fd"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/gtex_eqtl.py",
+      "git_blob_sha1": "1b3dd82b18446f34ab420d584907473aa6a42351"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/variant_resolution.py",
+      "git_blob_sha1": "cf52103096600cb905325f455666be62083621b3"
+    },
+    {
+      "path": "skills/gwas-catalog-skill/SKILL.md",
+      "git_blob_sha1": "4d90a8e6f2275d64080eb237a06cd1c685169915"
+    },
+    {
+      "path": "skills/gwas-catalog-skill/agents/openai.yaml",
+      "git_blob_sha1": "9e4b05644c07a014526dd16eacf027e00f5a65ac"
+    },
+    {
+      "path": "skills/gwas-catalog-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/hmdb-skill/SKILL.md",
+      "git_blob_sha1": "bee98f03fab37d69c843a84adab153a5c6a36919"
+    },
+    {
+      "path": "skills/hmdb-skill/agents/openai.yaml",
+      "git_blob_sha1": "a5cef900c1059743ef2d563c9bfe57f4cb622bf5"
+    },
+    {
+      "path": "skills/hmdb-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/SKILL.md",
+      "git_blob_sha1": "f001023160fa85f7ec0f0c8e68e19a2fd704e4e5"
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/agents/openai.yaml",
+      "git_blob_sha1": "e3b4da8ab0ded4e547e3991e280f0d014ea50451"
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/ipd-skill/SKILL.md",
+      "git_blob_sha1": "e7b2e0e9cf61b5d21ae2a06f8e1e129b0ec0e17d"
+    },
+    {
+      "path": "skills/ipd-skill/agents/openai.yaml",
+      "git_blob_sha1": "72894e1fe0a0f06d70ab4bb4526097e7e867b259"
+    },
+    {
+      "path": "skills/ipd-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/SKILL.md",
+      "git_blob_sha1": "70d94fbd841f37786057f54278cacbbbb128e592"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/agents/openai.yaml",
+      "git_blob_sha1": "f6f710c2e897ae268fa1289e67dda2d3cc30dbb8"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/map_locus_to_gene.py",
+      "git_blob_sha1": "49c2c2762187dc80fe043f13123b884111b9b4a3"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/test_map_locus_to_gene.py",
+      "git_blob_sha1": "5fa488141f679960fea5dbce0331f4967893598a"
+    },
+    {
+      "path": "skills/metabolights-skill/SKILL.md",
+      "git_blob_sha1": "16d4e754f0360f2b923c442d9427ac8e3a1ced76"
+    },
+    {
+      "path": "skills/metabolights-skill/agents/openai.yaml",
+      "git_blob_sha1": "9d0f81987048ff32901e9eea6f20420103d16c17"
+    },
+    {
+      "path": "skills/metabolights-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/mgnify-skill/SKILL.md",
+      "git_blob_sha1": "564ea0c8d246479c13e52f866edc659a3e0852a6"
+    },
+    {
+      "path": "skills/mgnify-skill/agents/openai.yaml",
+      "git_blob_sha1": "63025162812ca15294c95883567ec2e3a7393c14"
+    },
+    {
+      "path": "skills/mgnify-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/SKILL.md",
+      "git_blob_sha1": "1bde0492478cee208c1a2e2703a3d79c3b6f1716"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/agents/openai.yaml",
+      "git_blob_sha1": "80dc033b0afbe8f3d08490d6e000af5864ecd050"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/references/blast-common-url-api.txt",
+      "git_blob_sha1": "1fda97b703db7a3624714e4840b9380291b6a17d"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/references/intent-notes.txt",
+      "git_blob_sha1": "d0a39ac77b32e8887c84e45b35b69d1ca6bba875"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/ncbi_blast.py",
+      "git_blob_sha1": "65ced8e7cfdc1d0b815173e3d7ac96a098b00796"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/test_ncbi_blast.py",
+      "git_blob_sha1": "447635f87b2ad0847805d48766282d53372073cf"
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/SKILL.md",
+      "git_blob_sha1": "982cc26b38eb0e31cddcf7cff579977c64ab921e"
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/agents/openai.yaml",
+      "git_blob_sha1": "4e1446db55b77268f112a2d2c1155f28073e7064"
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/scripts/ncbi_gene_clinicaltables.py",
+      "git_blob_sha1": "a1118b8f335b7eba9889cce547125fe583e6bfba"
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/SKILL.md",
+      "git_blob_sha1": "aa80feb435028a3168940c4b56fa646ade89aaae"
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/agents/openai.yaml",
+      "git_blob_sha1": "458013c847d226010b74fc19e790e352cdd593b3"
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/scripts/ncbi_datasets.py",
+      "git_blob_sha1": "bf33000106a6edc240fff24bfd415051568640f7"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/SKILL.md",
+      "git_blob_sha1": "7f99e45ec1c0090e5d50aabefbfb4d98e538f8db"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/agents/openai.yaml",
+      "git_blob_sha1": "9159ce9d36f7c4e29f4f468b217e6fbe924ded85"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/references/geo.md",
+      "git_blob_sha1": "0428ee14a4b0336298e6b77232ea201fd740b565"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/scripts/ncbi_entrez.py",
+      "git_blob_sha1": "6ae0599309ebdaf74d1cdf77d9318e88ff3cb4c5"
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/SKILL.md",
+      "git_blob_sha1": "aa16f57edee87bbce8022a390c8d0de1f42812aa"
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/agents/openai.yaml",
+      "git_blob_sha1": "6e6663502fdd8df4d76e4e2607cb201d7e9e95d3"
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/scripts/ncbi_pmc.py",
+      "git_blob_sha1": "b4fa12075508e81410f4a9189c64e20ccc767efd"
+    },
+    {
+      "path": "skills/opentargets-skill/SKILL.md",
+      "git_blob_sha1": "2ae06278a93f0c3f870bc446aeb27175c2456305"
+    },
+    {
+      "path": "skills/opentargets-skill/agents/openai.yaml",
+      "git_blob_sha1": "35353c9517cd10838050217bab2a198f7447a2a0"
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_disease_heatmap.py",
+      "git_blob_sha1": "def0c3fd0b77906cbd6df172911d8bd36a739ec2"
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_graphql.py",
+      "git_blob_sha1": "f7d624f2f9b17b6d6553577664cbad4d075c26ba"
+    },
+    {
+      "path": "skills/pharmgkb-skill/SKILL.md",
+      "git_blob_sha1": "8a72c644f6676964e640a98b0ee7bdd166be29fe"
+    },
+    {
+      "path": "skills/pharmgkb-skill/agents/openai.yaml",
+      "git_blob_sha1": "54a71f6b25c90182c55660d153a75f2018d8a140"
+    },
+    {
+      "path": "skills/pharmgkb-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/pride-skill/SKILL.md",
+      "git_blob_sha1": "d172534802072e9abcba522642855bae4fa136b0"
+    },
+    {
+      "path": "skills/pride-skill/agents/openai.yaml",
+      "git_blob_sha1": "fa2b133b3065a9d8cc660be8d7b9be61ba8407a7"
+    },
+    {
+      "path": "skills/pride-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/proteomexchange-skill/SKILL.md",
+      "git_blob_sha1": "f67cf362877b44d1464924274af441fa6a956c63"
+    },
+    {
+      "path": "skills/proteomexchange-skill/agents/openai.yaml",
+      "git_blob_sha1": "8bac55290e06356cecec6ac05c7385c287d91f1e"
+    },
+    {
+      "path": "skills/proteomexchange-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/pubchem-pug-skill/SKILL.md",
+      "git_blob_sha1": "84b1e1d47cc8d9a9bba485b598b68cecea02dd48"
+    },
+    {
+      "path": "skills/pubchem-pug-skill/agents/openai.yaml",
+      "git_blob_sha1": "f592368b060eb9ed222a0f61ab7fba1c557bbe58"
+    },
+    {
+      "path": "skills/pubchem-pug-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/quickgo-skill/SKILL.md",
+      "git_blob_sha1": "3252c80965f8ea3dff2c457585e322438db9d0be"
+    },
+    {
+      "path": "skills/quickgo-skill/agents/openai.yaml",
+      "git_blob_sha1": "dd2186db3afbf078bae8c5dcbfb9251e115006ae"
+    },
+    {
+      "path": "skills/quickgo-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/SKILL.md",
+      "git_blob_sha1": "2bb3e626a40818e06bfa7e9169849dd14753da28"
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/agents/openai.yaml",
+      "git_blob_sha1": "7c32aa8b962d0a6c4841f0d416c017da3d11b0a1"
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/reactome-skill/SKILL.md",
+      "git_blob_sha1": "407f5ff3b16b142b1b1639223115d114cc05902a"
+    },
+    {
+      "path": "skills/reactome-skill/agents/openai.yaml",
+      "git_blob_sha1": "a73108ca94a1589987b00e97973fe8b330763b24"
+    },
+    {
+      "path": "skills/reactome-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/research-router-skill/SKILL.md",
+      "git_blob_sha1": "9aff213efa2b47678178fda692d1f43d6ee46604"
+    },
+    {
+      "path": "skills/research-router-skill/agents/openai.yaml",
+      "git_blob_sha1": "087ac92aaca0c13c296fa81064a8095087c35578"
+    },
+    {
+      "path": "skills/rhea-skill/SKILL.md",
+      "git_blob_sha1": "d330a6c475534f242ebfbc6af11bb23aa2e52676"
+    },
+    {
+      "path": "skills/rhea-skill/agents/openai.yaml",
+      "git_blob_sha1": "cb54c9348bd7aad5c6cea84108369c63558e16af"
+    },
+    {
+      "path": "skills/rhea-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/rnacentral-skill/SKILL.md",
+      "git_blob_sha1": "d399558af50219d616e2d3610e170b0bbba27ac1"
+    },
+    {
+      "path": "skills/rnacentral-skill/agents/openai.yaml",
+      "git_blob_sha1": "b05942dd9bdde4a5e1f38869e42200e373bffe8e"
+    },
+    {
+      "path": "skills/rnacentral-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/string-skill/SKILL.md",
+      "git_blob_sha1": "3132a928682a9bd5ebac20f19c43a37340c7cd7b"
+    },
+    {
+      "path": "skills/string-skill/agents/openai.yaml",
+      "git_blob_sha1": "ce88f7baa7414abcd3fbd37ad5074441a84798ab"
+    },
+    {
+      "path": "skills/string-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/SKILL.md",
+      "git_blob_sha1": "fc74a118b213f76f71a9cef43c0aa14af7de5e58"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/agents/openai.yaml",
+      "git_blob_sha1": "6f7cb9f6034a20c054d7d4eeeaf389ee6e256e2c"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/tpmi_phewas.py",
+      "git_blob_sha1": "1a62a78edd58d73e6a1b6e6cfb7d171d4a52fef2"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/variant_resolution.py",
+      "git_blob_sha1": "cf52103096600cb905325f455666be62083621b3"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/SKILL.md",
+      "git_blob_sha1": "9ebbc5de1b9027a7e8203cd7126f2e57aed831b1"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/agents/openai.yaml",
+      "git_blob_sha1": "d0e5704e76a5677303996195cc03e7c90652ecd5"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/ukb_topmed_phewas.py",
+      "git_blob_sha1": "c6a1d9f721b1db4e73925d6008032d6f3c6edfac"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/variant_resolution.py",
+      "git_blob_sha1": "cf52103096600cb905325f455666be62083621b3"
+    },
+    {
+      "path": "skills/uniprot-skill/SKILL.md",
+      "git_blob_sha1": "24a5de11e0b6dbeda1ccf8f1204fd51b4dd305f9"
+    },
+    {
+      "path": "skills/uniprot-skill/agents/openai.yaml",
+      "git_blob_sha1": "d4068774cb140a963ac665c7e643b764a4dfff32"
+    },
+    {
+      "path": "skills/uniprot-skill/scripts/rest_request.py",
+      "git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c"
+    }
+  ]
+}
