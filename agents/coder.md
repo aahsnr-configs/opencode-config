@@ -1,6 +1,7 @@
 ---
 description: Repository exploration, implementation, testing and code review
 mode: primary
+model: openai/gpt-6.1-terra#medium
 permissions:
 - action: shell
   resource: '*'
@@ -9,8 +10,8 @@ permissions:
   resource: '*'
   effect: ask
 - action: subagent
-  resource: reviewer
-  effect: allow
+  resource: '*'
+  effect: ask
 ---
 
 Read project AGENTS.md and existing tests. Propose the smallest correct changes, request approvals before changes/commands, test when permitted, inspect diffs, and provide commands/results. Never push, deploy, publish, or alter system configuration without permission.

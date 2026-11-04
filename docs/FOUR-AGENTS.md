@@ -4,8 +4,9 @@ Source files: `compactor.md`, `Explore.md`, `git-gh.md`, `web-researcher.md`, pr
 
 ## Model choices and compatibility
 
-- `compactor`: `openai/gpt-6.1-sol#high`, favoring accurate high-effort handoff reconstruction. It is not OpenCode's built-in `compaction` agent.
+- `compactor`: `openai/gpt-6-luna`, for manually requested handoff reconstruction. It is not OpenCode's built-in `compaction` agent.
 - `explore-scout`, `git-gh`, and `web-researcher`: `openai/gpt-6-luna`, an economical fast model suited to focused tasks. This approximates the uploaded Haiku choices, not an accuracy or speed benchmark.
+- `coder`: `openai/gpt-6.1-terra#medium` for implementation. `sol-advisor`: `openai/gpt-6.1-sol#high` for read-only advice. Subagent calls require prior user approval.
 - `openai/...` means OpenAI provider credentials, such as an eligible ChatGPT subscription sign-in. It is **not** the `opencode/...` pay-as-you-go provider; those require independent provider connection and possible charges.
 - Before first use: `opencode models` and `python3 scripts/model_audit.py`. If an ID is unavailable to your connection, manually edit each agent's `model:` to a working OpenAI model in the catalog. Optional `#high` variant requires separate verification; if unsupported remove `#high`.
 - The uploaded `tools:`, `effort:`, and `omitClaudeMd:` fields are Claude-specific and are intentionally removed. In V2, per-agent `permissions:` with `action/resource/effect` and `model: provider/model[#variant]` is authoritative.

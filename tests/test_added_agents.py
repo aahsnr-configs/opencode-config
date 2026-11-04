@@ -9,6 +9,21 @@ NAMES = {"compactor", "explore-scout", "git-gh", "web-researcher"}
 
 
 class TestMigratedAgents(unittest.TestCase):
+    def test_advisor_is_read_only_sol(self):
+        path = ROOT / "agents/sol-advisor.md"
+        self.assertTrue(path.is_file())
+        front = yaml.safe_load(path.read_text().split("---", 2)[1])
+        self.assertEqual(front["model"], "openai/gpt-6.1-sol#high")
+        self.assertEqual(front["mode"], "subagent")
+        self.assertIn({"action": "*", "resource": "*", "effect": "deny"}, front["permissions"])
+
+    def test_coder_requires_approval_for_reviewer(self):
+        front = yaml.safe_load(
+            (ROOT / "agents/coder.md").read_text().split("---", 2)[1]
+        )
+        rules = [p for p in front["permissions"] if p["action"] == "subagent"]
+        self.assertEqual(rules, [{"action": "subagent", "resource": "*", "effect": "ask"}])
+
     def test_all_agents_exist(self):
         for name in NAMES:
             self.assertTrue((ROOT / "agents" / (name + ".md")).is_file())

@@ -34,7 +34,7 @@ Not preconfigured with guessed URLs: SciSpace, Rowan MCP, Google Workspace, or t
 - ChatGPT Chat → OpenChamber Chats + `chat` agent.
 - ChatGPT Work → OpenChamber Session Goals + `work` agent.
 - Codex-like development → OpenChamber Projects/Worktrees + `coder`/`reviewer` agents.
-- Personal memory → explicit user-managed knowledge files, not a shared ChatGPT memory database.
+- Project memory → `/memory` and a user-managed project-root `PROJECT-MEMORY.md`; this is not a shared ChatGPT memory database.
 - ChatGPT templates → local skill instructions and legally accessible reference templates; the ZIP does not contain the proprietary template artifacts.
 
 ## Additional recommended OpenChamber catalog integrations

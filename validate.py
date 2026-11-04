@@ -24,6 +24,7 @@ allowed_keys = {
     "update",
     "share",
     "snapshots",
+    "plugins",
     "compaction",
     "tool_output",
     "permissions",
@@ -124,10 +125,11 @@ for p in [
 
 # Verify specialty model mapping, exact V2 fields, and manual MCP constraints.
 expected_models = {
-    "compactor": "openai/gpt-6.1-sol#high",
+    "compactor": "openai/gpt-6-luna",
     "explore-scout": "openai/gpt-6-luna",
     "git-gh": "openai/gpt-6-luna",
     "web-researcher": "openai/gpt-6-luna",
+    "sol-advisor": "openai/gpt-6.1-sol#high",
 }
 if yaml:
     for name, model in expected_models.items():

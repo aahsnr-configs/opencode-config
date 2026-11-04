@@ -1,7 +1,7 @@
 ---
 description: Read-only, accurate session handoff notes for a fresh OpenCode session
 mode: subagent
-model: openai/gpt-6.1-sol#high
+model: openai/gpt-6-luna
 steps: 12
 permissions:
   - action: "*"

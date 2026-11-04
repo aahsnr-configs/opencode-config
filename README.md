@@ -26,6 +26,8 @@ OpenChamber is purpose-built for OpenCode and provides chats, projects, diffs, w
 1. Read `QUICKSTART.md` and `docs/SECURITY.md`.
 2. Install `npm install -g @opencode/cli` if needed. Verify `opencode --version`. Official V2 entry point: https://opencode.ai/v2/docs .
 3. From the unpacked folder, run `python3 validate.py`, then `bash install.sh --dry-run`. Check conflicts. To write, `bash install.sh --apply`; intentional replacement requires `--apply --replace` and creates a timestamped backup.
+
+   For live sync from a stable repository checkout, preview `bash install.sh --link`, then run `bash install.sh --link --apply`. Existing conflicting entries require `--replace`, which moves them to a backup. Replacing an `agents`, `commands`, or `skills` directory moves the entire directory, including any personal files, out of the active configuration. Managed files and directories are linked into `${XDG_CONFIG_HOME:-$HOME/.config}/opencode`; other top-level entries remain untouched. Edits through the links change the checkout, and switching branches changes the active files immediately. Moving the checkout breaks the links. OpenCode may need restarting to reload changes. To return to copies, review and remove the links manually, then run the normal installer.
 4. Run `bash doctor.sh` for the V2 CLI checks. It calls `opencode debug config`, `opencode debug agents`, and `opencode mcp list`; skill files are validated offline. Resolve any errors before making a model call.
 5. Start `opencode`; connect a permitted model provider and select a model. No hard-coded model ID is included because availability and billing differ.
 6. Install OpenChamber **Desktop** from https://docs.openchamber.dev/install/ (Fedora `.rpm` or an AppImage). Desktop has its own bundled OpenCode runtime; confirm it loads your global configuration and compare versions. For browser/PWA, Node.js 24.14+ and system OpenCode are required. Follow the official installer rather than a prebuilt unverified install command.
@@ -86,12 +88,19 @@ Four uploaded agents were migrated from Claude-style metadata to **OpenCode V2**
 
 | Agent | Model | Invocation | Permissions |
 |---|---|---|---|
-| `compactor` | `openai/gpt-6.1-sol#high` | `@compactor` / `/handoff` | Read-only handoff + safe Git inspection |
+| `compactor` | `openai/gpt-6-luna` | `@compactor` / `/handoff` | Read-only handoff + safe Git inspection |
 | `explore-scout` (uploaded Explore) | `openai/gpt-6-luna` | `@explore-scout` / `/scout` | Read/Glob/Grep only; no network |
 | `git-gh` | `openai/gpt-6-luna` | `@git-gh` / `/git-inspect` | `git` and `gh` only; writes ask; push denied |
 | `web-researcher` | `openai/gpt-6-luna` | `@web-researcher` / `/exa-research` | Manual **Exa** MCP only; per-call approval |
+| `sol-advisor` | `openai/gpt-6.1-sol#high` | `@sol-advisor` | Read-only advice on difficult decisions |
 
 **Model availability varies by OpenAI account/provider**, and the model IDs in source documentation are not a guarantee that your ChatGPT OAuth login offers them. Run `opencode models`, or `python3 scripts/model_audit.py` (requires PyYAML), then replace any unavailable `model:` field with an available OpenAI model. Selecting an OpenCode Console model is a different billing route from ChatGPT sign-in.
+
+The `coder` agent uses `openai/gpt-6.1-terra#medium`; confirm that your provider offers the model and variant. Every subagent invocation requires prior user approval.
+
+For project-specific context across sessions, use `/memory` to review or update a `PROJECT-MEMORY.md` file at the project root. This is a user-managed file, not automatic model memory. Review its contents before sharing or committing it; never store secrets.
+
+See [workflow setup](docs/WORKFLOW-SETUP.md) for plugin status, compact Git inspection, and Vim editor support.
 
 **Manual Exa activation:** All nine servers remain `disabled: true` on disk, including `exa`. Only connect Exa via the human-operated `/mcps` UI or `python3 scripts/mcpctl.py session exa`; then explicitly ask for **Exa** research and choose **Allow once** for every search/fetch call. A user request for generic web research must *not* activate Exa automatically. The previous `/firecrawl-research` command must be retired from an older installation (see `docs/MIGRATE-TO-EXA.md`).
 

@@ -4,6 +4,10 @@
   "update": "notify",
   "share": "disabled",
   "snapshots": true,
+  "plugins": [
+    "superpowers@git+https://github.com/obra/superpowers.git#v7.0.2",
+    "opencode-supermemory@2.0.17"
+  ],
   "compaction": {
     "auto": true,
     "keep": {
