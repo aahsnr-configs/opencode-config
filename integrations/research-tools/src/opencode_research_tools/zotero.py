@@ -55,7 +55,7 @@ class Zotero:
     def search(self, query, limit=20, start=0):
         if not isinstance(query, str) or not query.strip() or len(query) > 1000:
             raise IntegrationError('Search query must contain 1–1000 characters')
-        if not isinstance(limit, int) or not 1 <= limit <= 100 or not isinstance(start, int) or start < 0:
+        if type(limit) is not int or not 1 <= limit <= 100 or type(start) is not int or start < 0:
             raise IntegrationError('Use limit 1–100 and start >= 0')
         return self.read('items/top', {'q': query, 'qmode': 'everything', 'limit': limit, 'start': start})
 
@@ -63,17 +63,17 @@ class Zotero:
         return self.read('items/' + item_key(key))
 
     def collections(self, limit=50, start=0):
-        if not 1 <= limit <= 100 or start < 0:
+        if type(limit) is not int or not 1 <= limit <= 100 or type(start) is not int or start < 0:
             raise IntegrationError('Use limit 1–100 and start >= 0')
         return self.read('collections', {'limit': limit, 'start': start})
 
     def collection_items(self, key, limit=50, start=0):
-        if not 1 <= limit <= 100 or start < 0:
+        if type(limit) is not int or not 1 <= limit <= 100 or type(start) is not int or start < 0:
             raise IntegrationError('Use limit 1–100 and start >= 0')
         return self.read('collections/' + item_key(key) + '/items/top', {'limit': limit, 'start': start})
 
     def tags(self, limit=50, start=0):
-        if not 1 <= limit <= 100 or start < 0:
+        if type(limit) is not int or not 1 <= limit <= 100 or type(start) is not int or start < 0:
             raise IntegrationError('Use limit 1–100 and start >= 0')
         return self.read('tags', {'limit': limit, 'start': start})
 

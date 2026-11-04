@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -100,9 +101,11 @@ def parse_input(payload: Any) -> dict[str, Any]:
 
 
 def _save_raw(data: Any, raw_output_path: str | None) -> str:
-    path = Path(raw_output_path or "/tmp/clinicaltrials-response.json")
+    path = (Path(raw_output_path) if raw_output_path else
+            Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "clinicaltrials-response.json")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(data, indent=2))
     return str(path)
 
 
@@ -217,6 +220,9 @@ def main() -> int:
         return 2
     try:
         output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
+        code = 1
     except ValueError as exc:
         output = error("invalid_input", str(exc))
         code = 2

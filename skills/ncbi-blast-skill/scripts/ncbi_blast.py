@@ -13,6 +13,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import time
 import zipfile
 from pathlib import Path
@@ -264,7 +265,7 @@ def _derive_raw_output_path(rid: str, result_format: str, raw_output_path: str |
     if raw_output_path:
         return Path(raw_output_path)
     suffix = "json" if result_format == "json2" else "txt"
-    return Path(f"/tmp/ncbi-blast-{rid}.{suffix}")
+    return Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"ncbi-blast-{rid}.{suffix}"
 
 
 def _save_raw_output(
@@ -275,7 +276,8 @@ def _save_raw_output(
 ) -> str:
     path = _derive_raw_output_path(rid, result_format, raw_output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(raw_output, encoding="utf-8")
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(raw_output)
     return str(path)
 
 
@@ -746,6 +748,9 @@ def main() -> int:
 
     try:
         output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
+        exit_code = 1
     except ValueError as exc:
         output = error("invalid_input", str(exc))
         exit_code = 2

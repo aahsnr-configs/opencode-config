@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -104,12 +105,13 @@ def resolve_raw_output_path(canonical_variant: str, raw_output_path: str | None)
         return Path(raw_output_path).expanduser()
 
     safe_variant = SAFE_PATH_RE.sub("_", canonical_variant).strip("._") or "variant"
-    return Path("/tmp") / f"ukb-topmed-phewas-{safe_variant}.json"
+    return Path(tempfile.mkdtemp(prefix="opencode-life-sciences-")) / f"ukb-topmed-phewas-{safe_variant}.json"
 
 
 def write_raw_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data), encoding="utf-8")
+    with path.open("x", encoding="utf-8") as stream:
+        json.dump(data, stream)
 
 
 def main() -> int:
@@ -137,6 +139,9 @@ def main() -> int:
         )
         parsed = dict(resolution["query_variant"])
         warnings.extend(resolution["warnings"])
+    except ValueError as exc:
+        sys.stdout.write(json.dumps(error("invalid_input", str(exc))))
+        return 2
     except VariantResolutionError as exc:
         sys.stdout.write(json.dumps(error(exc.code, exc.message, exc.warnings)))
         return 1
@@ -159,8 +164,8 @@ def main() -> int:
     variant_url = f"{UKB_TOPMED_BASE}/variant/{parsed['canonical']}"
     saved_raw_output_path: str | None = None
     if save_raw and data is not None:
-        raw_path = resolve_raw_output_path(parsed["canonical"], raw_output_path)
         try:
+            raw_path = resolve_raw_output_path(parsed["canonical"], raw_output_path)
             write_raw_json(raw_path, data)
         except OSError as exc:
             sys.stdout.write(json.dumps(error("write_error", f"Could not write raw output: {exc}")))

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -88,9 +89,11 @@ def parse_input(payload: Any) -> dict[str, Any]:
 
 
 def _save(raw_output: str, raw_output_path: str | None) -> str:
-    path = Path(raw_output_path or "/tmp/clinvar-variation-raw.json")
+    path = (Path(raw_output_path) if raw_output_path else
+            Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "clinvar-variation-raw.json")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(raw_output, encoding="utf-8")
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(raw_output)
     return str(path)
 
 
@@ -184,7 +187,10 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         sys.stdout.write(json.dumps(error("invalid_json", f"Could not parse JSON input: {exc}")))
         return 2
-    output = execute(payload)
+    try:
+        output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
     sys.stdout.write(json.dumps(output))
     return 0 if output.get("ok") else 1
 

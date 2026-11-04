@@ -1,5 +1,11 @@
 # Life Sciences Research integration audit
 
+This is the historical import audit. For the current correctness fixes, adapted
+source hashes, runtime evidence and remaining readiness gates, see
+[LIFE-SCIENCES-READINESS.md](LIFE-SCIENCES-READINESS.md). Claims below that all
+source files are unmodified describe the original import, not today's adapted
+helpers.
+
 Date: 2026-11-01. Base: aahsnr-configs/opencode-config commit
 5ead2f0a6d3b83addee6dc8282ec6b66817a7bb9. Implementation branch:
 life-sciences-foundation. Scope: all files added or changed from this base.

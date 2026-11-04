@@ -1,4 +1,4 @@
-# Runtime for the pinned upstream public API helpers.
+# Python 3.11+ runtime for the pinned upstream public API helpers.
 requests>=2.32.5,<3
 # Optional: plotting in locus-to-gene workflows.
 matplotlib>=3.9,<4

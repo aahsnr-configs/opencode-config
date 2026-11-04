@@ -1,8 +1,12 @@
 # Upstream attribution and scope
 
-The 50 skill directories listed in upstream-lock.json are unmodified copies of
+The 50 skill directories listed in upstream-lock.json originate from
 OpenAI's Life Science Research plugin version 1.0.3 from openai/plugins at commit
-0722921d5542fc593105c27bd52630babd8b8c2a. All 161 files have matching Git blob hashes.
+0722921d5542fc593105c27bd52630babd8b8c2a. The lock preserves the original Git
+blob hashes for all 161 files. Local correctness and output-safety changes are
+listed separately in opencode-adaptations.json with their installed hashes;
+the adapted helpers are no longer byte-identical to upstream. Tests require
+every installed file to match its upstream or explicitly recorded adapted hash.
 Source: https://github.com/openai/plugins/tree/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/life-science-research
 
 Copyright and other rights remain with their respective owners. No separate

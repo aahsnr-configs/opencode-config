@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -125,9 +126,11 @@ def execute(payload: Any) -> dict[str, Any]:
     raw_output_path = None
     if config["save_raw"]:
         suffix = "json" if "json" in (response.headers.get("content-type") or "").lower() else "txt"
-        path = Path(config["raw_output_path"] or f"/tmp/bgee-sparql.{suffix}")
+        path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
+                Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"bgee-sparql.{suffix}")
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(response.text, encoding="utf-8")
+        with path.open("x", encoding="utf-8") as stream:
+            stream.write(response.text)
         raw_output_path = str(path)
 
     content_type = (response.headers.get("content-type") or "").lower()
@@ -187,6 +190,9 @@ def main() -> int:
         return 2
     try:
         output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
+        code = 1
     except ValueError as exc:
         output = error("invalid_input", str(exc))
         code = 2

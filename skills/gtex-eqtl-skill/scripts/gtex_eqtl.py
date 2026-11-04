@@ -102,6 +102,9 @@ def main() -> int:
         parsed = dict(resolution["query_variant"])
         parsed["variant_id"] = build_variant_id(parsed)
         warnings.extend(resolution["warnings"])
+    except ValueError as exc:
+        sys.stdout.write(json.dumps(error("invalid_input", str(exc))))
+        return 2
     except VariantResolutionError as exc:
         sys.stdout.write(json.dumps(error(exc.code, exc.message, exc.warnings)))
         return 1

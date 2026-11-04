@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -142,9 +143,11 @@ def _xml_to_simple(elem: ET.Element, max_items: int, max_depth: int) -> Any:
 
 
 def _save_raw_text(raw_text: str, raw_output_path: str | None, suffix: str) -> str:
-    path = Path(raw_output_path or f"/tmp/ncbi-entrez.{suffix}")
+    path = (Path(raw_output_path) if raw_output_path else
+            Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"ncbi-entrez.{suffix}")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(raw_text, encoding="utf-8")
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(raw_text)
     return str(path)
 
 
@@ -287,6 +290,9 @@ def main() -> int:
         return 2
     try:
         output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
+        code = 1
     except ValueError as exc:
         output = error("invalid_input", str(exc))
         code = 2

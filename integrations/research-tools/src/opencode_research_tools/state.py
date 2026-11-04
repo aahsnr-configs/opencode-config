@@ -159,6 +159,7 @@ class Store:
             if r['kind'] != 'learning' or not payload.get('question') or not isinstance(payload.get('response'), str):
                 raise IntegrationError('Learning attempt needs question and response')
             p = {**payload, 'at_utc': now()}
+            p.pop('correct', None)
             if 'correct_answer' in p:
                 p['correct'] = str(p['response']).strip().casefold() == str(p['correct_answer']).strip().casefold()
                 p['grading'] = 'exact-normalized-text'

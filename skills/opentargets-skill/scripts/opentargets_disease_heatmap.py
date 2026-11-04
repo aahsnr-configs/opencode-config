@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -292,9 +293,11 @@ def execute(payload: Any) -> dict[str, Any]:
             },
             indent=2,
         )
-        path = Path(config["raw_output_path"] or "/tmp/opentargets-associated-diseases.json")
+        path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
+                Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "opentargets-associated-diseases.json")
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(raw_text, encoding="utf-8")
+        with path.open("x", encoding="utf-8") as stream:
+            stream.write(raw_text)
         raw_output_path = str(path)
 
     if disease_filter and not filtered_rows:
@@ -331,6 +334,9 @@ def main() -> int:
         return 2
     try:
         output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
+        code = 1
     except ValueError as exc:
         output = error("invalid_input", str(exc))
         code = 2

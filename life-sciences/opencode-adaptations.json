@@ -1,0 +1,323 @@
+{
+  "upstream_commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "files": [
+    {
+      "path": "skills/alphafold-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/bgee-skill/scripts/sparql_request.py",
+      "upstream_git_blob_sha1": "c1ad1839890bf98ad9480665f1aef7ab3633dcb8",
+      "installed_git_blob_sha1": "a6c4a1f643d426581337e9aab12254902a0d232d",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/bindingdb-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/biobankjapan_phewas.py",
+      "upstream_git_blob_sha1": "18e1f6519ef47e76552f87f9ccf374af3b8699b5",
+      "installed_git_blob_sha1": "376f71803064377a95eabd3652d5b0645ff59ec7",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/variant_resolution.py",
+      "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
+      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+    },
+    {
+      "path": "skills/biorxiv-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/cbioportal-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/cellxgene-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/chebi-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/chembl-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/civic-skill/scripts/civic_graphql.py",
+      "upstream_git_blob_sha1": "5f9dea76ebf3c7ebc89de9f1dcc15ec3c15241df",
+      "installed_git_blob_sha1": "d6adf57be968b679ccc52121647904f5fdcf6c4c",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/clinicaltrials-skill/scripts/clinicaltrials_client.py",
+      "upstream_git_blob_sha1": "5e399f966b50608933a543f4880815cba8380451",
+      "installed_git_blob_sha1": "ea6a9cb020507ef18d06d066be837a2057bc44a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/clinvar-variation-skill/scripts/clinvar_variation.py",
+      "upstream_git_blob_sha1": "ce5d23becbdd905b99b5b6735c3edfc40d57b6ab",
+      "installed_git_blob_sha1": "178b9bf724292ca8816486b506b482f543ccb667",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/efo-ontology-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/encode-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ensembl-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/epigraphdb-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "7a8c1eafcbf75a80a55dc1e01514ef4a43d952a2",
+      "installed_git_blob_sha1": "9f108134b909f5c6361ef948a5ce0aed47af0f24",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/eva-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/finngen_phewas.py",
+      "upstream_git_blob_sha1": "1cfcee457c856a9def9c306712aea630f5535d45",
+      "installed_git_blob_sha1": "5d3321ff8a97d5e121e2cc2348af3bb896629051",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/variant_resolution.py",
+      "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
+      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/scripts/gnomad_graphql.py",
+      "upstream_git_blob_sha1": "7057e25aa1e442e0670f9c529514290119dbf905",
+      "installed_git_blob_sha1": "bd5e452b2eedc7e5b7048d302bc276e95168bc24",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/gtex_eqtl.py",
+      "upstream_git_blob_sha1": "1b3dd82b18446f34ab420d584907473aa6a42351",
+      "installed_git_blob_sha1": "4019686f8e9a1f3c7ce92ab18a5e931bf385d0f6",
+      "reason": "Structured invalid-coordinate errors"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/variant_resolution.py",
+      "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
+      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+    },
+    {
+      "path": "skills/gwas-catalog-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/hmdb-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ipd-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/metabolights-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/mgnify-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/ncbi_blast.py",
+      "upstream_git_blob_sha1": "65ced8e7cfdc1d0b815173e3d7ac96a098b00796",
+      "installed_git_blob_sha1": "b3a0e83679e1d6c69e4ac8a36c268f6d06b7da9e",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/scripts/ncbi_gene_clinicaltables.py",
+      "upstream_git_blob_sha1": "a1118b8f335b7eba9889cce547125fe583e6bfba",
+      "installed_git_blob_sha1": "041ce92768d7c8d7361c5b37b542fe52a6fdd7e2",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/scripts/ncbi_datasets.py",
+      "upstream_git_blob_sha1": "bf33000106a6edc240fff24bfd415051568640f7",
+      "installed_git_blob_sha1": "c002b440f88d30bba4578f52d8540ab7e3c39e3d",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/scripts/ncbi_entrez.py",
+      "upstream_git_blob_sha1": "6ae0599309ebdaf74d1cdf77d9318e88ff3cb4c5",
+      "installed_git_blob_sha1": "bc2af9cf4e926b6380a83f3e48aafc065aaa8c99",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/scripts/ncbi_pmc.py",
+      "upstream_git_blob_sha1": "b4fa12075508e81410f4a9189c64e20ccc767efd",
+      "installed_git_blob_sha1": "c357fc2405f3b2facd1962dd9c465f6e5405cbe0",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_disease_heatmap.py",
+      "upstream_git_blob_sha1": "def0c3fd0b77906cbd6df172911d8bd36a739ec2",
+      "installed_git_blob_sha1": "04da1491332224b6454dd3ca640ec5119a412e29",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_graphql.py",
+      "upstream_git_blob_sha1": "f7d624f2f9b17b6d6553577664cbad4d075c26ba",
+      "installed_git_blob_sha1": "6167b6d16644ed7f9716fa3578daaafae9f259a9",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/pharmgkb-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/pride-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/proteomexchange-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/pubchem-pug-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/quickgo-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/reactome-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/rhea-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/rnacentral-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/string-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/tpmi_phewas.py",
+      "upstream_git_blob_sha1": "1a62a78edd58d73e6a1b6e6cfb7d171d4a52fef2",
+      "installed_git_blob_sha1": "880e807fe5bdb31ca4b1d27b9a0a69c587361333",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/variant_resolution.py",
+      "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
+      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/ukb_topmed_phewas.py",
+      "upstream_git_blob_sha1": "c6a1d9f721b1db4e73925d6008032d6f3c6edfac",
+      "installed_git_blob_sha1": "1d019a3cd4c50c8b18e8126dbce01c48f845cbf3",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/variant_resolution.py",
+      "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
+      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+    },
+    {
+      "path": "skills/uniprot-skill/scripts/rest_request.py",
+      "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
+      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+    }
+  ]
+}

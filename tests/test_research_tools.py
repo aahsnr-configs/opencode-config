@@ -84,6 +84,16 @@ class TestResearchState(unittest.TestCase):
         self.assertNotIn('correct', r['attempts'][1])
         self.assertEqual(r['attempts'][1]['grading'], 'qualitative-unverified')
 
+    def test_ungraded_attempt_cannot_claim_correctness(self):
+        r = self.store.create('learning', 'Learn biology')
+        r = self.store.update(r['id'], 0, 'attempt', {
+            'question': 'Explain why', 'response': 'My explanation',
+            'correct': True, 'grading': 'verified',
+        })
+        saved = self.store.get(r['id'])['attempts'][0]
+        self.assertNotIn('correct', saved)
+        self.assertEqual(saved['grading'], 'qualitative-unverified')
+
     def test_schema_accepts_real_record(self):
         import jsonschema
         schema = json.loads((ROOT / 'schemas/research-run.schema.json').read_text())
@@ -91,6 +101,21 @@ class TestResearchState(unittest.TestCase):
 
 
 class TestZotero(unittest.TestCase):
+    @patch.object(zotero, 'request')
+    def test_pagination_requires_integers_before_request(self, req):
+        req.return_value = ([], {})
+        c = zotero.Zotero('local')
+        operations = [c.collections, c.tags,
+                      lambda **kw: c.collection_items('ABCDEFGH', **kw),
+                      lambda **kw: c.search('biology', **kw)]
+        for operation in operations:
+            for kwargs in ({'limit': 1.5}, {'start': 0.5}, {'limit': True},
+                           {'start': False}, {'limit': '10'}, {'start': None}):
+                with self.subTest(operation=operation, kwargs=kwargs):
+                    with self.assertRaises(IntegrationError):
+                        operation(**kwargs)
+        req.assert_not_called()
+
     @patch.object(zotero, 'request')
     def test_reads_use_fixed_api_and_bounded_parameters(self, req):
         req.return_value = ([], {})
@@ -155,6 +180,15 @@ class TestZotero(unittest.TestCase):
 
 
 class TestProvidersAndSetup(unittest.TestCase):
+    def test_scispace_csv_accepts_long_abstracts(self):
+        abstract = 'a' * 140_000
+        result = import_table('Title,Abstract\nPaper,' + abstract + '\n')
+        self.assertEqual(result['rows'], [{'Title': 'Paper', 'Abstract': abstract}])
+
+    def test_scispace_csv_rejects_unclosed_quotes(self):
+        with self.assertRaises(IntegrationError):
+            import_table('Title,Abstract\nPaper,"unclosed\n')
+
     def test_scispace_exports_preserve_analytical_columns(self):
         result = import_table('Title,DOI,Methods\nPaper,10.1000/a,Observational\n')
         self.assertEqual(result['rows'][0]['Methods'], 'Observational')

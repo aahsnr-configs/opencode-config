@@ -14,14 +14,30 @@ for opt in "$@"; do
   esac
 done
 [[ -n "${HOME:-}" ]] || { echo 'HOME must be set' >&2; exit 2; }
+# Refuse linked ancestors as well as linked files: otherwise mkdir/install can
+# write outside the selected configuration tree through an existing directory.
+check_directory_path() {
+  local path="$1"
+  while [[ "$path" != . ]]; do
+    if [[ -L "$path" || ( -e "$path" && ! -d "$path" ) ]]; then
+      echo "REFUSE symlink or non-directory parent: $path" >&2; exit 4
+    fi
+    [[ "$path" == / ]] && break
+    if [[ "$path" == */* ]]; then path="${path%/*}"; path="${path:-/}"; else path=.; fi
+  done
+}
 mapfile -d '' files < <(cd "$root" && find agents commands skills -type f -print0 | sort -z)
 files=(opencode.jsonc AGENTS.md "${files[@]}")
 collisions=0
 changed=0
 for f in "${files[@]}"; do
   src="$root/$f"; dest="$target/$f"
+  check_directory_path "${dest%/*}"
   if [[ -L "$dest" ]]; then
     echo "REFUSE symlink destination: $dest" >&2; exit 4
+  fi
+  if [[ -e "$dest" && ! -f "$dest" ]]; then
+    echo "REFUSE non-file destination: $dest" >&2; exit 4
   fi
   if [[ -e "$dest" ]]; then
     if cmp -s -- "$src" "$dest"; then echo "UNCHANGED: $dest"; continue; fi

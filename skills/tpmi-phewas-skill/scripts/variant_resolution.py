@@ -14,7 +14,7 @@ USER_AGENT = "variant-coordinate-finder/1.0 (+requests)"
 
 SEP_RE = re.compile(r"[-:_/\s]+")
 CHR_RE = re.compile(r"^(?:chr)?([0-9]{1,2}|X|Y|M|MT)$", re.IGNORECASE)
-ALLELE_RE = re.compile(r"^[A-Za-z*]+$")
+ALLELE_RE = re.compile(r"^(?:[ACGTN]+|\*)$")
 
 
 class VariantResolutionError(Exception):
@@ -73,6 +73,8 @@ def parse_variant_string(value: str) -> tuple[str, int, str, str]:
     chrom = match.group(1).upper()
     if chrom == "M":
         chrom = "MT"
+    if chrom.isdigit() and not 1 <= int(chrom) <= 22:
+        raise ValueError("Chromosome must be 1-22, X, Y or MT.")
 
     try:
         pos = int(pos_raw)
@@ -88,6 +90,8 @@ def parse_variant_string(value: str) -> tuple[str, int, str, str]:
     if not ALLELE_RE.match(alt):
         raise ValueError(f"Invalid ALT allele: {alt_raw!r}")
 
+    if ref == alt:
+        raise ValueError("REF and ALT must differ.")
     return chrom, pos, ref, alt
 
 
@@ -150,213 +154,140 @@ def lookup_rsid(rsid: str, build: str = "GRCh38") -> Coord | None:
     if not mappings:
         return None
 
+    matches: dict[tuple[Any, ...], Coord] = {}
     for mapping in mappings:
-        if (
-            isinstance(mapping, dict)
-            and mapping.get("assembly_name") == asm
-            and mapping.get("seq_region_name")
-            and mapping.get("start") is not None
-        ):
-            allele_string = mapping.get("allele_string")
-            alleles = allele_string.split("/") if isinstance(allele_string, str) else []
-            ref = alleles[0] if alleles else None
-            alts = alleles[1:] if len(alleles) > 1 else []
-            return Coord(
-                chr=str(mapping["seq_region_name"]),
-                pos=int(mapping["start"]),
-                ref=ref,
-                alts=alts,
-            )
-
-    return None
+        if not isinstance(mapping, dict) or mapping.get("assembly_name") != asm:
+            continue
+        chrom = str(mapping.get("seq_region_name", ""))
+        if not CHR_RE.fullmatch(chrom) or (chrom.isdigit() and not 1 <= int(chrom) <= 22):
+            continue
+        if mapping.get("strand", 1) != 1:
+            raise VariantResolutionError("uncertain_allele_mapping", "Reverse-strand mappings require explicit target-build coordinates.")
+        pos = mapping.get("start")
+        allele_string = mapping.get("allele_string")
+        if type(pos) is not int or pos <= 0 or not isinstance(allele_string, str):
+            raise VariantResolutionError("invalid_response", "Ensembl mapping has incomplete coordinates or alleles.")
+        alleles = allele_string.split("/")
+        if len(alleles) < 2 or not all(ALLELE_RE.fullmatch(a) for a in alleles):
+            raise VariantResolutionError("uncertain_allele_mapping", "Unanchored or incomplete alleles require explicit target-build coordinates.")
+        matches[(chrom, pos, allele_string)] = Coord(chrom, pos, alleles[0], alleles[1:])
+    if len(matches) > 1:
+        raise VariantResolutionError("ambiguous_variant", "Multiple assembly mappings found; provide explicit target-build coordinates.")
+    return next(iter(matches.values()), None)
 
 
 def lookup_position(
     chrom: str,
     pos: int,
     build: str = "GRCh38",
+    ref: str | None = None,
+    alt: str | None = None,
 ) -> tuple[str, str | None, list[str]] | None:
     server = _server_for(build)
     url = (
         f"{server}/overlap/region/human/{chrom}:{pos}-{pos}"
         "?feature=variation;content-type=application/json"
     )
-
     data = _get_json(url, timeout=DEFAULT_TIMEOUT_S)
-    if not isinstance(data, list) or not data:
-        return None
+    if not isinstance(data, list):
+        raise VariantResolutionError("invalid_response", "Ensembl overlap response must be a list.")
 
+    matches = {}
     for variant in data:
+        if not isinstance(variant, dict):
+            continue
+        rsid = variant.get("id")
+        alleles = variant.get("alleles")
         if (
-            isinstance(variant, dict)
-            and isinstance(variant.get("id"), str)
-            and variant["id"].startswith("rs")
+            isinstance(rsid, str) and re.fullmatch(r"rs[0-9]+", rsid)
+            and str(variant.get("seq_region_name")) == chrom
+            and variant.get("start") == pos
+            and variant.get("strand", 1) == 1
+            and isinstance(alleles, list) and len(alleles) >= 2
+            and ref == alleles[0] and alt in alleles[1:]
         ):
-            alleles = variant.get("alleles") if isinstance(variant.get("alleles"), list) else []
-            ref = alleles[0] if alleles else None
-            alts = alleles[1:] if len(alleles) > 1 else []
-            return variant["id"], ref, alts
+            matches[rsid] = (rsid, alleles[0], alleles[1:])
+    if len(matches) > 1:
+        raise VariantResolutionError("ambiguous_variant", "Multiple rsIDs match these coordinates and alleles; provide an explicit target-build variant.")
+    return next(iter(matches.values()), None)
 
-    return None
+
+def _coord_details(coord: Coord | None) -> dict[str, Any] | None:
+    if coord is None:
+        return None
+    return {"chr": coord.chr, "pos": coord.pos, "ref": coord.ref, "alts": coord.alts}
 
 
 def resolve_rsid_both_builds(rsid: str) -> dict[str, Any]:
-    g38 = None
-    g37 = None
-    warnings: list[str] = []
-
-    try:
-        g38 = lookup_rsid(rsid, "GRCh38")
-    except Exception as exc:  # noqa: BLE001
-        warnings.append(f"GRCh38 lookup failed: {type(exc).__name__}: {exc}")
-
-    try:
-        g37 = lookup_rsid(rsid, "GRCh37")
-    except Exception as exc:  # noqa: BLE001
-        warnings.append(f"GRCh37 lookup failed: {type(exc).__name__}: {exc}")
-
-    ref = (g38.ref if g38 else None) or (g37.ref if g37 else None)
-    alts = (g38.alts if (g38 and g38.alts) else []) or (g37.alts if g37 else [])
-
-    return {
-        "rsid": rsid,
-        "grch38": {"chr": g38.chr if g38 else None, "pos": g38.pos if g38 else None},
-        "grch37": {"chr": g37.chr if g37 else None, "pos": g37.pos if g37 else None},
-        "ref": ref,
-        "alts": alts,
-        "warnings": warnings,
-    }
+    result: dict[str, Any] = {"rsid": rsid, "warnings": []}
+    for build, key in (("GRCh38", "grch38"), ("GRCh37", "grch37")):
+        try:
+            result[key] = _coord_details(lookup_rsid(rsid, build))
+        except requests.RequestException as exc:
+            result[key] = None
+            result["warnings"].append(f"{build} lookup failed: {type(exc).__name__}")
+    return result
 
 
-def resolve_position_both_builds(chrom: str, pos: int, build: str) -> dict[str, Any] | None:
-    is_hg19 = build in {"hg19", "GRCh37"}
-    other_build = "GRCh38" if is_hg19 else "GRCh37"
-
-    pos_result = lookup_position(chrom, pos, build)
-    if not pos_result:
+def resolve_position_both_builds(
+    chrom: str, pos: int, build: str, ref: str, alt: str,
+) -> dict[str, Any] | None:
+    native_key = build_key_for(build)
+    other_build = "GRCh38" if native_key == "grch37" else "GRCh37"
+    match = lookup_position(chrom, pos, build, ref, alt)
+    if match is None:
         return None
-
-    rsid, ref, alts = pos_result
-
-    other = None
-    warnings: list[str] = []
+    rsid, matched_ref, alts = match
+    result = {"rsid": rsid, "warnings": [], native_key: {
+        "chr": chrom, "pos": pos, "ref": matched_ref, "alts": alts,
+    }}
     try:
-        other = lookup_rsid(rsid, other_build)
-    except Exception as exc:  # noqa: BLE001
-        warnings.append(f"Other-build lookup failed: {type(exc).__name__}: {exc}")
-
-    if is_hg19:
-        return {
-            "rsid": rsid,
-            "grch38": {"chr": other.chr if other else None, "pos": other.pos if other else None},
-            "grch37": {"chr": chrom, "pos": pos},
-            "ref": (other.ref if other and other.ref else ref),
-            "alts": (other.alts if other and other.alts else alts),
-            "warnings": warnings,
-        }
-
-    return {
-        "rsid": rsid,
-        "grch38": {"chr": chrom, "pos": pos},
-        "grch37": {"chr": other.chr if other else None, "pos": other.pos if other else None},
-        "ref": ref,
-        "alts": alts,
-        "warnings": warnings,
-    }
+        result[build_key_for(other_build)] = _coord_details(lookup_rsid(rsid, other_build))
+    except requests.RequestException as exc:
+        result[build_key_for(other_build)] = None
+        result["warnings"].append(f"Other-build lookup failed: {type(exc).__name__}")
+    return result
 
 
 def resolve_variant(input_type: str, input_value: str) -> dict[str, Any]:
-    warnings: list[str] = []
-
+    requested_ref = None
+    requested_alt = None
     if input_type == "rsid":
         rsid = input_value.strip()
-        if not rsid.startswith("rs"):
-            raise ValueError("rsid must start with 'rs'.")
-
+        if not re.fullmatch(r"rs[0-9]+", rsid):
+            raise ValueError("rsid must be 'rs' followed by digits.")
         resolved = resolve_rsid_both_builds(rsid)
-        warnings.extend(resolved.get("warnings", []))
-
-        ref = resolved.get("ref")
-        alts = resolved.get("alts") or []
-        alt = alts[0] if alts else None
-
-        g37 = None
-        if resolved.get("grch37", {}).get("chr") and resolved.get("grch37", {}).get("pos"):
-            g37 = build_variant_record(
-                resolved["grch37"]["chr"],
-                resolved["grch37"]["pos"],
-                ref,
-                alt,
+    elif input_type in {"grch37", "grch38"}:
+        build = "GRCh37" if input_type == "grch37" else "GRCh38"
+        chrom, pos, requested_ref, requested_alt = parse_variant_string(input_value)
+        resolved = resolve_position_both_builds(chrom, pos, build, requested_ref, requested_alt)
+        if resolved is None:
+            raise VariantResolutionError(
+                "not_found", f"No exact rsID match for {chrom}:{pos}-{requested_ref}-{requested_alt} on {build}.",
             )
-
-        g38 = None
-        if resolved.get("grch38", {}).get("chr") and resolved.get("grch38", {}).get("pos"):
-            g38 = build_variant_record(
-                resolved["grch38"]["chr"],
-                resolved["grch38"]["pos"],
-                ref,
-                alt,
-            )
-
-        return {
-            "input": {"type": "rsid", "value": rsid},
-            "rsid": rsid,
-            "grch37": g37,
-            "grch38": g38,
-            "warnings": warnings,
-        }
-
-    if input_type not in {"grch37", "grch38"}:
+    else:
         raise ValueError(f"Unsupported input type: {input_type!r}")
 
-    build = "GRCh37" if input_type == "grch37" else "GRCh38"
-    chrom, pos, ref_in, alt_in = parse_variant_string(input_value)
-
-    resolved = resolve_position_both_builds(chrom, pos, build)
-    if not resolved:
-        raise VariantResolutionError(
-            "not_found",
-            f"No rsID found at {chrom}:{pos} on {build} via Ensembl overlap endpoint.",
-        )
-
-    warnings.extend(resolved.get("warnings", []))
-
-    ref = resolved.get("ref")
-    alts = resolved.get("alts") or []
-    if ref and ref_in != ref:
-        warnings.append(f"Input ref {ref_in} != resolved ref {ref}; keeping resolved ref.")
-
-    alt = alt_in if alt_in in alts else (alts[0] if alts else alt_in)
-    if alts and alt_in not in alts:
-        warnings.append(f"Input alt {alt_in} not among resolved alts {alts}; using {alt}.")
-
-    rsid = resolved.get("rsid")
-
-    g37 = None
-    if resolved.get("grch37", {}).get("chr") and resolved.get("grch37", {}).get("pos"):
-        g37 = build_variant_record(
-            resolved["grch37"]["chr"],
-            resolved["grch37"]["pos"],
-            ref,
-            alt,
-        )
-
-    g38 = None
-    if resolved.get("grch38", {}).get("chr") and resolved.get("grch38", {}).get("pos"):
-        g38 = build_variant_record(
-            resolved["grch38"]["chr"],
-            resolved["grch38"]["pos"],
-            ref,
-            alt,
-        )
-
-    return {
-        "input": {"type": input_type, "value": input_value},
-        "rsid": rsid,
-        "grch37": g37,
-        "grch38": g38,
-        "warnings": warnings,
-    }
+    output = {"input": {"type": input_type, "value": input_value},
+              "rsid": resolved["rsid"], "warnings": resolved["warnings"]}
+    for key in ("grch37", "grch38"):
+        coord = resolved.get(key)
+        if coord is None:
+            output[key] = None
+            continue
+        ref, alts = coord["ref"], coord["alts"]
+        if not ref or not alts:
+            raise VariantResolutionError("resolution_failed", "Resolved variant has no complete allele information.")
+        if requested_alt is None:
+            if len(alts) != 1:
+                raise VariantResolutionError("ambiguous_variant", "Multiallelic rsID requires an explicit target-build REF/ALT variant.")
+            alt = alts[0]
+        else:
+            if ref != requested_ref or requested_alt not in alts:
+                raise VariantResolutionError("uncertain_allele_mapping", "Alleles differ between assemblies; provide an explicit target-build variant. Automatic allele substitution is refused.")
+            alt = requested_alt
+        output[key] = build_variant_record(coord["chr"], coord["pos"], ref, alt)
+    return output
 
 
 def resolve_query_variant(

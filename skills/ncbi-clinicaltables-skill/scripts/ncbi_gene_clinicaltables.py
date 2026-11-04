@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -101,9 +102,11 @@ def execute(payload: Any) -> dict[str, Any]:
         raw_output_path = None
         if config["save_raw"]:
             raw_text = json.dumps(data, indent=2)
-            path = Path(config["raw_output_path"] or "/tmp/ncbi-gene-search.json")
+            path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
+                    Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "ncbi-gene-search.json")
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(raw_text, encoding="utf-8")
+            with path.open("x", encoding="utf-8") as stream:
+                stream.write(raw_text)
             raw_output_path = str(path)
         total = data[0]
         codes = data[1] if isinstance(data[1], list) else []
@@ -137,7 +140,10 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         sys.stdout.write(json.dumps(error("invalid_json", f"Could not parse JSON input: {exc}")))
         return 2
-    output = execute(payload)
+    try:
+        output = execute(payload)
+    except OSError as exc:
+        output = error("file_error", f"File operation failed: {exc}")
     sys.stdout.write(json.dumps(output))
     return 0 if output.get("ok") else 1
 
