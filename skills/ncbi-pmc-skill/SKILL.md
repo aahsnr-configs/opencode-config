@@ -7,7 +7,7 @@ description: Submit compact NCBI PMC Open Access requests for article/file avail
 - Use `scripts/ncbi_pmc.py` for all PMC Open Access calls in this package.
 - This skill is intentionally narrow: it currently covers the PMC Open Access service rather than the full PMC API surface.
 - Pass endpoint-specific query parameters under `params`, typically `id` for a PMCID or DOI-style lookup supported by the OA service.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

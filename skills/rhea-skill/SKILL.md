@@ -8,7 +8,7 @@ description: Submit compact Rhea reaction search requests for biochemical reacti
 - Use `base_url=https://www.rhea-db.org`.
 - Start with the `rhea` search endpoint plus `format=json`.
 - Keep queries narrow by reaction ID, compound name, EC number, or free-text reaction term.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

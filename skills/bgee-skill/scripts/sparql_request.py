@@ -20,6 +20,69 @@ else:
 ENDPOINT = "https://www.bgee.org/sparql/"
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {"ok": False, "error": {"code": code, "message": message}, "warnings": warnings or []}
 
@@ -78,7 +141,7 @@ def parse_input(payload: Any) -> dict[str, Any]:
     for key in ("max_items", "max_depth", "timeout_sec"):
         default = 5 if key == "max_items" else 3 if key == "max_depth" else 60
         value = payload.get(key, default)
-        if not isinstance(value, int) or value <= 0:
+        if type(value) is not int or value <= 0:
             raise ValueError(f"`{key}` must be a positive integer.")
         payload[key] = value
     query_text = (
@@ -109,11 +172,11 @@ def execute(payload: Any) -> dict[str, Any]:
             params = dict(config["params"])
             params.setdefault("query", config["query"])
             params.setdefault("format", "json")
-            response = requests.get(
+            response = _bounded_request(requests.get,
                 ENDPOINT, params=params, headers=headers, timeout=config["timeout_sec"]
             )
         else:
-            response = requests.post(
+            response = _bounded_request(requests.post,
                 ENDPOINT,
                 data={"query": config["query"], **config["params"]},
                 headers=headers,
@@ -121,13 +184,16 @@ def execute(payload: Any) -> dict[str, Any]:
             )
         response.raise_for_status()
     except requests.RequestException as exc:
-        return error("network_error", f"SPARQL request failed: {exc}")
+        return error("network_error", f"Request failed ({type(exc).__name__}).")
+    except ValueError as exc:
+        return error("invalid_response", str(exc))
 
     raw_output_path = None
     if config["save_raw"]:
         suffix = "json" if "json" in (response.headers.get("content-type") or "").lower() else "txt"
         path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
                 Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"bgee-sparql.{suffix}")
+        _check_output_parent(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("x", encoding="utf-8") as stream:
             stream.write(response.text)
@@ -155,12 +221,16 @@ def execute(payload: Any) -> dict[str, Any]:
     except ValueError as exc:
         return error("invalid_response", str(exc))
 
+    if not isinstance(data, dict):
+        return error("invalid_response", "SPARQL JSON response must be an object.")
     if "boolean" in data:
         summary: Any = {"boolean": data["boolean"]}
         top_keys = ["boolean"]
     else:
         results = data.get("results", {})
         bindings = results.get("bindings", []) if isinstance(results, dict) else []
+        if not isinstance(bindings, list):
+            return error("invalid_response", "SPARQL bindings must be an array.")
         summary = {
             "head": data.get("head", {}),
             "record_count_returned": min(len(bindings), config["max_items"]),

@@ -1,5 +1,7 @@
 # Context7-assisted audit of the Exa/OpenChamber kit
 
+> **Archived audit record.** Counts and verification results below describe the named archive, not the current checkout. References to preserved files under `references/original-user-agents/` do not apply to this checkout: that archive is absent. See [FOUR-AGENTS.md](FOUR-AGENTS.md) for the correction and the [current configuration audit](CONFIGURATION-AUDIT-COMPLETE.md) for current scope and results.
+
 **Date:** 2026-11-01. **Input:** `opencode-v2-openchamber-manual-mcp-exa-agents.zip` (71 members).  
 **Scope:** Every shipped file was enumerated and checked for archive integrity, and text/program/config classes were inspected and exercised. This is not a claim that every possible runtime branch was executed.
 

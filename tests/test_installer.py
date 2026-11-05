@@ -80,6 +80,32 @@ with tempfile.TemporaryDirectory(prefix="opencode-installer-directory-test-") as
     assert not list(xdg.glob('opencode-backup-*'))
 print('PASS: installer refuses linked parents and directory destinations before writing')
 
+# Missing source directories and enumeration errors must not produce partial installs.
+with tempfile.TemporaryDirectory(prefix='opencode-installer-source-test-') as temp:
+    base = pathlib.Path(temp)
+    source = base / 'source'
+    source.mkdir()
+    for name in ('install.sh', 'opencode.jsonc', 'cli.json', 'AGENTS.md'):
+        shutil.copy2(root / name, source / name)
+    env = {**os.environ, 'HOME': temp, 'XDG_CONFIG_HOME': str(base / 'xdg')}
+    result = subprocess.run(['bash', str(source / 'install.sh'), '--apply'],
+                            env=env, capture_output=True, text=True)
+    assert result.returncode != 0, (result.stdout, result.stderr)
+    assert not (base / 'xdg/opencode').exists()
+    for name in ('agents', 'commands', 'skills'):
+        (source / name).mkdir()
+    bin_dir = base / 'bin'
+    bin_dir.mkdir()
+    fake_find = bin_dir / 'find'
+    fake_find.write_text('#!/bin/sh\nexit 1\n')
+    fake_find.chmod(0o755)
+    env['PATH'] = str(bin_dir) + os.pathsep + env['PATH']
+    result = subprocess.run(['bash', str(source / 'install.sh'), '--apply'],
+                            env=env, capture_output=True, text=True)
+    assert result.returncode != 0, (result.stdout, result.stderr)
+    assert not (base / 'xdg/opencode').exists()
+print('PASS: installer rejects missing source directories and enumeration errors')
+
 # Exercise live links against a disposable source tree, never the checkout.
 with tempfile.TemporaryDirectory(prefix='opencode-installer-link-test-') as temp:
     base = pathlib.Path(temp)

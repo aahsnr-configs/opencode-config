@@ -8,7 +8,7 @@ description: Fetch GTEx single-tissue eQTL associations from one variant input b
 - Use Python `requests` for all network calls.
 - Accept exactly one of `rsid`, `grch37`, `grch38`, or `variant`, and resolve to a GRCh38 `chrom-pos-ref-alt` query.
 - Convert to GTEx `variantId` format: `chr{chrom}_{pos}_{ref}_{alt}_b38`.
-- Always return one JSON object (no markdown) as final output.
+- The script returns one JSON object. Summarize its evidence for the user unless machine-readable output is requested.
 
 # Input
 
@@ -47,6 +47,9 @@ Allowed variant separators include `-`, `:`, `_`, `/`, or whitespace, for exampl
 - `chr10 112998590 C T`
 
 `max_results` is optional and truncates returned eQTL rows when provided.
+The script retrieves one API page. `truncated=true` also indicates additional or
+unknown server pages. `eqtl_count_total` is `null` when the full count is unknown;
+do not treat a page count as the complete association count.
 
 # Output
 

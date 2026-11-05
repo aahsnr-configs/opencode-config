@@ -8,7 +8,7 @@ description: Submit compact gnomAD GraphQL requests for frequency, gene constrai
 - For nested GraphQL results, start with `max_items=3` to `5`.
 - Keep selection sets narrow and page or filter at the query level instead of asking for broad dumps.
 - Use `query_path` for long GraphQL documents instead of pasting large inline queries.
-- Re-run requests in long conversations instead of relying on earlier tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the real query.
 
 ## Execution behavior

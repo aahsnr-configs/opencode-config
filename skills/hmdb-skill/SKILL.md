@@ -8,7 +8,7 @@ description: Submit compact HMDB search requests for metabolites, proteins, dise
 - Use `base_url=https://hmdb.ca`.
 - Search endpoints are better with `per_page=10` and `max_items=10`.
 - Keep category-specific requests narrow instead of broad searches across multiple categories at once.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

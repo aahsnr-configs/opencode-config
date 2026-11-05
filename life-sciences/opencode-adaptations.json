@@ -2,322 +2,646 @@
   "upstream_commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
   "files": [
     {
+      "path": "skills/alphafold-skill/SKILL.md",
+      "upstream_git_blob_sha1": "61d66801be896fda114ead49adcd632243b44880",
+      "installed_git_blob_sha1": "a0e615209e5bacc7ab7970072aecc8f9ffe2c629",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
+    },
+    {
       "path": "skills/alphafold-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/bgee-skill/SKILL.md",
+      "upstream_git_blob_sha1": "5882216d7fc0a3f15aad75785928da92587dd00d",
+      "installed_git_blob_sha1": "14a7370091b9f5b216e6b6fd54f79e3d31aa0a44",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/bgee-skill/scripts/sparql_request.py",
       "upstream_git_blob_sha1": "c1ad1839890bf98ad9480665f1aef7ab3633dcb8",
-      "installed_git_blob_sha1": "a6c4a1f643d426581337e9aab12254902a0d232d",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "99ee6ecfa1d848ce2e280a307942be7e03471d9d",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/bindingdb-skill/SKILL.md",
+      "upstream_git_blob_sha1": "8f27873c190c5c6d3ba41b14d76e19be264d7cff",
+      "installed_git_blob_sha1": "87e4ebe37b732c2a94d352f39ccc3ca70416ca6f",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/bindingdb-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d0bee3a4a1594d13c6463d2139ba320829a3501a",
+      "installed_git_blob_sha1": "e246925610ee8ec80b1f332f1564882ca2a6fb3a",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/biobankjapan-phewas-skill/scripts/biobankjapan_phewas.py",
       "upstream_git_blob_sha1": "18e1f6519ef47e76552f87f9ccf374af3b8699b5",
-      "installed_git_blob_sha1": "376f71803064377a95eabd3652d5b0645ff59ec7",
-      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+      "installed_git_blob_sha1": "43b2dc95cf7594cafcfff589e5e49637084303cb",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/biobankjapan-phewas-skill/scripts/variant_resolution.py",
       "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
-      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
-      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+      "installed_git_blob_sha1": "88cffefaefa5445e5daa3fd385a896735f229e9d",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection; 2026-11-05 audit: Bounded Ensembl HTTPS responses, redirect refusal and strict timeout validation; preserve conservative allele resolution"
+    },
+    {
+      "path": "skills/biorxiv-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d8e657a5fe77b9aac863199db94f0f5a27022f94",
+      "installed_git_blob_sha1": "9abd53347c9c3307853cc5bfc1f4f03bc8c85627",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/biorxiv-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/SKILL.md",
+      "upstream_git_blob_sha1": "2e9d0c9460d16f18d7bacc6346c6744de9c834a1",
+      "installed_git_blob_sha1": "775158884baa9a850042a45f4ef8f40b3eece4a5",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/biostudies-arrayexpress-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/cbioportal-skill/SKILL.md",
+      "upstream_git_blob_sha1": "ed882d89b9336dc6b83ef7161b0d17418a5157f9",
+      "installed_git_blob_sha1": "02463386b9c32b680370a2b7d0c59f698c90cce9",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/cbioportal-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/cellxgene-skill/SKILL.md",
+      "upstream_git_blob_sha1": "688593cb37a0c4a578fcc5afeab850e8b3572b79",
+      "installed_git_blob_sha1": "0372cbd7516e2eb4c3d5bf9603da0486768748a0",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/cellxgene-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/chebi-skill/SKILL.md",
+      "upstream_git_blob_sha1": "c2b0300cd7c4520cbba28e4716e85eb032f7bc59",
+      "installed_git_blob_sha1": "5d8006518204877e2e07b625a20784fba8e549a2",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/chebi-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/chembl-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d5518e264ba0937dfec8e4feaf498b537d8e4b41",
+      "installed_git_blob_sha1": "4e8361f38851f1a5725210fe142f37a9ca1a70fa",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/chembl-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/civic-skill/SKILL.md",
+      "upstream_git_blob_sha1": "91801c24dda169f1ee5a423d0e53cf2ae16c4a1f",
+      "installed_git_blob_sha1": "4e30aedf0aef0f0eb189c09a2ebb4074577f9e68",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/civic-skill/scripts/civic_graphql.py",
       "upstream_git_blob_sha1": "5f9dea76ebf3c7ebc89de9f1dcc15ec3c15241df",
-      "installed_git_blob_sha1": "d6adf57be968b679ccc52121647904f5fdcf6c4c",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "ebaa365e4f8a60673cc3d8e75e71635bca3ea974",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/clinicaltrials-skill/SKILL.md",
+      "upstream_git_blob_sha1": "7f1911d47f5058cbece35f9227fdc46cc94906dd",
+      "installed_git_blob_sha1": "c8e9940aa67a778504a0f42f0bb44638d1492c40",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/clinicaltrials-skill/scripts/clinicaltrials_client.py",
       "upstream_git_blob_sha1": "5e399f966b50608933a543f4880815cba8380451",
-      "installed_git_blob_sha1": "ea6a9cb020507ef18d06d066be837a2057bc44a7",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "78a5be33c4b77d0ccbf3855034e5e67b14f6bafc",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/clinvar-variation-skill/SKILL.md",
+      "upstream_git_blob_sha1": "e2bc215882bf7a765df52dce660eeb309b01cfe9",
+      "installed_git_blob_sha1": "e6e94bbbc1b8e6a8fe6e49000a03d91bda2fb7a7",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/clinvar-variation-skill/scripts/clinvar_variation.py",
       "upstream_git_blob_sha1": "ce5d23becbdd905b99b5b6735c3edfc40d57b6ab",
-      "installed_git_blob_sha1": "178b9bf724292ca8816486b506b482f543ccb667",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "84f03645dcb0f7667335c33550e44bf7a7ff73ba",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/efo-ontology-skill/SKILL.md",
+      "upstream_git_blob_sha1": "bb0a1511295e7579eeadc336cace6c926a71036f",
+      "installed_git_blob_sha1": "421cc396e424e1dbe0d328efb9bed65ec325179b",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/efo-ontology-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/encode-skill/SKILL.md",
+      "upstream_git_blob_sha1": "b085fcd8f0ec4a1dd34adfda0d803ac9680ea245",
+      "installed_git_blob_sha1": "988c71c000dd1849df6aef45c932fe4ded0d55fa",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/encode-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ensembl-skill/SKILL.md",
+      "upstream_git_blob_sha1": "653dc437371ce908c7d81defc327beabe73266bf",
+      "installed_git_blob_sha1": "82d28c098c950b42adddb802ed1da5250cfdebad",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ensembl-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/epigraphdb-skill/SKILL.md",
+      "upstream_git_blob_sha1": "ca58a98815504b8800215634e3a0dc8490c18171",
+      "installed_git_blob_sha1": "034b19404d517c02502202c8355bc1fcfccae455",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/epigraphdb-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/SKILL.md",
+      "upstream_git_blob_sha1": "f0a151c6eba18a93a2faf57f4a88c0431ec81176",
+      "installed_git_blob_sha1": "e21d4a34f26ea8280da99062a4e2f4c77f650a7b",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/eqtl-catalogue-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "7a8c1eafcbf75a80a55dc1e01514ef4a43d952a2",
-      "installed_git_blob_sha1": "9f108134b909f5c6361ef948a5ce0aed47af0f24",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "150c1fe793478be6e54501508855e2fd96b98543",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/test_rest_request.py",
+      "upstream_git_blob_sha1": "8b41bc294efd19af39138980b6a653aa084f4912",
+      "installed_git_blob_sha1": "d74087d4811df44ca2f03af1020780192b061dd7",
+      "reason": "2026-11-05 audit: Exercise validated biallelic and ambiguous mapper cases, or adapt synthetic response fixtures to streamed-response protocol"
+    },
+    {
+      "path": "skills/eva-skill/SKILL.md",
+      "upstream_git_blob_sha1": "76e357fe7dc6f1861160d12ef81b67d65359782d",
+      "installed_git_blob_sha1": "2ab0dffc2323cae34ae35f961b25a92867503056",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/eva-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/finngen-phewas-skill/SKILL.md",
+      "upstream_git_blob_sha1": "14e02252d380e8eb435fe7ef909650f96ddd1a9c",
+      "installed_git_blob_sha1": "f39de037c5a62409641118ae92951b8121e004f3",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/finngen-phewas-skill/scripts/finngen_phewas.py",
       "upstream_git_blob_sha1": "1cfcee457c856a9def9c306712aea630f5535d45",
-      "installed_git_blob_sha1": "5d3321ff8a97d5e121e2cc2348af3bb896629051",
-      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+      "installed_git_blob_sha1": "99a90070a9ec37bbe08c37cfbde8d79e1c9903a5",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/finngen-phewas-skill/scripts/variant_resolution.py",
       "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
-      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
-      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+      "installed_git_blob_sha1": "88cffefaefa5445e5daa3fd385a896735f229e9d",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection; 2026-11-05 audit: Bounded Ensembl HTTPS responses, redirect refusal and strict timeout validation; preserve conservative allele resolution"
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/SKILL.md",
+      "upstream_git_blob_sha1": "a997c7a31d9b5420c33e096e518f5d75f4684e34",
+      "installed_git_blob_sha1": "cc3b1174d11614ae7bde12b7a611aa5e225b9f65",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/scripts/genebass_gene_burden.py",
+      "upstream_git_blob_sha1": "c4c74959a693127e4b2607f3a8f3f251327e554f",
+      "installed_git_blob_sha1": "1f4c937224abb683f39c9368f3d99b554072aed5",
+      "reason": "2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/SKILL.md",
+      "upstream_git_blob_sha1": "f38ed6b474937454d34ab384856f45c1943e155f",
+      "installed_git_blob_sha1": "6d3d4d7cde78079bcdb02d5dee3a84c25ffe1350",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/gnomad-graphql-skill/scripts/gnomad_graphql.py",
       "upstream_git_blob_sha1": "7057e25aa1e442e0670f9c529514290119dbf905",
-      "installed_git_blob_sha1": "bd5e452b2eedc7e5b7048d302bc276e95168bc24",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "4844e44bae758593a90224fecb88e8939ae29f86",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/SKILL.md",
+      "upstream_git_blob_sha1": "2cbe3c3a33755ced5681a84cdb7fcffdfa8c101c",
+      "installed_git_blob_sha1": "7b5afe571b8ddf8761d0c93c6fa1544f2415be3e",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/gtex-eqtl-skill/scripts/gtex_eqtl.py",
       "upstream_git_blob_sha1": "1b3dd82b18446f34ab420d584907473aa6a42351",
-      "installed_git_blob_sha1": "4019686f8e9a1f3c7ce92ab18a5e931bf385d0f6",
-      "reason": "Structured invalid-coordinate errors"
+      "installed_git_blob_sha1": "50fcb2b85e5e086efd7eb4e302677a81f53c9311",
+      "reason": "Structured invalid-coordinate errors; 2026-11-05 audit: Preserve server pagination totals, expose incomplete pages, bound downloads and reject invalid response/input shapes; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/gtex-eqtl-skill/scripts/variant_resolution.py",
       "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
-      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
-      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+      "installed_git_blob_sha1": "88cffefaefa5445e5daa3fd385a896735f229e9d",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection; 2026-11-05 audit: Bounded Ensembl HTTPS responses, redirect refusal and strict timeout validation; preserve conservative allele resolution"
+    },
+    {
+      "path": "skills/gwas-catalog-skill/SKILL.md",
+      "upstream_git_blob_sha1": "4d90a8e6f2275d64080eb237a06cd1c685169915",
+      "installed_git_blob_sha1": "908620c5e7b8744647635771d757208475f14d40",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/gwas-catalog-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/hmdb-skill/SKILL.md",
+      "upstream_git_blob_sha1": "bee98f03fab37d69c843a84adab153a5c6a36919",
+      "installed_git_blob_sha1": "737ba12ff1a0f5a2bb9d3484f6c2d5b55b297e73",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/hmdb-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/SKILL.md",
+      "upstream_git_blob_sha1": "f001023160fa85f7ec0f0c8e68e19a2fd704e4e5",
+      "installed_git_blob_sha1": "09453b963e18e4934287a9634f07b53fad6647fa",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/human-protein-atlas-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ipd-skill/SKILL.md",
+      "upstream_git_blob_sha1": "e7b2e0e9cf61b5d21ae2a06f8e1e129b0ec0e17d",
+      "installed_git_blob_sha1": "949f8a743ea2dfcc04db8fc67eeb77f04d1b3a2e",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ipd-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/SKILL.md",
+      "upstream_git_blob_sha1": "70d94fbd841f37786057f54278cacbbbb128e592",
+      "installed_git_blob_sha1": "02009be0902d22185998b9331e4cd9eeb16b48fe",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/map_locus_to_gene.py",
+      "upstream_git_blob_sha1": "49c2c2762187dc80fe043f13123b884111b9b4a3",
+      "installed_git_blob_sha1": "c3e534e9892f1057dde14bd6955fd56664398bad",
+      "reason": "2026-11-05 audit: Reject ambiguous alleles, remove unsupported clinical/gene-colocalisation scoring, bound downloads and refuse output replacement; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/test_map_locus_to_gene.py",
+      "upstream_git_blob_sha1": "5fa488141f679960fea5dbce0331f4967893598a",
+      "installed_git_blob_sha1": "4a2b7ce61e9e90238da27b41afd4b681683f9250",
+      "reason": "2026-11-05 audit: Exercise validated biallelic and ambiguous mapper cases, or adapt synthetic response fixtures to streamed-response protocol"
+    },
+    {
+      "path": "skills/metabolights-skill/SKILL.md",
+      "upstream_git_blob_sha1": "16d4e754f0360f2b923c442d9427ac8e3a1ced76",
+      "installed_git_blob_sha1": "30ef92a437db4b00a0c9dc76e7782aad1cc43b0a",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/metabolights-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/mgnify-skill/SKILL.md",
+      "upstream_git_blob_sha1": "564ea0c8d246479c13e52f866edc659a3e0852a6",
+      "installed_git_blob_sha1": "2dc3e8ec4882582d3e228780366a3dfcf7ca30dc",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/mgnify-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/SKILL.md",
+      "upstream_git_blob_sha1": "1bde0492478cee208c1a2e2703a3d79c3b6f1716",
+      "installed_git_blob_sha1": "70c95c2fd38396ea730e92ec2cd327f463476b60",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ncbi-blast-skill/scripts/ncbi_blast.py",
       "upstream_git_blob_sha1": "65ced8e7cfdc1d0b815173e3d7ac96a098b00796",
-      "installed_git_blob_sha1": "b3a0e83679e1d6c69e4ac8a36c268f6d06b7da9e",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "9661e662ae48470028a02fec251021021df50569",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/test_ncbi_blast.py",
+      "upstream_git_blob_sha1": "447635f87b2ad0847805d48766282d53372073cf",
+      "installed_git_blob_sha1": "95d3a66a5c526e32f25703a3b545dffef7753c40",
+      "reason": "2026-11-05 audit: Exercise validated biallelic and ambiguous mapper cases, or adapt synthetic response fixtures to streamed-response protocol"
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/SKILL.md",
+      "upstream_git_blob_sha1": "982cc26b38eb0e31cddcf7cff579977c64ab921e",
+      "installed_git_blob_sha1": "32d66c023dd22182188af66dc764714404bf44e6",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ncbi-clinicaltables-skill/scripts/ncbi_gene_clinicaltables.py",
       "upstream_git_blob_sha1": "a1118b8f335b7eba9889cce547125fe583e6bfba",
-      "installed_git_blob_sha1": "041ce92768d7c8d7361c5b37b542fe52a6fdd7e2",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "f5860af4953b5ae71e53fbd32a66826aa7a7c7ec",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/SKILL.md",
+      "upstream_git_blob_sha1": "aa80feb435028a3168940c4b56fa646ade89aaae",
+      "installed_git_blob_sha1": "a23c37de62884d4438f7f5fe3e8fda19b09ec0f9",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ncbi-datasets-skill/scripts/ncbi_datasets.py",
       "upstream_git_blob_sha1": "bf33000106a6edc240fff24bfd415051568640f7",
-      "installed_git_blob_sha1": "c002b440f88d30bba4578f52d8540ab7e3c39e3d",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5a5b09e14e8a45ca31299b43fb46ee9f40bec443",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/SKILL.md",
+      "upstream_git_blob_sha1": "7f99e45ec1c0090e5d50aabefbfb4d98e538f8db",
+      "installed_git_blob_sha1": "25d2b7774b70aa913e9e189fd582b87c7ad03024",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ncbi-entrez-skill/scripts/ncbi_entrez.py",
       "upstream_git_blob_sha1": "6ae0599309ebdaf74d1cdf77d9318e88ff3cb4c5",
-      "installed_git_blob_sha1": "bc2af9cf4e926b6380a83f3e48aafc065aaa8c99",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "119834dd6bc0c4c141ca71212865809bc584e690",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/SKILL.md",
+      "upstream_git_blob_sha1": "aa16f57edee87bbce8022a390c8d0de1f42812aa",
+      "installed_git_blob_sha1": "fc723a85c4f66dee96007956b61094b591a97d1e",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ncbi-pmc-skill/scripts/ncbi_pmc.py",
       "upstream_git_blob_sha1": "b4fa12075508e81410f4a9189c64e20ccc767efd",
-      "installed_git_blob_sha1": "c357fc2405f3b2facd1962dd9c465f6e5405cbe0",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "7a713adb673665f4505dc0fe7ae325cf250f94f7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/opentargets-skill/SKILL.md",
+      "upstream_git_blob_sha1": "2ae06278a93f0c3f870bc446aeb27175c2456305",
+      "installed_git_blob_sha1": "9c5418f3531f7a53b840a0bacc9dc032e7174854",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/opentargets-skill/scripts/opentargets_disease_heatmap.py",
       "upstream_git_blob_sha1": "def0c3fd0b77906cbd6df172911d8bd36a739ec2",
-      "installed_git_blob_sha1": "04da1491332224b6454dd3ca640ec5119a412e29",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "1767fe3dda5237c283ba5eecfa091cbb8f3a3a19",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/opentargets-skill/scripts/opentargets_graphql.py",
       "upstream_git_blob_sha1": "f7d624f2f9b17b6d6553577664cbad4d075c26ba",
-      "installed_git_blob_sha1": "6167b6d16644ed7f9716fa3578daaafae9f259a9",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "daeb7eede10de2f122cbc839dbd889693b095c12",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/pharmgkb-skill/SKILL.md",
+      "upstream_git_blob_sha1": "8a72c644f6676964e640a98b0ee7bdd166be29fe",
+      "installed_git_blob_sha1": "df953ad2161f2be2416dd22f6fd68f3baf20d294",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/pharmgkb-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/pride-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d172534802072e9abcba522642855bae4fa136b0",
+      "installed_git_blob_sha1": "448c6c15bf944826815d16031bfcaaf814fa8e65",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/pride-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/proteomexchange-skill/SKILL.md",
+      "upstream_git_blob_sha1": "f67cf362877b44d1464924274af441fa6a956c63",
+      "installed_git_blob_sha1": "7116cd5b6d1422d9326f7758d47ad1c662a301f2",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/proteomexchange-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/pubchem-pug-skill/SKILL.md",
+      "upstream_git_blob_sha1": "84b1e1d47cc8d9a9bba485b598b68cecea02dd48",
+      "installed_git_blob_sha1": "15c0f9886fb913e5ffea5dfb86f958cb8b6e1116",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/pubchem-pug-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/quickgo-skill/SKILL.md",
+      "upstream_git_blob_sha1": "3252c80965f8ea3dff2c457585e322438db9d0be",
+      "installed_git_blob_sha1": "b95dd135e5831db9c619f521256108fadff0f212",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/quickgo-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/SKILL.md",
+      "upstream_git_blob_sha1": "2bb3e626a40818e06bfa7e9169849dd14753da28",
+      "installed_git_blob_sha1": "af419aa7ce1395791e8546cc58a62e6428eaa8b8",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/rcsb-pdb-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/reactome-skill/SKILL.md",
+      "upstream_git_blob_sha1": "407f5ff3b16b142b1b1639223115d114cc05902a",
+      "installed_git_blob_sha1": "5e2416535e927ff063ef6bf720b2b2c1c62f2264",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/reactome-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/rhea-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d330a6c475534f242ebfbc6af11bb23aa2e52676",
+      "installed_git_blob_sha1": "6245fa62d0ab7b3e95fbbcf210493e2fac1a0059",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/rhea-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/rnacentral-skill/SKILL.md",
+      "upstream_git_blob_sha1": "d399558af50219d616e2d3610e170b0bbba27ac1",
+      "installed_git_blob_sha1": "b2830db133d78f9f017c535072ada32c86d5e595",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/rnacentral-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/string-skill/SKILL.md",
+      "upstream_git_blob_sha1": "3132a928682a9bd5ebac20f19c43a37340c7cd7b",
+      "installed_git_blob_sha1": "e5107db58b146f5c5b23e3590ce370a29fd5cf92",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/string-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/SKILL.md",
+      "upstream_git_blob_sha1": "fc74a118b213f76f71a9cef43c0aa14af7de5e58",
+      "installed_git_blob_sha1": "325a39f85bdbf0a477de48c3f7014f45da7657c2",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/tpmi-phewas-skill/scripts/tpmi_phewas.py",
       "upstream_git_blob_sha1": "1a62a78edd58d73e6a1b6e6cfb7d171d4a52fef2",
-      "installed_git_blob_sha1": "880e807fe5bdb31ca4b1d27b9a0a69c587361333",
-      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+      "installed_git_blob_sha1": "6bc9b16785d1101ffde190496bd1c2696305f84c",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/tpmi-phewas-skill/scripts/variant_resolution.py",
       "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
-      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
-      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+      "installed_git_blob_sha1": "88cffefaefa5445e5daa3fd385a896735f229e9d",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection; 2026-11-05 audit: Bounded Ensembl HTTPS responses, redirect refusal and strict timeout validation; preserve conservative allele resolution"
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/SKILL.md",
+      "upstream_git_blob_sha1": "9ebbc5de1b9027a7e8203cd7126f2e57aed831b1",
+      "installed_git_blob_sha1": "c1ef684942bb2639a978ee6a9cae03566fac4d6e",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/ukb-topmed-phewas-skill/scripts/ukb_topmed_phewas.py",
       "upstream_git_blob_sha1": "c6a1d9f721b1db4e73925d6008032d6f3c6edfac",
-      "installed_git_blob_sha1": "1d019a3cd4c50c8b18e8126dbce01c48f845cbf3",
-      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories"
+      "installed_git_blob_sha1": "0c84daaac0d50731f23856e115746b589ea1f633",
+      "reason": "Structured invalid-coordinate errors and exclusive raw outputs in private default directories; 2026-11-05 audit: Bounded streaming and output paths, credential-safe errors, strict validation and service-specific response correctness; Final review: sanitized exception handling and bounded nested-response decoding"
     },
     {
       "path": "skills/ukb-topmed-phewas-skill/scripts/variant_resolution.py",
       "upstream_git_blob_sha1": "cf52103096600cb905325f455666be62083621b3",
-      "installed_git_blob_sha1": "4a32a28aea3fc23a6eea649e0f86c1609943ebe0",
-      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection"
+      "installed_git_blob_sha1": "88cffefaefa5445e5daa3fd385a896735f229e9d",
+      "reason": "Exact allele and position matching, assembly-specific alleles, and conservative ambiguity rejection; 2026-11-05 audit: Bounded Ensembl HTTPS responses, redirect refusal and strict timeout validation; preserve conservative allele resolution"
+    },
+    {
+      "path": "skills/uniprot-skill/SKILL.md",
+      "upstream_git_blob_sha1": "24a5de11e0b6dbeda1ccf8f1204fd51b4dd305f9",
+      "installed_git_blob_sha1": "51ded62f7d6293f81f746797a8e67f2a410de94f",
+      "reason": "2026-11-05 audit: Reuse timestamped saved results instead of automatic repeat requests; align runtime and scientific evidence contracts"
     },
     {
       "path": "skills/uniprot-skill/scripts/rest_request.py",
       "upstream_git_blob_sha1": "4de3cf1056493bd451bf738f54e210edf5521b7c",
-      "installed_git_blob_sha1": "9172f880b2cfffa7553c74d2157e2c2f520a306f",
-      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors"
+      "installed_git_blob_sha1": "5d147ac53a6a6ebb62f8002187f942411e45f6a7",
+      "reason": "Exclusive raw outputs in private default directories and structured filesystem errors; 2026-11-05 audit: Enforce origin boundaries, bounded streaming, redirect refusal, strict inputs and safe raw-output parents; Final review: sanitized exception handling and bounded nested-response decoding"
     }
   ]
 }

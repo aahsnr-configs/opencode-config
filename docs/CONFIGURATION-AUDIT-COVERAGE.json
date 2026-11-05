@@ -1,0 +1,1860 @@
+{
+  "audit_date": "2026-11-05",
+  "initial_requested_files": 262,
+  "reviewed_files": 262,
+  "all_initial_files_accounted_for": true,
+  "counts": {
+    "agents": 13,
+    "commands": 22,
+    "docs": 24,
+    "examples": 3,
+    "integrations": 11,
+    "life-sciences": 5,
+    "opencode.jsonc": 1,
+    "schemas": 2,
+    "scripts": 5,
+    "skills": 176
+  },
+  "exclusions": "Generated caches, bytecode, build artifacts and installed dependencies; no private runtime data or credentials read",
+  "new_audit_artifacts": [
+    "docs/CONFIGURATION-AUDIT-COMPLETE.md",
+    "docs/CONFIGURATION-AUDIT-COVERAGE.json"
+  ],
+  "method": "Complete content review, exact-content deduplication, targeted regression checks and post-fix diff review; hashes describe final audited bytes",
+  "files": [
+    {
+      "path": "agents/chat.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "ba18461415ba8b83cd90c406f485782e89aa164888a833c09052653d8ff92f78",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/coder.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "c83c4c58c8a037da824b7d2f6d429e473cc7f90596c60027f45bb4438ad4ec5b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/compactor.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "cd836a02513ba3357468c2c658915aa42116a0fc8342cdd663efef003bace138",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/deep-research.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "0ab79781c3b3944f769c57a60e9f6b86c25e3b65a57748122f4c83d4a1291f40",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/digest.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "97a1f121bac8ee42b3bdd67178535c09b883a7827a066e2c43aa7b80737e3e1c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/explore-scout.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "611ebeac5a52dc0844bf7bc1f98c52147041768a83b5dd6c60841a507844b585",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/git-gh.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "a10f8c748a572f8fa4478192298c3c4d7672dd5996f26fd7710ef65deee832f4",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/learn.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "7cff0d9a4b94750a2914d9caf9851a9582099f04928de4f46a9b9b0c9e2dd7a5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/research.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "81ec33bba50e29696bbc42a42c64399c40633185492d45196e8652f246ac1b16",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/reviewer.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "2524d2888c535259633ab8955adc53b8ed9b365651914dcfa53ddb0296082697",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/sol-advisor.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "d68e5c4f904e7d747997a7238d340c4b52a9a96f57e23aceb5aeb30470123a26",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/web-researcher.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "086fcfa6b5ce73dcb8e0d000c5971b875b56321435986c6357d2ad1a853a8c26",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "agents/work.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "f47483f1acf1966e081b8f2fa95193349df492949c5a18959503743eafd20f9d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/audit-change.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "62f410139cb3d93e4b8f1d76811833e4c8b7a2b50a6f99c23358f599e029d6c5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/brief.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "ce035e6581d3534bc43ac5f9f319153c7c94f6375147044c3b9a497f59c6d0cc",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/deep-research.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "8703e9c24d2f60f39bf4c8bae9f6dde7f72d6c5a05e953bb58a50adcceb30649",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/exa-research.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "4193c4342ef46d99ee56bf2e09ec968fe88030b57734f581fde6cc6f5a91d7ea",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/explain-paper.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "ff2c150ab676e56255b163867ced766cdfbe8bbb6c9825b9e28af55f52249a25",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/git-inspect.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "a047353be3052e8c4c45fe025575387da32089e479a3a682c531da1ad5ea1288",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/handoff.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "e3f6b9e7d2d699b09dba623e53c63c27b3e777216856a4b01ba410e818a30fdc",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/implement.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "2293e7278b33d549808631ed7573d8699bb795c9c9eca8ddafd3e467d995b88b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/learn.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "99d3ec664bf997fc32d6717a074f119bdf0ff455ab7b0abbdb83a36549fadb99",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/life-science.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "a687e97544e4c56c2f2decca7d1935507660e9401844f8b9f34a8642d64348aa",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/mcp-audit.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "c35876ee8d4ff1356628bea75dcf8b55ce25acd1f930edbf02fbb97be84e3d9a",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/memory.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "76192717a8f3b9df4155e7898447e753955629a619c2bab1dca0f5f0b6f002a5",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "commands/plan-work.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "cda3e2e6f19af0d9d7453912f3ddedeeca465987ed8ade6e78220aea87c7ecad",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/produce-artifact.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "8ea16a8aefc392f7ad0bfe6b8325623d2a79d4a440dfc2c8bb1d836e953caec7",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/quiz.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "0cd0a1674b82f5cb3dd37da2fa54678708ffc332679f4768f743acede4c4b1e8",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/research-resume.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "f9ec352906e5f75d45ef635ba2a1e63125bd83370aee027e155d01a29523fe9d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/research-status.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "ea0873fe44779d34370ab136dec7381e2ae4209d4d3bb6e5c2a4b30087d3eeae",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/research.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "7bc6fd3c03ad9dc9d1101754638ae7ab76939324b6e2ba776364b80ec905c6f7",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/scispace.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "07013ee4195edfaac45297f1e2727de8902f896954099310871b26d3c85117de",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/scout.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "8ac670e1b2cc38b7b1c9fd23a03369ff9741ac3599bdabf44dee9b6a7e740133",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/work.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "9af85c398c014c534c78a78070f484ac8f7d300b2b997161e18b51706de4ae3d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "commands/zotero.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "a7158bbb6abde33d18596a1bec78cdefb48cce52c43002a6769b91c0062da69b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/CONFIGURATION-AUDIT-2026-11-05.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "82dc0e4adac9fefa0de5615e51ea6212838a1f7bd4b7446a48f46aa4986aac8e",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/CONTEXT7-AUDIT.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "744d6eba9d4886a56f5cbad4046323b1e805ce3a20d2638f608727c5783bdcba",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/EXPLICIT-MCP.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "0b9ae7da13ad5a7c427eb876250523db90395968699684e26804acf29e00072d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/FOUR-AGENTS.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "330df2643887d0083d154e4d3e3c6dad5226670ff2b723f6a62f9f792d6663dc",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/INTEGRATIONS.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "2dac1c8f72a9f805b9068e812cbb1b7eddb2bf763e73f1ddecb12cda886ebec5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/LIFE-SCIENCES-AUDIT.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "78b9a2b4bb7af2373f3de2ee8377485ae35d8d6b76532f8dfff8827b5a7d59a2",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/LIFE-SCIENCES-READINESS.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "5c813f1c2b44dc8f7726f5d458cb63df7c31fb1934c0ab9106f591ee88bafb51",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/LIFE-SCIENCES.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "27da807b7bfe640644e8c3168796ae0acd1564924ede2625483c34be0d03b92f",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/MIGRATE-TO-EXA.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "97053af0cb9545ff1fa5acc8b3b262a3e3b46da4ab20a8a2f69f39a77979236f",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/RELEASE-NOTES-EXA.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "e73a14596a1e5b96e973da44bbea9e8f4ec640033c409fa1edcecaac04d15fa1",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v2.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "5659a01b8ffb8d2d1cda682deb1fff1dc7f9ec1b64aec08db91f43cf09d9d2c2",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v3.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "74fd2a699e8135196eb9103dbc2fc21ba3f38f92bd62503c29e8f2b6d8411a6d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v4.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "9e14ecae6f4a3850af825269352e6ac35fc73a387d33f482003602da439f2740",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/RESEARCH-AUDIT.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "37dd8ae9728d60b9d5b99d7422732b9cffb75ce0d9e7ea038c31b1ee57f32fb1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/RESEARCH-SETUP.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "9bf07112e4464711fa804ba723613c1286c18efe1c411dac6fb30279af006983",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/SCHEMA-403-FIX.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "deaadf3801af2f53d498a5705bf7b5b4979161262fa83daa566dca16bbb15b4a",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "c34c26cd18085ae1bd71e3072eb44bc2b2c321005f35f73f3090e66eb39c50fa",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/SOURCES.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "b5f94b435ccb972b90987e8ba24e1146205e50629b0244ed69f3dab6f399d5e4",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/TROUBLESHOOTING.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "666a833cb8c0f57cd4757b84f0ab77190fdab72d64fc98137a29a58ba689390e",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "docs/UPGRADE.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "8de6d283dbdd11655e6efa5705594842896a9b5b34fbf5f7c31840018d7ad086",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/V2-DIAGNOSTIC-FIX.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "787100fe3c4d6d2b8687804b75c7dbc5a7e6004e6aa73e2a248f90364621dff5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/VERIFICATION-EXPLICIT.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "75cb732c45f8d2c95f6da516f1e910faefc7e80f65870916ee0d506faa8dc4ed",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "f0ff48624a3ec237011a1ef67a4a0bf3754b7342edb1b36532abe38ad61ce453",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "docs/WORKFLOW-SETUP.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "dca0ef6f2b53caa911b02f11b3f148e409dcbc08ba5b6a9e34bc47b7385aefbc",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "examples/openchamber/life-sciences.project.json",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "5dfb38ec25e55011ef474ee2efadfca752234a28628c21a90431c14fb6da04b5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "examples/openchamber/repo-digest.loop.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "8c8b16e8e754be98ec2514bdbf3ae98d3a5521b2189968f17a0176182e17cdac",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "examples/project/AGENTS.md",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "d38bcccc8a98170b954461312b81493d1eff45461c4cb4515724a47ff7b70a25",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/README.md",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "d3411512933eaf06bd95e02a482615a69c8184a5061aaab74a73c7c09133583b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/pyproject.toml",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "ab127fd1c94335fbf4f61c0e970de0e87252bd1c800524ef0686d913c9eb34af",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/__init__.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "7e8e95bd82158fb9f9a7c043c17bfa1cf87d3d27c641bbbda1ef94bd1cdf6da3",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/__main__.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/cli.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "00d27e006e101b1c8fe4189b5f6ade5d9c322c04f11f27a821c87416b645142f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/http.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "fc0a2307e889897fe640ec8108fdf9f243f4893072e3a9b8f0f940163f8c60b0",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/openai_research.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "eed0df16aab02233462a482231c84d0ff3abba3e11177a5c1f1300cfdf0bb26c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/scispace.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "ab75468d857775256aa53f3d15b4f7a82ef30fbdf502c4f1c865c4d3c630ae0f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/server.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "281211c05830fd5d20cf4c6f0f037ec5ba5afe65ba289c5e7d6c5ccbcf6ced66",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/state.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "f6f9e15c6b5d87dac75c8fc81b14f1c6f0e31d1200420a5d58580cb4c89da882",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "integrations/research-tools/src/opencode_research_tools/zotero.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "f8dce35962bf0e1e45ad579f2cc97d91dc0aac760fb5f91887cee5a1d3d2a250",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "life-sciences/UPSTREAM-NOTICE.md",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "d3aef9e927d95832fb34b165e315a64bf82a2bc7cbe997d8310148090ef98c0c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "life-sciences/lookup.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "23afc5e64fbb4b27a892e2568f9e4b1f30dae36865d6728fc35eb2a1ce412c72",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "life-sciences/opencode-adaptations.json",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "42ec5248dc177b566071ea982d8b9778819a304ec3ef18af2c85e09b23b2060c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "life-sciences/requirements.txt",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "c81e9f68ddf458271a4a27b8117e66833b45159612d08bf9471af0086af1050c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "life-sciences/upstream-lock.json",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "19f1f5422fcaa0e8909a06661c4e459188133afaf9e48d19473191f46ad25806",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "opencode.jsonc",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "453ab8015c75b3cad76f6846f0b97bd5610a7ab904b86af4a059c7cb8ae46467",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "schemas/config-inventory.json",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "783b02e28ef2b0ee121b632c056ef642962acbeafb28334f7f8147bf375468cd",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "schemas/research-run.schema.json",
+      "reviewed": true,
+      "reviewer": "configuration_docs_auditor",
+      "sha256": "d23fa6677ac7adb54d7fb3817f195ed1184281c74539f296baea35eb6ddc63b7",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "scripts/configure_research.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "01f0c4468ec9ee95f726b047cc752067767dfac347bee1d40ff8833ab5b910a3",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "scripts/mcpctl.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "4c8ebf3ae8d8b18e0f57d9ddd5b98d8436ed5489be9c5e1dab4cfdc2e6e454a9",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "scripts/model_audit.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "4f15152d9c640720fa8b847cccdd870a557e4ebf49c3676004c668340065adab",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "scripts/retire_legacy_firecrawl.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "e0aab179c6828e78801b12b7822610b80d83fd06e0c3150f6057004d37e0c640",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "scripts/validate_against_live_schema.py",
+      "reviewed": true,
+      "reviewer": "integration_scripts_auditor",
+      "sha256": "d8935a8241c8b0dfa431bc1617eddd6227c302030782798a81754d7d17a3b2dc",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/academic-research/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "5f88458975c61c56b530fe1338670ea40009d13918cc0bd096fa5d080bfb1f42",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/alphafold-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "212edcb43987924985e8adeacc2311ad0e820cda3e45c3dd233120c46f060e96",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/alphafold-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "890142864346d4fea7a8159898fba89de3fb0b22149a563233ff83df20da41d8",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/alphafold-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/artifact-production/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8d555355113d136e5fa87dc6a81e2f8a5ac4d50475b9e9976bcb58437e997811",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/bgee-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "60ee0984e0366c6cd7a3704520bf4b8afb133c1beadb43d9f1a299d2426d4dd8",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/bgee-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1977a62ce74a36dbd645651a8d5f5b3dcb5801d9ae4c71b7ebb07bed0d827b29",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/bgee-skill/scripts/sparql_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "865b9da2f892d3aeec305ac0a6096edc7e4384c038971f0d0bb000fb7cb422de",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/bindingdb-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "69f56c9d770cf83fb48c7cddb1b8dd01fbfd6f107c5ab18d81bd144546a586d7",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/bindingdb-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "59390884e060a2047dd222f80e3dc3c12b2dde36d74a5f6e1e3cb2d5706ccc1a",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/bindingdb-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b048a4882250c7f332cdf694be63062507a8e4c1545ae0d7f46eb48bcb806e29",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4da7ecfc3b4855b70a75d4e783af72ac2c2a370559b17667af691f689209d5e2",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/biobankjapan_phewas.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "786eabd54e7ede5f8c17a8842465defd8115c328c94a6d573cb0119d013a6689",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biobankjapan-phewas-skill/scripts/variant_resolution.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "575310d84127cbf924b6c951822e6eec947a8b4625291bbc11cce44eee0de719",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biorxiv-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7a001e5bf886498850c9f8ab279a7643f7889f7806d42b95b55143e6aaa3087c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biorxiv-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b23c7e3b8d7f011b95b4db5aaac5d7051ce18217f4c71cef24803871687fa03d",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/biorxiv-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b77a555f0402d3e5fa2e2423c216a037e60814bd55269f60e9aa143d7f387cdd",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "336fdab2aec48c4bc529f49fb5769b584307a5d1a5453477efe5ab8e1de90a85",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/biostudies-arrayexpress-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/browser-research/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "5e9727f6cbc60b97d6f709e9ad98c2acdcf4861f3af2ecac562275e4a2242da4",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/cbioportal-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "6fc3ad1f70b194b881390e3d1c05310c74108cb020f1904d945c12d380b0b246",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/cbioportal-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "2eb63cbbfbc83751e0b497d016fe834f127cf790fb54872e82e163ca17b0a4e0",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/cbioportal-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/cellxgene-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c4c3315d20e55819ff4665d2b562161d20e3b0ecb61967daa3185974317dacb2",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/cellxgene-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "cabff51ed1c680212e7b8b34ed6ee4aa53b6fc9030b1297ffd14262ac06202d1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/cellxgene-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/chebi-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "a7d556e6ae30bee5e7a95e68ec767b1825cbc4ec53b5344df108a755ca3a1edf",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/chebi-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b17bb4d8ffec6e56629fbddf5e87153ed2f22f355800f0bd16a784460ff6153a",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/chebi-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/chembl-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "9d4d48f1f0c1ccd3a70f91b41881cdbbf53ef80d7208e8703cdcc7f92ae0802a",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/chembl-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f4ebb0a6a3f788b556bdb80d546a8c14c18788e9b7b3771c9ef15866ff53bbc3",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/chembl-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/civic-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c21aea59460daff9b53ab84b344209453b3f332f7b2f77f931fc96559f85ccb5",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/civic-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f644cf1d3fdc7f505b653b23f746760c40d7dbec9f902af7a6518819f9ad78b9",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/civic-skill/scripts/civic_graphql.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e71d1257125e2a8b464881c741e16eae8b584f217404d5b3d0b59fe4119c2e37",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/clinicaltrials-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "19d9463fa8929197a2447a58971b21eceea9c49a19482864905d204e6a047b71",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/clinicaltrials-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "ae5399f6f9033e9ab3b39d7f1b8924f1996b50a133fd3e639178f4f379b763c4",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/clinicaltrials-skill/scripts/clinicaltrials_client.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e3c4075e056e18b1c7d5cad9af8265e799e452db8713c2ce2466f8e7dfc5b212",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/clinvar-variation-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7919b34fe4d8385a25ddb7b405de17e2a1bd83da1fb128b37d9a29f1584c4dd1",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/clinvar-variation-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1282b25be883489bf26b8463880d81c3417c2b501ede3e28a7b58733a2b52f44",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/clinvar-variation-skill/scripts/clinvar_variation.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d9e3f647a72d3ae792e971bcb2eea9d682caf6fc1d4449215cfa1af6eaea7e0a",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/coding-quality/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b3fc76ed56503c79117f77e78c2e33941f606b620a2e90a4214d593c4da6188c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/deep-research/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d521b8d26e6bc93aef7d2c20920491c6621c63e9f69bd964ff589e343de73714",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/deep-research/references/workflow.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8c1c9e9180d8053c39310c472e33e4ae8fc3c3379bbdc4318e7b2ecb528f7494",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/efo-ontology-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "da92cb96b64a6dd96a3c291b31ea06f3848b59f2e66d0e50357de6cd55727323",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/efo-ontology-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c6cfad34d3c5c84dea0c45dd88739b3978055f0e03a179f4c1074f1379d533e8",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/efo-ontology-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/encode-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "bd103825fb0f88ebc594c8f551e205178f6956881faeec72fa0f3e045ac695e9",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/encode-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "bc972a5b5b57ccec695de1449c5f04dca4875f06f8ef00ee69496351d394d946",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/encode-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ensembl-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8433f388c9cd3f8c1afaaf6246aea09da4e74dd25476e0966e67ba0ac8b38b7c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ensembl-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "71ad0170af39432dcfe1dd7bf0f35e3b949836d92654fc6ab8abb6096db3d22f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ensembl-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/epigraphdb-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "a2e69276362faaeadba9190e93d0b475b724a47c7df21e8416ea7b51ad71272d",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/epigraphdb-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c9efd8f3c40b8acdced747c36bb0f20cabbddf607ccd17520c00829405ef6b26",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/epigraphdb-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "05f48b49c18a7c3654be9bedb8ea8404f3a391074b61038d7e4e784fdcd40a8e",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1f9f930521acddd174f20a440c7a10dcb0cedcc8a15701e2708bbf4083de50e0",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8297c49e7eac5d94b49ac9164c08b7257f985095751318348d4d3871d2380cab",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/eqtl-catalogue-skill/scripts/test_rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "75a24b660c1eee8b1c72dba0d04e13c3c9b5a7217aa7127757a642552385cd46",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/eva-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f52e4e8ea57aedd9e806facb308e57def7ae5c6022d223b62b0f4f47a168c440",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/eva-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "28660f64b6aea655f4c51bf16b014deedc114063158ef97e05036646ac171363",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/eva-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/finngen-phewas-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "6110d5b5fbc7c26fc2d47128df6bf2b7e67960384ee826bbe982696eb733945e",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/finngen-phewas-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f2a0347b8029e290b3ae597df4afc856e7ffe862331246f120da7be9735b9f88",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/finngen_phewas.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7035721bd71a39e0b0fd8da5460c43306a4d3f777e04f1688948f9d28711e37b",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/finngen-phewas-skill/scripts/variant_resolution.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "575310d84127cbf924b6c951822e6eec947a8b4625291bbc11cce44eee0de719",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "86d05300357bfac410ed060ea2a249c2ddf2fda4a76cf8747ee43316dc561c59",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "62e3c94addc0b1521cc4b9cd25e4c5a1749ba086ac24ad836b0db2ef940e5034",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/genebass-gene-burden-skill/scripts/genebass_gene_burden.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d8d42a4136574236b90dc3654614cd60faa9715f330018d4fdf8a30f57c85753",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "0f398fd4d19cc2277f0f1afc50f52ab9448aba15d03974f324c4a41c818edc40",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "78ad6f3b7d575b2d6765b9a5ca81213e3e3f530bea0ae6e60e6a6592f17b1672",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/gnomad-graphql-skill/scripts/gnomad_graphql.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c5506077fc2205e0c1eb48d43cd94948fe1e587abe56263a876b775fd0be67df",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "371ba2ba81d981c71911b5fbd74a2395d7087645daca388518efbb6959df7df3",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "bfa90ca0e37c6ced62b96313755e2f8eb34dad89f8821aa7c745d21b4d900404",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/gtex_eqtl.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "5a4bc88f5e6c80ce234142c8e0eec8e573aeea58c6f00f459a593f9115f8affb",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gtex-eqtl-skill/scripts/variant_resolution.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "575310d84127cbf924b6c951822e6eec947a8b4625291bbc11cce44eee0de719",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gwas-catalog-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "daf5beb748c19e4cc5fd5bb90395f792385e3ee8d349d1745516bb12513afadf",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/gwas-catalog-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b4a2c85808f7d2927cdc5584f1e571b0449e764047117230c21f49b82109bfb1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/gwas-catalog-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/hmdb-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7b7d25259fdaea8a83f882a0b29be0df1ba0587b73d543cdbc6c2a4e4045064d",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/hmdb-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "108cd5f18338e04584e178224ab0c52a342c48063d75cd34ca6c47d4e23b6941",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/hmdb-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "519eacacea1e924b759eae69e06a428995163933c1dfcb858f65c00ba55efe2c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "535d1f6042fb5f361990621fabd918a366f57914130c12a77ca7e3ea884bf5f6",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/human-protein-atlas-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ipd-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1de76817e48b00837aadbed86c248fb55c2494d4201db6d377a83aa245d1aeda",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ipd-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1d09f52fc4b1e0edc814d10c5c6d93ed4d05f22809388991e32a064df2794d6c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ipd-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/learn/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d04e8405d5471f06c22fed6f62a5c0f749fccfe6ef01cbc05cb65a9824cfdc37",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/learn/references/progress.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "3dd2a6d56b68d804477b452ed401a901a1757dcb43efc7387c4551bb4fbf491c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/life-science-research/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "243d1da4678f39a316faede896e966dcdffce869a02e156bff63c94d578f6d6b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "0b4b9a56eb0ee408bdd2927f4b9e55c1ee223abca90fa5b41494961954fffc43",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "eda7efeeb9e9e6ae495f36780b1ced1eaea510f12289fe1ed391d19a786da0a5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/map_locus_to_gene.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "3fa5ca006ec2a72a90ba96731d7624b396b1e7814d08e9362ae87fa9aa6140b2",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/locus-to-gene-mapper-skill/scripts/test_map_locus_to_gene.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c02bfb6d43c5d3b330484e9dae497398b460c2e3863598906771fc67d4d5da3c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/metabolights-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e1fa738d6ad5051c52123e0a9d65db7dbaccdeda5f504e142617bebaea7f332a",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/metabolights-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "83a52ff4a1d84942571d9759af465456f7ce9375d1314c086ee6d2733004734b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/metabolights-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/mgnify-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "38167759b4ee541bd53b03da5cb7630b943c9e31dd60be91192f2f8e9d14207f",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/mgnify-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "3ae12e1b1bd7b7f1c223d52c188e88ca2472a60691ea4128ff1afeac0b76b6b1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/mgnify-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-blast-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e19707777e184b0d0752e39a143b9529d6a0471b69e227bf21e875798d933410",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-blast-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "009119cbb5093838a023072aa182740bcd0d6711af712abfd1b156afd2ca67cf",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-blast-skill/references/blast-common-url-api.txt",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "558d80dbb860d6e42e04f132d13ae465ef59cd1cd3480bc4760a8b926151b561",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-blast-skill/references/intent-notes.txt",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7f9682d15cdee0276c676926f47ce471c43ced6e39774ff822c3303a20dc4df7",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/ncbi_blast.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b00fc30fd28b1ec604e028b8ff8e6257bb10af1fddbde16f34d21c6e3eee9572",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-blast-skill/scripts/test_ncbi_blast.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "42c69290bacff56cc0e497590de82aefcbca08019b59d3c865765942084d3a18",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "bb3f8c0b5ca398f03b42b696886825f3068c394e58e73f5037b18f73526c22d0",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e9f5f55de545c520366ef0fd26cfaa96fe1713998091a772359b47dabeb7d20c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-clinicaltables-skill/scripts/ncbi_gene_clinicaltables.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c386a3031143eb0d6d5a7dd79c1c52e97d0d963e3c523b61fb776f9612f6d5e5",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "0264491c6e6480f5c7b07a02af084e1c6ee083f8429bd4df106e19ae39b09bbb",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d97827af54de9f76bdb684262b84a2c42521988be1701e159deb2b0f51e5bc83",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-datasets-skill/scripts/ncbi_datasets.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "fdb4f05e49127cf5da12d1cf840b68b59335cec4c09efd251b11249009902367",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "493fa149cfd613fcd8a19d2c02b625c760bf74f94f960f983639fc51d6a4034a",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "814849c32fd4dffb9ac6cfd9abdbd5bd32dcbd5180115ddd0d22b31d5035ab01",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/references/geo.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "65cd7f9dc54dec5a09bd4116d347311c08f13b422aeaeda1691114a7d7409dc1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-entrez-skill/scripts/ncbi_entrez.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "989dbaae6b977d2a279f8d41b2d0ce100a368ba1a439dfdc9666e27915c5d014",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "9a88e942522d3d91a4365a35c8d517c1cfb013196834baacf6ef94cc2c233f6e",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "7baff08afb9198e27508504999de18491d6edeb4172ed96a047acf2f01420f6f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ncbi-pmc-skill/scripts/ncbi_pmc.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "ce75cce04fd12bc52b04d78151890931667fdb558fbd5ca7c370e60e7174f5b2",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/opentargets-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "02563be849b876ff99d1a49ffd3c66113a506d5ec363e66eb84f84cf7b0dc55f",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/opentargets-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "a9346503bc8a45190b10b131296f462b4c0cffaf17fb1d6f269225798a507d5c",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_disease_heatmap.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d24a7a6c1ce44c460a915ae765f78330ecc80bf553e780ecc3a2682ab2512d06",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/opentargets-skill/scripts/opentargets_graphql.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f1307b157f02660469965f2740d9064d7aa31a76bb2bf32992856491dfa128b3",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pharmgkb-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "3b87ccc5362222d9e9d5b6e940c8c540b6f19f398aaa147090f5c8982de63dab",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pharmgkb-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "3b6338558f9f9d95960023dc93a3d61787228bb40ba19a5e4b30774a9ea1f4bf",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/pharmgkb-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pride-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "463419a8ef77646652d8f2a5a512a55405ed4483e192e26aee66cea462a43ecb",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pride-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d714bbf0384166b3ccde9786f9c7472d522e6d05aa6c71564229e4aa28af24d3",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/pride-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/productivity-automation/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "1a836ca3d632d8882426e739f986d8ade8120be8358a5112efcc8d788bb6c024",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/proteomexchange-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "92d6b89d131f268d024039c6781811a5533d8a38d354e04ce6c6ab400b6f228d",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/proteomexchange-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "158fda0947548a09779a74ef9f24a2d3dfb72785562c944f7df0d55f9f327d2f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/proteomexchange-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pubchem-pug-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "ae75700e52a3e2f1ad1b719cc30e2a54ea2f8d85c79675fee631ff788173b68c",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/pubchem-pug-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b860186ed63f2e64c5089a28f4ec4ddf95d41ddcdee309bc15a15dacb9e51955",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/pubchem-pug-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/quickgo-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "9113df58cd37df3c0b31c9c3e65c590fea34865a1bfc7d5a0aae1692155bd578",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/quickgo-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "11fd03d2d300f6bf5df584b0817da765f6aaaf118ff4ae2bccfa392ad86f524f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/quickgo-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8a18dec0302dfdf29e565a32fd779819c67c9f2994f56a77c21d7590bf7a0380",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "8476bccbb84c0a9859f46259c49ea13b892d2e24cef874edb465e9cb9541f9e8",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/rcsb-pdb-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/reactome-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "98fb049a7eedeefe3a872d998adc073474c2f20d919966d907bd3216e83a7e53",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/reactome-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "42121141a6dbeb57f9ac8b3540bb7120a06d6c5520c3788b1b1936861b4ca766",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/reactome-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/reference-management/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "55cc561a6d28c179aba71963deb661781485ba52d9fcee46ed91f88eef70e507",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/research-router-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "e9e39c6c411da80f9fd62a62e70cbedac2404bdcfb51ddb8fda1dc3332c7e357",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/research-router-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "69d0380f6a83a217e68c5a14be713b1840bec45d362c161b29a50a36c486003b",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/rhea-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "209be45bc89cb4faba38bcc0c5300be6225e6d3fe1a1769026574de2490cb17f",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/rhea-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b357b94ec413a0f296ee6be979c02ba186f8b9198ae68c24eb2f50692bd113bb",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/rhea-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/rnacentral-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "080105eb5fe46dae34058927a0ae5ba7d53ba9a59f04858216e4231db801e1be",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/rnacentral-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "f17a9f98866422836cd8839f1f5cb5ca2081a047839d0491363d8d9d301e3c73",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/rnacentral-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/scientific-compute/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d46ec3e83a7a79dbeb8e4cf0ee8a69a3d5bfd3fcb47c16ec2518b4499d745be1",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/scispace/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "51b2252f3df909c078b600fad0a29c7ffb4ab56584a3334c0466bc62ad7d44e7",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/string-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "ac1d019c4b1ad434fb9e301d9b9a7c5ebd64eb74d6656127df87e215374babef",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/string-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b7647a9ab8f95cdbf0bb7b8222e2c3b7d316959db8bb357584955929e34a10e5",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/string-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "c43bd2fae7b3f3b9d793e622d7f8a6a61cc63fe947019f6fa13b7dd33de3c0b0",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "06c92bfc7c580373e789eb474ad2b0189875969ecde2625a71d674fdcdfb36b6",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/tpmi_phewas.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "9783d90c202fe30d46c0ab618347eaf81f362559df4cd108e731b162191c5439",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/tpmi-phewas-skill/scripts/variant_resolution.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "575310d84127cbf924b6c951822e6eec947a8b4625291bbc11cce44eee0de719",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "879c060adce146a61b1200239420d53b3597d167ef9ecfd6de12538cc0eb0714",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "ab651390447bc5264528cf38716bbd5510fe7421042c844b2996d06442c31e8f",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/ukb_topmed_phewas.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "d2620a2f2796abc9f0feea5de96b6625567b6249c4d635193c05dc759ce03fc3",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/ukb-topmed-phewas-skill/scripts/variant_resolution.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "575310d84127cbf924b6c951822e6eec947a8b4625291bbc11cce44eee0de719",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/uniprot-skill/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "932bae5bcaba0f479f74aa7ad1390f141324e05f2bc4ab862593576357383ea6",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/uniprot-skill/agents/openai.yaml",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "80092648e74c9c99f23c38d77c144cca175ea234583afd625340b15350019c3e",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/uniprot-skill/scripts/rest_request.py",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "4ab733ef09c4529869352dc85e6a8d5fa327437481b2ed412b2900ce8f354331",
+      "changed_since_initial_read": true
+    },
+    {
+      "path": "skills/workflow-router/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "b5c3c2787061105370fec2c11b952ad3a446a439934162be4981f3b4e2927189",
+      "changed_since_initial_read": false
+    },
+    {
+      "path": "skills/zotero/SKILL.md",
+      "reviewed": true,
+      "reviewer": "skills_auditor",
+      "sha256": "56f314e76b1b28e0197e3d32207a45e285e14ffa1466477672bec5e0c498a1d4",
+      "changed_since_initial_read": false
+    }
+  ]
+}

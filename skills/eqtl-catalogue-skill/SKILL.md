@@ -10,7 +10,7 @@ description: Submit compact eQTL Catalogue API requests for association retrieva
 - The public API currently appears strict about query validation, and live smoke tests returned intermittent `400`/`500`/timeout failures even with documented parameter sets; treat this source as usable but upstream-fragile.
 - For association endpoints, the script now backfills compatibility defaults for `quant_method`, `p_lower`, `p_upper`, and blank filter strings because the live API is currently rejecting omitted optional filters.
 - Prefer `variant_id` in requests; the script mirrors it to the legacy `snp` query key to accommodate the current server-side validator.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

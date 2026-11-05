@@ -8,6 +8,9 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin, urlsplit
+
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
 
 try:
     import requests
@@ -41,7 +44,7 @@ def _require_bool(name: str, value: Any, default: bool) -> bool:
 def _require_int(name: str, value: Any, default: int) -> int:
     if value is None:
         return default
-    if not isinstance(value, int) or value <= 0:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
         raise ValueError(f"`{name}` must be a positive integer.")
     return value
 
@@ -61,10 +64,29 @@ def _service_name(base_url: str) -> str:
     return host.replace(".", "-")
 
 
+def _url_origin(url: str) -> tuple[str, str, int]:
+    parsed = urlsplit(url)
+    if (parsed.scheme not in {"http", "https"} or not parsed.hostname
+            or parsed.username is not None or parsed.password is not None
+            or parsed.fragment or "\\" in url or any(c.isspace() for c in url)):
+        raise ValueError("URLs must use HTTP(S) without embedded credentials, fragments, or whitespace.")
+    port = parsed.port if parsed.port is not None else (443 if parsed.scheme == "https" else 80)
+    return parsed.scheme, parsed.hostname.lower(), port
+
+
 def _build_url(base_url: str, path: str) -> str:
-    if path.startswith(("http://", "https://")):
-        return path
-    return base_url.rstrip("/") + "/" + path.lstrip("/")
+    """Keep relative paths and absolute same-origin URLs within the approved base."""
+    origin = _url_origin(base_url)
+    if urlsplit(base_url).query:
+        raise ValueError("`base_url` must not include a query; use `params` instead.")
+    parsed_path = urlsplit(path)
+    if parsed_path.scheme or parsed_path.netloc:
+        url = urljoin(base_url.rstrip("/") + "/", path)
+    else:
+        url = base_url.rstrip("/") + "/" + path.lstrip("/")
+    if _url_origin(url) != origin:
+        raise ValueError("`path` must use the same origin as `base_url`; cross-origin headers are refused.")
+    return url
 
 
 def _get_by_path(value: Any, path: str) -> Any:
@@ -139,6 +161,11 @@ def _save_raw_output(
 ) -> str:
     path = (Path(raw_output_path) if raw_output_path else
             Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"{_service_name(base_url)}-raw.{suffix}")
+    # Check lexical parents before mkdir/open; use canonical paths for intentional
+    # directory links. This guard does not prevent concurrent path replacement.
+    for parent in path.absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError(f"Refusing linked or non-directory output parent: {parent}")
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as stream:
         stream.write(raw_output)
@@ -184,28 +211,43 @@ def execute(payload: Any) -> dict[str, Any]:
     if requests is None:
         return error("missing_dependency", f"`requests` is required: {REQUESTS_IMPORT_ERROR}")
     config = parse_input(payload)
-    session = requests.Session()
-    session.headers.update(config["headers"])
     url = _build_url(config["base_url"], config["path"])
+    session = requests.Session()
+    response = None
 
-    request_kwargs: dict[str, Any] = {"params": config["params"], "timeout": config["timeout_sec"]}
+    request_kwargs: dict[str, Any] = {
+        "params": config["params"], "timeout": config["timeout_sec"],
+        "allow_redirects": False, "stream": True,
+    }
     if config["json_body"] is not None:
         request_kwargs["json"] = config["json_body"]
     if config["form_body"] is not None:
         request_kwargs["data"] = config["form_body"]
 
     try:
+        session.headers.update(config["headers"])
         response = session.request(config["method"], url, **request_kwargs)
+        if 300 <= response.status_code < 400:
+            return error("redirect_refused", "Server redirected the request; headers will not be forwarded.")
         response.raise_for_status()
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                return error("response_too_large", f"Response exceeds {MAX_RESPONSE_BYTES} bytes; narrow the query.")
+            body.extend(chunk)
+        try:
+            text = body.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = body.decode("utf-8", errors="replace")
         content_type = (response.headers.get("content-type") or "").lower()
         wants_json = config["response_format"] == "json"
         wants_text = config["response_format"] == "text"
         auto_json = not wants_text and (
-            "json" in content_type or response.text.lstrip().startswith(("{", "["))
+            "json" in content_type or text.lstrip().startswith(("{", "["))
         )
 
         if wants_json or auto_json:
-            data = response.json()
+            data = json.loads(body)
             raw_output = json.dumps(data, indent=2)
             raw_output_path = None
             if config["save_raw"]:
@@ -248,9 +290,9 @@ def execute(payload: Any) -> dict[str, Any]:
         raw_output_path = None
         if config["save_raw"]:
             raw_output_path = _save_raw_output(
-                response.text, config["raw_output_path"], config["base_url"], "txt"
+                text, config["raw_output_path"], config["base_url"], "txt"
             )
-        text_head = response.text[:800]
+        text_head = text[:800]
         return {
             "ok": True,
             "source": _service_name(config["base_url"]),
@@ -261,16 +303,22 @@ def execute(payload: Any) -> dict[str, Any]:
             "text_head": None if raw_output_path else text_head,
             "text_head_truncated": False
             if raw_output_path
-            else len(text_head) < len(response.text),
+            else len(text_head) < len(text),
             "raw_output_path": raw_output_path,
             "warnings": [],
         }
-    except ValueError as exc:
-        return error("invalid_response", str(exc))
     except requests.RequestException as exc:
-        return error("network_error", f"Request failed: {exc}")
+        status = getattr(getattr(exc, "response", None), "status_code", None)
+        detail = f" (HTTP {status})" if type(status) is int and 100 <= status <= 599 else ""
+        return error("network_error", f"Request failed: {type(exc).__name__}{detail}.")
+    except (ValueError, RecursionError):
+        return error("invalid_response", "Response JSON or requested record_path could not be processed.")
     finally:
-        session.close()
+        try:
+            if response is not None:
+                response.close()
+        finally:
+            session.close()
 
 
 def main() -> int:

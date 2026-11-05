@@ -12,6 +12,7 @@ Output JSON on stdout.
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import re
 import sys
 from typing import Any
@@ -24,6 +25,69 @@ USER_AGENT = "genebass-gene-burden-skill/1.0 (+requests)"
 DEFAULT_TIMEOUT_S = 30
 CANONICAL_BURDEN_SETS = ("pLoF", "missense|LC", "synonymous")
 ENSG_RE = re.compile(r"^ENSG[0-9]+(?:\.[0-9]+)?$", re.IGNORECASE)
+
+
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
 
 
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
@@ -87,7 +151,7 @@ def parse_input(payload: Any) -> tuple[str, str, int | None]:
     if max_results is None:
         return gene_id, burden_set, None
 
-    if not isinstance(max_results, int) or max_results <= 0:
+    if type(max_results) is not int or max_results <= 0:
         raise ValueError("`max_results` must be a positive integer when provided.")
     return gene_id, burden_set, max_results
 
@@ -101,7 +165,7 @@ def fetch_gene_phewas(gene_id: str, burden_set: str) -> tuple[str, Any, int]:
         "User-Agent": USER_AGENT,
     }
 
-    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT_S)
+    resp = _bounded_request(requests.get, url, headers=headers, timeout=DEFAULT_TIMEOUT_S)
     status_code = resp.status_code
     if status_code == 404:
         return url, None, status_code
@@ -122,7 +186,7 @@ def fetch_phenotypes_metadata() -> list[dict[str, Any]]:
         "User-Agent": USER_AGENT,
     }
 
-    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT_S)
+    resp = _bounded_request(requests.get, url, headers=headers, timeout=DEFAULT_TIMEOUT_S)
     if resp.status_code >= 400:
         snippet = " ".join(resp.text.split())[:180]
         raise RuntimeError(f"Genebass phenotypes API returned HTTP {resp.status_code}: {snippet}")
@@ -209,7 +273,10 @@ def main() -> int:
     try:
         query_url, data, status_code = fetch_gene_phewas(gene_id, burden_set)
     except requests.RequestException as exc:
-        sys.stdout.write(json.dumps(error("network_error", f"Genebass request failed: {exc}")))
+        sys.stdout.write(json.dumps(error("network_error", f"Request failed ({type(exc).__name__}).")))
+        return 1
+    except ValueError as exc:
+        sys.stdout.write(json.dumps(error("invalid_response", str(exc))))
         return 1
     except RuntimeError as exc:
         message = str(exc)
@@ -247,8 +314,8 @@ def main() -> int:
         phenotypes = fetch_phenotypes_metadata()
         description_map = build_description_map(phenotypes)
     except requests.RequestException as exc:
-        warnings.append(f"Could not fetch phenotype descriptions: {exc}")
-    except RuntimeError as exc:
+        warnings.append(f"Could not fetch phenotype descriptions ({type(exc).__name__}).")
+    except (RuntimeError, ValueError) as exc:
         warnings.append(str(exc))
 
     gene, rows = unpack_phewas_payload(data)

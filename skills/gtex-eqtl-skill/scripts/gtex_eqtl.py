@@ -26,6 +26,7 @@ from variant_resolution import (
 GTEX_API = "https://gtexportal.org/api/v2"
 USER_AGENT = "gtex-eqtl-skill/1.0 (+requests)"
 DEFAULT_TIMEOUT_S = 25
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
 
 
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
@@ -49,7 +50,7 @@ def parse_input(payload: Any) -> tuple[str, str, int | None]:
     if max_results is None:
         return input_type, variant, None
 
-    if not isinstance(max_results, int) or max_results <= 0:
+    if type(max_results) is not int or max_results <= 0:
         raise ValueError("`max_results` must be a positive integer when provided.")
     return input_type, variant, max_results
 
@@ -65,9 +66,23 @@ def fetch_eqtls(variant_id: str) -> Any:
         "Accept": "application/json",
         "User-Agent": USER_AGENT,
     }
-    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT_S)
-    resp.raise_for_status()
-    return resp.json()
+    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT_S,
+                        allow_redirects=False, stream=True)
+    try:
+        if 300 <= resp.status_code < 400:
+            raise ValueError("GTEx redirect refused")
+        resp.raise_for_status()
+        body = bytearray()
+        for chunk in resp.iter_content(chunk_size=65536):
+            body.extend(chunk)
+            if len(body) > MAX_RESPONSE_BYTES:
+                raise ValueError("GTEx response exceeds the 5 MiB limit; use a narrower query")
+        try:
+            return json.loads(body)
+        except RecursionError as exc:
+            raise ValueError("GTEx JSON nesting exceeds the supported depth") from exc
+    finally:
+        resp.close()
 
 
 def extract_rows(data: Any) -> list[Any]:
@@ -75,7 +90,7 @@ def extract_rows(data: Any) -> list[Any]:
         return data["data"]
     if isinstance(data, list):
         return data
-    return []
+    raise ValueError("GTEx response must contain a data array")
 
 
 def main() -> int:
@@ -121,13 +136,34 @@ def main() -> int:
         sys.stdout.write(json.dumps(error("invalid_response", f"GTEx returned non-JSON: {exc}")))
         return 1
 
-    rows = extract_rows(data)
-    total = len(rows)
-    if max_results is not None and total > max_results:
-        rows = rows[:max_results]
-    truncated = len(rows) < total
-
-    paging_info = data.get("paging_info") if isinstance(data, dict) else None
+    try:
+        rows = extract_rows(data)
+        if not all(isinstance(row, dict) for row in rows):
+            raise ValueError("GTEx data rows must be objects")
+        page_count = len(rows)
+        paging_info = data.get("paging_info") if isinstance(data, dict) else None
+        complete = False
+        advertised_total = None
+        if paging_info is not None:
+            if not isinstance(paging_info, dict):
+                raise ValueError("GTEx paging_info must be an object")
+            pages = paging_info.get("numberOfPages")
+            page = paging_info.get("page")
+            if type(pages) is not int or type(page) is not int or pages < 0 or page < 0:
+                raise ValueError("GTEx pagination counts must be nonnegative integers")
+            complete = pages <= 1 and page == 0
+            advertised_total = paging_info.get("totalNumberOfItems")
+            if advertised_total is not None and (type(advertised_total) is not int or advertised_total < page_count):
+                raise ValueError("GTEx totalNumberOfItems must be an integer at least as large as the page")
+        total = advertised_total if advertised_total is not None else (page_count if complete else None)
+        if max_results is not None:
+            rows = rows[:max_results]
+        truncated = len(rows) < page_count or not complete or (total is not None and len(rows) < total)
+        if not complete:
+            warnings.append("Only one GTEx page was retrieved; additional associations may not be included.")
+    except ValueError as exc:
+        sys.stdout.write(json.dumps(error("invalid_response", str(exc))))
+        return 1
 
     output = {
         "ok": True,

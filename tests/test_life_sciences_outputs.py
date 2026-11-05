@@ -119,6 +119,9 @@ class RawOutputSafety(unittest.TestCase):
                 response = Mock()
                 response.headers = {'content-type': 'application/json'}
                 response.text = json.dumps(response_data)
+                response.status_code = 200
+                response.encoding = 'utf-8'
+                response.iter_content.side_effect = lambda **kw: iter([response.text.encode('utf-8')])
                 response.json.return_value = response_data
                 response.raise_for_status.return_value = None
                 target = Path(temp) / 'existing.json'

@@ -8,7 +8,7 @@ description: Submit compact ChEMBL API requests for activity, molecule, target, 
 - Use `base_url=https://www.ebi.ac.uk/chembl/api/data`.
 - The script accepts `max_items`; for activity, mechanism, and text-search collections, start with API `limit=10` and `max_items=10`.
 - Single molecule or target lookups usually do not need `max_items`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

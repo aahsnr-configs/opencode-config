@@ -40,6 +40,9 @@ permissions:
   - action: read
     resource: "*/.config/*/auth.json"
     effect: deny
+  - action: read
+    resource: "*auth.json"
+    effect: deny
 ---
 
 Read-only scout: find the files that matter for the task and report. Never edit, run shell commands, or use network/MCP tools.

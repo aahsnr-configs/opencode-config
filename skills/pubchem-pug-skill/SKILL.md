@@ -7,7 +7,7 @@ description: Submit compact PubChem PUG REST requests for compound properties, d
 - Use `scripts/rest_request.py` for all PubChem PUG calls.
 - Use `base_url=https://pubchem.ncbi.nlm.nih.gov/rest/pug`.
 - Property and description endpoints usually return a single focused record; assay or broader list endpoints are better with `max_items=10`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

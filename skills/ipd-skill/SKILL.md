@@ -8,7 +8,7 @@ description: Submit compact IPD REST requests for HLA allele and cell-level meta
 - Use `base_url=https://www.ebi.ac.uk/cgi-bin/ipd/api`.
 - The most stable public routes are `allele` and `cell`.
 - For HLA allele browsing, pass `project=HLA` and keep `limit` modest.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

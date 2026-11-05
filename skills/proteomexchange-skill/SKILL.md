@@ -8,7 +8,7 @@ description: Submit compact ProteomeXchange PROXI requests for datasets, librari
 - Use `base_url=https://proteomecentral.proteomexchange.org/api/proxi/v0.1`.
 - Collection endpoints are better with `max_items=10`; targeted identifier lookups usually do not need `max_items`.
 - Keep requests narrow by identifier, spectrum, or dataset whenever possible.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

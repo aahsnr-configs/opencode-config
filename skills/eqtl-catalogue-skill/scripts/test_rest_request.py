@@ -18,6 +18,16 @@ class _FakeResponse:
         self.text = body
         self.headers = {"content-type": content_type}
 
+    encoding = "utf-8"
+
+    def iter_content(self, chunk_size=65536):
+        body = self.content if hasattr(self, "content") else self.text.encode("utf-8")
+        for offset in range(0, len(body), chunk_size):
+            yield body[offset:offset + chunk_size]
+
+    def close(self):
+        return None
+
     def raise_for_status(self) -> None:
         if self.status_code >= 400:
             raise requests.HTTPError(f"{self.status_code} error", response=self)

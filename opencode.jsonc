@@ -66,6 +66,11 @@
       "effect": "deny"
     },
     {
+      "action": "read",
+      "resource": "*auth.json",
+      "effect": "deny"
+    },
+    {
       "action": "glob",
       "resource": "*",
       "effect": "allow"
@@ -108,11 +113,26 @@
     {
       "action": "shell",
       "resource": "git diff *",
-      "effect": "allow"
+      "effect": "ask"
     },
     {
       "action": "shell",
       "resource": "git log *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff --stat",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff --name-only",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git log --oneline -10",
       "effect": "allow"
     },
     {

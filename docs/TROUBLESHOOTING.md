@@ -11,7 +11,7 @@ opencode mcp list
 opencode models
 ```
 
-These diagnostics should not submit a paid model request. `opencode models` can contact provider metadata. Model names are chosen after provider login, not hard-coded in the kit.
+These diagnostics should not submit a paid model request. `opencode models` can contact provider metadata. Several agent files select explicit model IDs and variants. Check them against the models available after provider login, and update unavailable selections before using those agents.
 
 ## OpenChamber Desktop versus Web/PWA
 
@@ -32,10 +32,12 @@ Use `/connect` and model picker or the provider's documented login flow for mode
 
 `permissions` is an ordered array: the last matching rule wins. Agent rules append after global rules. Test edit denial in `chat` and access prompts in `work` with harmless operations. Do not assume shell restrictions cover third-party MCP writes.
 
+Exact compact Git forms such as `git diff --stat`, `git diff --name-only`, and `git log --oneline -10` are allowed where configured. Arbitrary `git diff`, `git log`, and `git show` options require approval or remain denied by the selected agent; those commands can write files through options such as `--output`.
+
 ## Scheduling
 
 Use OpenChamber Scheduled Tasks UI first. A scheduled task requires an authenticated model and a running OpenChamber server. The example loop has `enabled: false` and a model placeholder; edit before testing with Run now.
 
 ## Agent discovery failed in old doctor.sh
 
-The original command `opencode agent list` was from OpenCode V1; in V2 use `opencode debug agents`. The original `opencode debug skill` check was also V1-specific. Run `bash doctor.sh --details` for local diagnostics; avoid sharing unredacted output. If the six custom agents are missing, verify `~/.config/opencode/agents` and review config source precedence, then restart/reload the V2 service if appropriate (`opencode reload`). An installed CLI version different from the OpenChamber-bundled runtime may show different results.
+The original command `opencode agent list` was from OpenCode V1; in V2 use `opencode debug agents`. The original `opencode debug skill` check was also V1-specific. Run `bash doctor.sh --details` for local diagnostics; avoid sharing unredacted output. If any of the 13 custom agents are missing, verify `~/.config/opencode/agents` and review config source precedence, then restart/reload the V2 service if appropriate (`opencode reload`). An installed CLI version different from the OpenChamber-bundled runtime may show different results.

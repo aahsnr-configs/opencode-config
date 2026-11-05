@@ -7,7 +7,7 @@ description: Submit compact NCBI Datasets v2 requests for assembly, genome, taxo
 - Use `scripts/ncbi_datasets.py` for all Datasets v2 calls in this package.
 - Use explicit REST `path` values relative to `https://api.ncbi.nlm.nih.gov/datasets/v2`.
 - Prefer targeted metadata paths instead of broad unfiltered pulls.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

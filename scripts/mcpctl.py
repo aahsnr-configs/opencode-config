@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Manual MCP runtime switch for a *local* OpenCode V2 server.
 
-No dependencies. No remote URLs, silent approvals, model calls, or file writes.
+Pure JSON needs no dependencies; JSONC comments/trailing commas require json5.
+No remote URLs, silent approvals, model calls, or file writes.
 Server runtime connect/disconnect routes are experimental and may change.
 """
 import argparse
@@ -63,7 +64,24 @@ def explicit_confirm(name):
 
 def list_config(path):
     # Configuration is JSONC-compatible; the bundled configuration is pure JSON.
-    return json.loads(Path(path).read_text())['mcp']['servers']
+    raw=Path(path).read_text(encoding='utf-8')
+    try:
+        config=json.loads(raw)
+    except ValueError:
+        try:
+            import json5
+        except ImportError as exc:
+            raise ControlError('JSONC comments/trailing commas require the optional json5 package') from exc
+        try:
+            config=json5.loads(raw)
+        except ValueError as exc:
+            raise ControlError('Cannot parse installed MCP configuration as JSON or JSONC') from exc
+    if not isinstance(config,dict) or not isinstance(config.get('mcp'),dict):
+        raise ControlError('MCP configuration must contain an mcp object')
+    servers=config['mcp'].get('servers')
+    if not isinstance(servers,dict) or any(not isinstance(value,dict) for value in servers.values()):
+        raise ControlError('MCP servers must be an object of server configurations')
+    return servers
 
 def statuses(payload):
     """Parse the documented V2 /api/mcp response; fail closed on unknown data.

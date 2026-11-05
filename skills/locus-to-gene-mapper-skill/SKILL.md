@@ -7,6 +7,14 @@ description: Map GWAS loci to ranked candidate genes using a deterministic multi
 
 Generate a reproducible locus-to-gene mapping for one trait (or a seed set of lead variants), with explicit evidence attribution and conservative confidence labels.
 
+Scores and confidence labels are uncalibrated heuristics, not causal probabilities.
+The runner rejects ambiguous allele/placement resolution. Locus colocalisation is
+retained as unassigned context and excluded from gene scores until target
+attribution is verified. RefSNP gene annotations do not establish ClinVar support;
+clinical support remains `not_assessed`. HPA enrichment is not implemented.
+Select new output filenames and a new figure directory. Existing files and linked
+parent directories are refused; intentional directory links require canonical paths.
+
 This skill is optimized for bioinformaticians who need executable, traceable mapping from variant signals to plausible causal genes.
 
 ## Required Inputs
@@ -28,7 +36,7 @@ Provide at least one anchor source:
 - `max_coloc_rows_per_locus` (int), default `100`
 - `max_eqtl_rows_per_variant` (int), default `200`
 - `genebass_burden_sets` (list[string]), default `["pLoF", "missense|LC"]`
-- `include_clinvar` (bool), default `true`
+- `include_clinvar` (bool), default `true`; legacy flag for RefSNP annotations, not a clinical-evidence query
 - `include_gnomad_context` (bool), default `true`
 - `include_hpa_tissue_context` (bool), default `true`
 - `include_figures` (bool), default `false`
@@ -126,12 +134,12 @@ Use these skills in order. Skip only when an earlier step is not needed by provi
    - Retrieve single-tissue eQTL support for anchor variants.
 6. `genebass-gene-burden-skill`
    - Retrieve rare-variant burden support for candidate genes.
-7. `clinvar-variation-skill` (when `include_clinvar=true`)
-   - Add variant clinical/coding annotations.
+7. Built-in NCBI RefSNP annotation lookup (when `include_clinvar=true`)
+   - Add gene and coding consequence annotations. ClinVar is not queried.
 8. `gnomad-graphql-skill` (when `include_gnomad_context=true`)
    - Add frequency and gene-level constraint context.
-9. `human-protein-atlas-skill` (when `include_hpa_tissue_context=true`)
-   - Add tissue plausibility context for top genes.
+9. Human Protein Atlas context
+   - Not implemented in the runner. The flag records this limitation; it does not retrieve HPA evidence.
 
 Never perform additional retrieval after final candidate-gene scoring starts.
 
@@ -173,11 +181,11 @@ Always return:
           "confidence": "High|Medium|Low|VeryLow",
           "evidence": {
             "l2g_max": 0.83,
-            "coloc_max_h4": 0.84,
+            "coloc_max_h4": 0.0,
             "eqtl_tissues": ["Lung"],
             "rare_variant_support": "none|nominal|strong",
             "coding_support": "none|noncoding|coding",
-            "clinvar_support": "none|present",
+            "clinvar_support": "not_assessed",
             "gnomad_context": "...",
             "hpa_tissue_support": ["lung"]
           },
@@ -251,15 +259,14 @@ The script also returns `inline_image_markdown` and `render_instructions` fields
 For each candidate gene per locus, compute:
 
 - `l2g_component`: max L2G score for the gene in locus (`0..1`)
-- `coloc_component`: max `h4` (or `clpp` when only CLPP is available), clipped to `0..1`
+- `coloc_component`: `0`; current locus evidence lacks verified gene attribution
 - `eqtl_component`: `min(1, relevant_tissue_hits / 3)`
 - `burden_component`:
   - `1.0` if burden `p < 2.5e-6`
   - `0.6` if `2.5e-6 <= p < 0.05`
   - `0.0` otherwise
 - `coding_component`:
-  - `1.0` for coding consequence in target gene with supportive ClinVar annotation
-  - `0.6` for coding consequence in target gene without supportive ClinVar annotation
+  - `0.6` for coding consequence in target gene; the runner does not assess ClinVar support
   - `0.3` for noncoding-in-gene support only
   - `0.0` otherwise
 
@@ -268,6 +275,10 @@ Overall score:
 `overall_score = 0.40*l2g + 0.25*coloc + 0.15*eqtl + 0.10*burden + 0.10*coding`
 
 Confidence label:
+
+Without verified gene-specific colocalisation or clinical evidence, the current
+runner's maximum is `0.71`, below `High`. Missing evidence is not renormalized to
+force a higher category. These thresholds have not been scientifically calibrated.
 
 - `High` if score `>= 0.75`
 - `Medium` if `0.55 <= score < 0.75`
@@ -294,7 +305,7 @@ Confidence label:
 - Pull Open Targets locus evidence (credible set/L2G/coloc).
 - Pull GTEx variant-level eQTL rows.
 - Pull gene-level burden results for mapped candidate genes.
-- Pull ClinVar and gnomAD context when enabled.
+- Pull RefSNP annotations and gnomAD context when enabled. Record unimplemented clinical/HPA evidence as limitations.
 
 ### Phase 3: Harmonize and score
 

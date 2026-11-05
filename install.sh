@@ -72,7 +72,15 @@ if [[ "$mode" == link ]]; then
   echo "Linked to $target . Changes to linked files affect the repository."
   exit 0
 fi
-mapfile -d '' files < <(cd "$root" && find agents commands skills -type f -print0 | sort -z)
+file_list="$(mktemp "${TMPDIR:-/tmp}/opencode-files.XXXXXXXX")"
+trap 'rm -f -- "$file_list"' EXIT
+if ! (cd "$root" && find agents commands skills -type d \( -name __pycache__ -o -name .pytest_cache \) -prune -o -type f ! -name '*.pyc' ! -name '*.pyo' -print0 | sort -z) > "$file_list"; then
+  echo 'REFUSE: could not enumerate source files' >&2
+  exit 4
+fi
+mapfile -d '' files < "$file_list"
+rm -f -- "$file_list"
+trap - EXIT
 files=(opencode.jsonc cli.json AGENTS.md "${files[@]}")
 collisions=0
 changed=0

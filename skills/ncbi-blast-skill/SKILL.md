@@ -8,7 +8,7 @@ description: Submit, poll, and summarize NCBI BLAST Common URL API jobs (Blast.c
 - Use `scripts/ncbi_blast.py` for all concrete BLAST work.
 - Honor NCBI limits: `>=10s` between requests and `>=60s` between polls for the same RID.
 - Always surface the `RID` in the response so the job can be resumed or refetched later.
-- If the conversation is long or multiple tool calls have occurred, refetch from the `RID` instead of trusting older context.
+- Reuse saved results and the recorded RID. Poll only when status needs refreshing; never resubmit merely because the conversation is long.
 - If a prior turn saved raw output to disk, do not read it back into context unless the user asks for a specific follow-up.
 
 ## Execution behavior
@@ -33,7 +33,7 @@ description: Submit, poll, and summarize NCBI BLAST Common URL API jobs (Blast.c
 - `hitlist_size` defaults to `50`; `descriptions` and `alignments` default to `5`.
 - `wait_timeout_sec` defaults to `900`.
 - `save_raw` defaults to `false`.
-- If `save_raw=true` and `raw_output_path` is omitted, the script writes to `/tmp/ncbi-blast-<rid>.<json|txt>`.
+- If `save_raw=true` and `raw_output_path` is omitted, the script uses a unique private temporary directory. Report the returned path.
 - `query_fasta` may contain multi-FASTA input; compact summaries still cap per-query output with `max_hits` and `max_queries`.
 
 ## Output

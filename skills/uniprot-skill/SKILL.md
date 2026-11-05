@@ -8,7 +8,7 @@ description: Submit compact UniProt REST API requests for UniProtKB, UniRef, Uni
 - Use `base_url=https://rest.uniprot.org`.
 - The script accepts `max_items`; for search endpoints, start with API `size=10` and `max_items=10`.
 - Single accession or cluster lookups usually do not need `max_items`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the real request.
 - If the user asks for full JSON or FASTA, set `save_raw=true` and report the saved file path instead of pasting the payload into chat.
 

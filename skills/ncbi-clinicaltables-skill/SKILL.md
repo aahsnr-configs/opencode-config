@@ -9,7 +9,7 @@ description: Submit compact Clinical Tables NCBI Gene requests for human gene lo
 - Use `params` for endpoint options like `df`, `ef`, `sf`, `q`, `offset`, and `count`.
 - Prefer `ncbi-entrez-skill` when the user wants general Entrez Gene records rather than autocomplete/search rows.
 - Page with `offset` instead of asking for large pulls.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 - If the user asks for the full payload, set `save_raw=true` and report the saved file path instead of pasting large response arrays into chat.
 

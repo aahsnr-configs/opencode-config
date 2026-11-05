@@ -19,10 +19,10 @@ permissions:
   effect: allow
 - action: shell
   resource: git log *
-  effect: allow
+  effect: ask
 - action: shell
   resource: git diff *
-  effect: allow
+  effect: ask
 - action: read
   resource: '*.env'
   effect: deny
@@ -43,6 +43,18 @@ permissions:
   effect: deny
 - action: read
   resource: '*/.config/*/auth.json'
+  effect: deny
+- action: shell
+  resource: "git diff --stat"
+  effect: allow
+- action: shell
+  resource: "git diff --name-only"
+  effect: allow
+- action: shell
+  resource: "git log --oneline -10"
+  effect: allow
+- action: read
+  resource: "*auth.json"
   effect: deny
 ---
 

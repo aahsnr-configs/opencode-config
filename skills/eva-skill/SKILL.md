@@ -8,7 +8,7 @@ description: Submit compact EVA REST requests for species metadata and archived 
 - Use `base_url=https://www.ebi.ac.uk/eva/webservices/rest/v1`.
 - Prefer metadata and targeted variant lookups over broad genomic window pulls.
 - Keep region queries narrow by species, assembly, or small coordinate windows when possible.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

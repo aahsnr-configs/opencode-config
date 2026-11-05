@@ -35,12 +35,22 @@ def canonical_url(value):
     return urllib.parse.urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), parsed.path, parsed.query, ''))
 
 
+def _check_directory_path(path):
+    """Reject linked/non-directory ancestors; intentional links need canonical paths.
+
+    This preflight check does not prevent concurrent path replacement.
+    """
+    path = path.absolute()
+    for ancestor in reversed((path, *path.parents)):
+        if ancestor.is_symlink() or (ancestor.exists() and not ancestor.is_dir()):
+            raise IntegrationError('State directory path must not contain a symlink or non-directory parent')
+
+
 class Store:
     def __init__(self, root=None):
         root = Path(root or os.environ.get('OPENCODE_RESEARCH_STATE_DIR',
             str(Path(os.environ.get('XDG_STATE_HOME', str(Path.home() / '.local/state'))) / 'opencode-research')))
-        if root.is_symlink():
-            raise IntegrationError('State directory must not be a symlink')
+        _check_directory_path(root)
         root.mkdir(parents=True, exist_ok=True, mode=0o700)
         self.path = root / 'runs.sqlite3'
         if self.path.is_symlink():
@@ -51,6 +61,9 @@ class Store:
 
     @contextlib.contextmanager
     def connect(self):
+        _check_directory_path(self.path.parent)
+        if self.path.is_symlink():
+            raise IntegrationError('State database must not be a symlink')
         con = sqlite3.connect(self.path, timeout=10)
         try:
             with con:

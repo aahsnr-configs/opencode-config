@@ -7,7 +7,7 @@ description: Submit compact Human Protein Atlas requests for gene JSON, search d
 - Use `scripts/rest_request.py` for all Human Protein Atlas calls.
 - Use `base_url=https://www.proteinatlas.org`.
 - The script accepts `max_items`; single gene entry lookups usually do not need it, while search and download endpoints are better with `max_items=10`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 - If the user asks for full HTML or JSON, set `save_raw=true` and report the saved file path instead of pasting large payloads into chat.
 

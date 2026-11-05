@@ -4,6 +4,9 @@
 from pathlib import Path
 import json, re, sys, subprocess, shlex
 
+if sys.flags.optimize:
+    sys.exit("FAIL: optimized Python disables validation assertions; run without -O or PYTHONOPTIMIZE.")
+
 root = Path(__file__).resolve().parent
 conf = json.loads((root / "opencode.jsonc").read_text())
 assert conf["$schema"] == "https://opencode.ai/config.json"

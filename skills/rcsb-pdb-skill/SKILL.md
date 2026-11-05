@@ -7,7 +7,7 @@ description: Submit compact RCSB PDB requests for core metadata, Search API quer
 - Use `scripts/rest_request.py` for all RCSB PDB and Search API calls.
 - Use `base_url=https://data.rcsb.org/rest/v1` for core metadata, `https://search.rcsb.org/rcsbsearch/v2` for Search API, and `https://www.rcsb.org` for FASTA downloads.
 - Core entry or assembly lookups usually do not need `max_items`; Search API results are better with query pager rows around `10` and `max_items=10`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

@@ -7,7 +7,7 @@ description: Submit compact ClinicalTrials.gov API v2 requests for study search,
 - Use `scripts/clinicaltrials_client.py` for all ClinicalTrials.gov v2 calls.
 - Study searches are better with `max_items=10` and `max_pages=1`; only increase pages when the user explicitly wants more than the first page.
 - Use targeted `params` instead of broad unfiltered study dumps.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

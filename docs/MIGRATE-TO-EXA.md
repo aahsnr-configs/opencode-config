@@ -1,6 +1,6 @@
 # Upgrade: retire Firecrawl and use Exa only
 
-This package already has an Exa server named `exa`. It **removes** the old `firecrawl` entry, uses nine MCP servers rather than ten, and updates `web-researcher` to the official Exa default tools.
+This package already has an Exa server named `exa`. It **removes** the old `firecrawl` entry and updates `web-researcher` to the official Exa default tools. The current configuration contains ten MCP servers, including Zotero; the earlier Exa migration release contained nine.
 
 ## Safe upgrade from the previous archive
 

@@ -7,7 +7,7 @@ description: Submit compact PharmGKB API requests for genes, variants, clinical 
 - Use `scripts/rest_request.py` for all PharmGKB API calls.
 - Use `base_url=https://api.pharmgkb.org/v1/data`.
 - Single object lookups usually do not need `max_items`; list and search endpoints are better with `max_items=10`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

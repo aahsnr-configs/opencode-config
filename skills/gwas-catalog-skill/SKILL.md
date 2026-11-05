@@ -9,7 +9,7 @@ description: Submit compact GWAS Catalog REST API v2 requests for studies, assoc
 - The script accepts `max_items`; for collection endpoints, start with API `size=10` and `max_items=10`.
 - Single-resource endpoints such as `studies/<accession>` generally do not need `max_items`.
 - Use `record_path` to target `_embedded.<resource>` lists.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

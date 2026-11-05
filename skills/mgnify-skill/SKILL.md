@@ -8,7 +8,7 @@ description: Submit compact MGnify API requests for microbiome studies, samples,
 - Use `base_url=https://www.ebi.ac.uk/metagenomics/api/v1`.
 - MGnify uses JSON:API-style responses. Prefer `record_path=data` for collection endpoints.
 - Keep requests narrow by study accession, sample accession, or biome whenever possible.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

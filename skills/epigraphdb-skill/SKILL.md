@@ -8,7 +8,7 @@ description: Submit compact EpiGraphDB API requests for ontology, literature, MR
 - Use `base_url=https://api.epigraphdb.org`.
 - Start with `max_items=10` for list-style endpoints; use smaller caps for literature-heavy or pairwise endpoints if the response fans out quickly.
 - Prefer the connectivity guard endpoints first when endpoint availability matters: `ping`, `builds`, and `meta/api-endpoints`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

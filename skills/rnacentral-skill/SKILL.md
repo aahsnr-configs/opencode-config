@@ -8,7 +8,7 @@ description: Submit compact RNAcentral API requests for RNA entry browsing, sing
 - Use `base_url=https://rnacentral.org/api/v1`.
 - Keep the trailing slash on collection and record paths to avoid redirects.
 - Start with targeted lookups such as `rna/<URS>/<taxid>` because broad `rna/` browsing can be slow or time out.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

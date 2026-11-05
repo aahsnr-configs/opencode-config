@@ -7,7 +7,7 @@ description: Fetch compact UKB-TOPMed PheWAS summaries for single variants by ac
 - Use `scripts/ukb_topmed_phewas.py` for all UKB-TOPMed PheWAS lookups.
 - Accept exactly one of `rsid`, `grch37`, `grch38`, or `variant`; resolve to the canonical GRCh38 `chr:pos-ref-alt` query before calling UKB-TOPMed.
 - The script accepts `max_results`; start with `max_results=10` and only increase it if the first slice is insufficient.
-- Re-run the lookup in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 - If the user needs the full association payload, set `save_raw=true` and report `raw_output_path` instead of pasting large arrays into chat.
 

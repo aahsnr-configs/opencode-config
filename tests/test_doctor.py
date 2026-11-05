@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory(prefix="opencode-doctor-mock-") as d:
 case "$*" in
   --version) echo '2.0.mock'; exit 0 ;;
   'debug config') echo 'global config'; exit 0 ;;
-  'debug agents') printf 'build\nchat\nwork\ncoder\nresearch\nreviewer\ndigest\ncompactor\nexplore-scout\ngit-gh\nweb-researcher\ndeep-research\nlearn\n'; exit 0 ;;
+  'debug agents') printf 'build\nchat\nwork\ncoder\nresearch\nreviewer\ndigest\ncompactor\nexplore-scout\ngit-gh\nweb-researcher\ndeep-research\nlearn\nsol-advisor\n'; exit 0 ;;
   'mcp list') echo 'all disabled'; exit 0 ;;
   *) echo 'unexpected V1 CLI command: '"$*" >&2; exit 70 ;;
 esac
@@ -33,7 +33,12 @@ esac
     result = run()
     assert result.returncode == 0, (result.returncode, result.stdout, result.stderr)
     assert "agent chat discovered" in result.stdout
+    assert "agent sol-advisor discovered" in result.stdout
     assert "opencode agent list" not in result.stdout
+    mock.write_text(mock.read_text().replace("\nsol-advisor\n", "\n"))
+    result = run()
+    assert result.returncode == 4, (result.returncode, result.stdout, result.stderr)
+    assert "agent sol-advisor not found" in result.stderr
     # Agent discovery fails even though CLI exits 0 if custom agents are missing
     mock.write_text("""#!/usr/bin/env bash
 case "$*" in

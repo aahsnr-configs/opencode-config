@@ -48,6 +48,69 @@ VALID_PROGRAMS = {"blastn", "blastp", "blastx", "tblastn", "tblastx"}
 VALID_RESULT_FORMATS = {"json2", "text"}
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {
         "ok": False,
@@ -58,7 +121,7 @@ def error(code: str, message: str, warnings: list[str] | None = None) -> dict[st
 
 def _parse_positive_int(payload: dict[str, Any], key: str, default: int) -> int:
     value = payload.get(key, default)
-    if not isinstance(value, int) or value <= 0:
+    if type(value) is not int or value <= 0:
         raise ValueError(f"`{key}` must be a positive integer.")
     return value
 
@@ -94,6 +157,8 @@ def parse_input(payload: Any) -> dict[str, Any]:
     database = _parse_str(payload, "database")
     query_fasta = _parse_str(payload, "query_fasta")
     rid = _parse_str(payload, "rid")
+    if rid is not None:
+        _validate_rid(rid)
 
     tool = _parse_str(payload, "tool") or os.environ.get("NCBI_TOOL", DEFAULT_TOOL)
     email = _parse_str(payload, "email") or os.environ.get("NCBI_EMAIL")
@@ -165,7 +230,7 @@ class RequestThrottle:
             remaining = self.min_interval_sec - (self.clock_fn() - self.last_request_ts)
             if remaining > 0:
                 self.sleep_fn(remaining)
-        response = session.request(method, BLAST_URL, **kwargs)
+        response = _bounded_request(session.request, method, BLAST_URL, **kwargs)
         self.last_request_ts = self.clock_fn()
         response.raise_for_status()
         return response
@@ -209,6 +274,7 @@ def submit_search(
         raise ValueError("BLAST submit response did not include an RID.")
 
     rid = rid_match.group(1)
+    _validate_rid(rid)
     rtoe_seconds = int(rtoe_match.group(1)) if rtoe_match else 10
 
     return {
@@ -261,7 +327,13 @@ def get_search_info(
     }
 
 
+def _validate_rid(rid: str) -> None:
+    if not isinstance(rid, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", rid):
+        raise ValueError("RID must contain only letters, digits, underscores or hyphens (maximum 128 characters).")
+
+
 def _derive_raw_output_path(rid: str, result_format: str, raw_output_path: str | None) -> Path:
+    _validate_rid(rid)
     if raw_output_path:
         return Path(raw_output_path)
     suffix = "json" if result_format == "json2" else "txt"
@@ -275,6 +347,7 @@ def _save_raw_output(
     raw_output_path: str | None,
 ) -> str:
     path = _derive_raw_output_path(rid, result_format, raw_output_path)
+    _check_output_parent(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as stream:
         stream.write(raw_output)
@@ -286,6 +359,8 @@ def _summarize_json2_payload(
     max_queries: int,
     max_hits: int,
 ) -> dict[str, Any]:
+    if not isinstance(data, dict):
+        raise ValueError("BLAST JSON2 response must be an object.")
     reports = data.get("BlastOutput2")
     if isinstance(reports, dict):
         reports = [reports]
@@ -302,7 +377,10 @@ def _summarize_json2_payload(
         report_body = report.get("report", {})
         if not isinstance(report_body, dict):
             raise ValueError("BLAST JSON2 report payload was not an object.")
-        search = report_body.get("results", {}).get("search", {})
+        results = report_body.get("results", {})
+        if not isinstance(results, dict):
+            raise ValueError("BLAST JSON2 results payload was not an object.")
+        search = results.get("search", {})
         if not isinstance(search, dict):
             raise ValueError("BLAST JSON2 search payload was not an object.")
 
@@ -316,8 +394,12 @@ def _summarize_json2_payload(
             if not isinstance(hit, dict):
                 continue
             descriptions = hit.get("description") or []
+            if not isinstance(descriptions, list):
+                raise ValueError("BLAST hit descriptions must be a list.")
             desc = descriptions[0] if descriptions and isinstance(descriptions[0], dict) else {}
             hsps = hit.get("hsps") or []
+            if not isinstance(hsps, list):
+                raise ValueError("BLAST hit HSPs must be a list.")
             hsp = hsps[0] if hsps and isinstance(hsps[0], dict) else {}
             top_hits.append(
                 {
@@ -351,12 +433,19 @@ def _summarize_json2_payload(
 
 
 def _load_json_member(zip_file: zipfile.ZipFile, member_name: str) -> tuple[Any, str]:
+    info = zip_file.getinfo(member_name)
+    if info.file_size > MAX_RESPONSE_BYTES:
+        raise ValueError("BLAST archive member exceeds the 5 MiB expansion limit.")
     try:
-        text = zip_file.read(member_name).decode("utf-8")
+        with zip_file.open(info) as stream:
+            body = stream.read(MAX_RESPONSE_BYTES + 1)
+        if len(body) > MAX_RESPONSE_BYTES:
+            raise ValueError("BLAST archive member exceeds the 5 MiB expansion limit.")
+        text = body.decode("utf-8")
     except UnicodeDecodeError as exc:
         raise ValueError(f"BLAST JSON2 archive member {member_name!r} was not UTF-8 text.") from exc
     try:
-        return json.loads(text), text
+        return _decode_json(text), text
     except ValueError as exc:
         raise ValueError(f"BLAST JSON2 archive member {member_name!r} was not valid JSON.") from exc
 
@@ -393,6 +482,9 @@ def _extract_json2_payload(response: requests.Response) -> tuple[Any, str]:
             ) from exc
 
         with zip_file:
+            members = zip_file.infolist()
+            if len(members) > 1000 or sum(info.file_size for info in members) > MAX_RESPONSE_BYTES:
+                raise ValueError("BLAST archive exceeds the member count or 5 MiB total expansion limit.")
             json_members = [name for name in zip_file.namelist() if name.lower().endswith(".json")]
             if not json_members:
                 raise ValueError("BLAST JSON2 archive did not contain any JSON members.")
@@ -403,11 +495,16 @@ def _extract_json2_payload(response: requests.Response) -> tuple[Any, str]:
                 payload, _ = _load_json_member(zip_file, member_name)
                 if isinstance(payload, dict) and isinstance(payload.get("BlastJSON"), list):
                     manifest = payload
+                    entries = payload["BlastJSON"]
+                    if len(entries) > 1000:
+                        raise ValueError("BLAST archive manifest exceeds 1000 entries.")
                     manifest_members = [
                         item.get("File")
-                        for item in payload["BlastJSON"]
+                        for item in entries
                         if isinstance(item, dict) and isinstance(item.get("File"), str)
                     ]
+                    if len(manifest_members) != len(set(manifest_members)):
+                        raise ValueError("BLAST archive manifest contains duplicate member references.")
                     break
 
             payload_objects: list[dict[str, Any]] = []
@@ -730,10 +827,10 @@ def execute(
             sleep_fn=sleep_fn,
             clock_fn=clock_fn,
         )
+    except requests.RequestException as exc:
+        return error("network_error", f"BLAST request failed ({type(exc).__name__}).")
     except ValueError as exc:
         return error("invalid_response", str(exc))
-    except requests.RequestException as exc:
-        return error("network_error", f"BLAST request failed: {exc}")
     finally:
         if session is None:
             local_session.close()

@@ -8,7 +8,7 @@ description: Submit compact EFO OLS4 requests for search, term lookup, children,
 - Use `base_url=https://www.ebi.ac.uk/ols4/api`.
 - Search, children, and descendant endpoints are better with `max_items=10`; single term lookups usually do not need `max_items`.
 - Use the smallest ontology expansion that answers the question.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

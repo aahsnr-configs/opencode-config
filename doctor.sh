@@ -64,7 +64,7 @@ check 'agent discovery (OpenCode V2)' agents opencode debug agents || {
   exit 3
 }
 missing=0
-for agent in chat work coder research reviewer digest compactor explore-scout git-gh web-researcher deep-research learn; do
+for agent in chat work coder research reviewer digest compactor explore-scout git-gh web-researcher deep-research learn sol-advisor; do
   if grep -Fwq -- "$agent" "$tmp/agents.log"; then
     printf 'PASS: agent %s discovered\n' "$agent"
   else

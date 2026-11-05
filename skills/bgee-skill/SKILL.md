@@ -8,7 +8,7 @@ description: Submit compact Bgee SPARQL requests for healthy wild-type expressio
 - Start with small `SELECT` or `ASK` queries and add `LIMIT` early.
 - Prefer ontology-aware, healthy wild-type expression questions over broad triple dumps.
 - Use `query_path` for longer SPARQL documents instead of pasting large inline queries.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the SPARQL JSON by default.

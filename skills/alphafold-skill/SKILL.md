@@ -8,7 +8,7 @@ description: Submit compact AlphaFold Protein Structure Database API requests fo
 - Use `base_url=https://alphafold.ebi.ac.uk/api`.
 - The script accepts `max_items`, but set it explicitly only when trimming array-heavy responses; single-entry lookups usually do not need it.
 - For `sequence/summary` or `annotations`, start around `max_items=3` to `5`.
-- Re-run the request if the conversation is long instead of trusting older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the real request.
 - If the user asks for full JSON, set `save_raw=true` and report the saved file path instead of pasting the payload into chat.
 
@@ -16,7 +16,7 @@ description: Submit compact AlphaFold Protein Structure Database API requests fo
 - Return concise markdown summaries from the script JSON by default.
 - Return the script JSON verbatim only if the user explicitly asks for machine-readable output.
 - Prefer these paths: `prediction/<qualifier>`, `uniprot/summary/<qualifier>.json`, `sequence/summary`, and `annotations/<qualifier>.json`.
-- Keep sequence-style inputs compact and prefer rerunning instead of copying prior output back into context.
+- Keep sequence-style inputs compact and refer to saved output paths instead of copying large results back into context.
 
 ## Input
 - Read one JSON object from stdin.

@@ -10,7 +10,7 @@ description: Submit compact STRING API requests for network, interaction partner
 - Include `caller_identity` in `form_body`; keep it stable within a session when possible.
 - The script accepts `max_items`; for `network` and `interaction_partners`, start with API `limit=10` and `max_items=10`.
 - For `enrichment`, summarize the top `5` to `10` rows unless the user asks for more.
-- Re-run requests in long conversations instead of relying on prior tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

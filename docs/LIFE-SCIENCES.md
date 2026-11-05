@@ -44,7 +44,7 @@ An optional [OpenChamber project example](../examples/openchamber/life-sciences.
 
 ## Verification limits
 
-Offline tests check all 161 upstream/adapted hashes, parse every upstream Python source, exercise the supplementary lookup and corrected helpers with controlled responses, and validate base config metadata. The runtime suite checks a temporary XDG installation byte-for-byte, executes all 50 installed entrypoints with non-network inputs, and runs the three bundled upstream suites (16 behavioral tests) in isolation. See the current audit for installed OpenCode and live-probe results. These checks do not establish all-source availability, biological accuracy, provider quotas, or hosted feature parity.
+Offline tests check all 161 upstream/adapted hashes, parse every upstream Python source, exercise the supplementary lookup and corrected helpers with controlled responses, and validate base config metadata. The runtime suite checks a temporary XDG installation byte-for-byte, executes all 50 installed entrypoints with non-network inputs, and runs the three bundled upstream suites in isolation. See [the complete audit](CONFIGURATION-AUDIT-COMPLETE.md) for current verification results. These checks do not establish all-source availability, biological accuracy, provider quotas, or hosted feature parity.
 
 See [LIFE-SCIENCES-AUDIT.md](LIFE-SCIENCES-AUDIT.md) for findings and [UPSTREAM-NOTICE.md](../life-sciences/UPSTREAM-NOTICE.md) for attribution and the unresolved upstream license status. Review scripts and endpoint terms before using sensitive data or redistributing upstream content.
 

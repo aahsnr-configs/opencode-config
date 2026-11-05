@@ -13,6 +13,7 @@ Output JSON on stdout.
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 import tempfile
@@ -33,6 +34,69 @@ DEFAULT_MAX_RESULTS = 10
 SAFE_PATH_RE = re.compile(r"[^A-Za-z0-9._-]+")
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {
         "ok": False,
@@ -51,7 +115,7 @@ def parse_input(payload: Any) -> tuple[str, str, int, bool, str | None, float]:
     input_type, variant = extract_variant_input(payload, default_build_key="grch38")
 
     max_results = payload.get("max_results", DEFAULT_MAX_RESULTS)
-    if not isinstance(max_results, int) or max_results <= 0:
+    if type(max_results) is not int or max_results <= 0:
         raise ValueError("`max_results` must be a positive integer when provided.")
 
     save_raw = payload.get("save_raw", False)
@@ -65,7 +129,7 @@ def parse_input(payload: Any) -> tuple[str, str, int, bool, str | None, float]:
         raw_output_path = raw_output_path.strip()
 
     timeout_sec = payload.get("timeout_sec", DEFAULT_TIMEOUT_S)
-    if not isinstance(timeout_sec, (int, float)) or timeout_sec <= 0:
+    if (type(timeout_sec) not in (int, float) or not math.isfinite(timeout_sec) or timeout_sec <= 0):
         raise ValueError("`timeout_sec` must be a positive number when provided.")
 
     return input_type, variant, max_results, save_raw, raw_output_path, float(timeout_sec)
@@ -83,7 +147,7 @@ def fetch_finngen_variant(
         "User-Agent": USER_AGENT,
     }
 
-    resp = session.get(url, headers=headers, timeout=timeout_sec)
+    resp = _bounded_request(session.get, url, headers=headers, timeout=timeout_sec)
     if resp.status_code == 404:
         return None, 404
     resp.raise_for_status()
@@ -109,6 +173,7 @@ def resolve_raw_output_path(canonical_variant: str, raw_output_path: str | None)
 
 
 def write_raw_json(path: Path, data: Any) -> None:
+    _check_output_parent(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as stream:
         json.dump(data, stream)
@@ -139,25 +204,27 @@ def main() -> int:
         )
         parsed = dict(resolution["query_variant"])
         warnings.extend(resolution["warnings"])
+    except requests.RequestException as exc:
+        sys.stdout.write(json.dumps(error("network_error", f"Request failed ({type(exc).__name__}).")))
+        return 1
     except ValueError as exc:
         sys.stdout.write(json.dumps(error("invalid_input", str(exc))))
         return 2
     except VariantResolutionError as exc:
         sys.stdout.write(json.dumps(error(exc.code, exc.message, exc.warnings)))
         return 1
-    except requests.RequestException as exc:
-        sys.stdout.write(json.dumps(error("network_error", f"Variant resolution failed: {exc}")))
-        return 1
 
     session = requests.Session()
     try:
         data, status_code = fetch_finngen_variant(session, parsed["canonical"], timeout_sec)
     except requests.RequestException as exc:
-        sys.stdout.write(json.dumps(error("network_error", f"FinnGen request failed: {exc}")))
+        sys.stdout.write(json.dumps(error("network_error", f"Request failed ({type(exc).__name__}).")))
         return 1
     except ValueError as exc:
         sys.stdout.write(json.dumps(error("invalid_response", f"FinnGen returned non-JSON: {exc}")))
         return 1
+    finally:
+        session.close()
 
     variant_url = f"{FINNGEN_BASE}/variant/{parsed['canonical']}"
     saved_raw_output_path: str | None = None

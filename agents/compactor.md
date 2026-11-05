@@ -21,13 +21,13 @@ permissions:
     effect: allow
   - action: shell
     resource: "git diff *"
-    effect: allow
+    effect: ask
   - action: shell
     resource: "git log *"
-    effect: allow
+    effect: ask
   - action: shell
     resource: "git show *"
-    effect: allow
+    effect: ask
   - action: external_directory
     resource: "*"
     effect: deny
@@ -51,6 +51,18 @@ permissions:
     effect: deny
   - action: read
     resource: "*/.config/*/auth.json"
+    effect: deny
+  - action: shell
+    resource: "git diff --stat"
+    effect: allow
+  - action: shell
+    resource: "git diff --name-only"
+    effect: allow
+  - action: shell
+    resource: "git log --oneline -10"
+    effect: allow
+  - action: read
+    resource: "*auth.json"
     effect: deny
 ---
 

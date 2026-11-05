@@ -7,7 +7,7 @@ description: Submit compact ClinVar Clinical Tables and NCBI Variation requests 
 - Use `scripts/clinvar_variation.py` for all ClinVar and NCBI Variation work.
 - The script accepts `max_items`; for `action=search`, start around `max_items=10`.
 - For `vcv`, `rcv`, `scv`, and `refsnp`, omit `max_items` unless you need to trim nested arrays in the summary.
-- Re-run requests in long conversations instead of relying on prior tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 - If the user asks for full JSON, set `save_raw=true` and report the saved file path instead of pasting large payloads into chat.
 

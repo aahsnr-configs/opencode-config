@@ -129,7 +129,10 @@ class RefSnpResolutionTests(unittest.TestCase):
         )
 
     def test_resolve_refsnp_coordinates_uses_top_level_grch_placements(self) -> None:
-        with mock.patch.object(map_locus_to_gene, "safe_get_json", return_value=refsnp_payload()):
+        payload = refsnp_payload()
+        # A success fixture must identify one ALT, rather than choosing from C/G/T.
+        payload["primary_snapshot_data"]["placements_with_allele"][0]["alleles"].pop(1)
+        with mock.patch.object(map_locus_to_gene, "safe_get_json", return_value=payload):
             coords = map_locus_to_gene.resolve_refsnp_coordinates("rs7903146", [], [])
 
         self.assertEqual(coords["grch38"]["chr"], "10")
@@ -137,6 +140,13 @@ class RefSnpResolutionTests(unittest.TestCase):
         self.assertEqual(coords["grch38"]["ref"], "C")
         self.assertEqual(coords["grch38"]["alt"], "T")
         self.assertEqual(coords["grch37"]["pos"], 114758349)
+
+    def test_multiallelic_placement_is_unresolved(self) -> None:
+        warnings = []
+        with mock.patch.object(map_locus_to_gene, "safe_get_json", return_value=refsnp_payload()):
+            coords = map_locus_to_gene.resolve_refsnp_coordinates("rs7903146", warnings, [])
+        self.assertNotIn("grch38", coords)
+        self.assertTrue(any("Ambiguous" in warning for warning in warnings))
 
     def test_fetch_refsnp_annotations_uses_gene_locus_symbols(self) -> None:
         with mock.patch.object(map_locus_to_gene, "safe_get_json", return_value=refsnp_payload()):

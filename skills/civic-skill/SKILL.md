@@ -7,7 +7,7 @@ description: Submit compact CIViC GraphQL requests for cancer variant interpreta
 - Use `scripts/civic_graphql.py` for all CIViC GraphQL work.
 - Keep selection sets narrow and start with schema or targeted entity queries.
 - Use `query_path` for longer GraphQL documents instead of pasting large inline queries.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

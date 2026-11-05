@@ -8,7 +8,7 @@ description: Submit compact ChEBI 2.0 API requests for chemical search, compound
 - Use `base_url=https://www.ebi.ac.uk`.
 - Prefer the documented public routes under `chebi/backend/api/public/`.
 - Start with `es_search/` for free-text lookup and use `compound/<CHEBI:id>/` for targeted records.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

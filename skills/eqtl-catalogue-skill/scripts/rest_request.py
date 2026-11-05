@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import sys
 import tempfile
+from urllib.parse import urljoin, urlsplit
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +34,69 @@ EQTLCAT_ASSOCIATION_STR_DEFAULTS = {
 }
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {"ok": False, "error": {"code": code, "message": message}, "warnings": warnings or []}
 
@@ -56,7 +120,7 @@ def _require_bool(name: str, value: Any, default: bool) -> bool:
 def _require_int(name: str, value: Any, default: int) -> int:
     if value is None:
         return default
-    if not isinstance(value, int) or value <= 0:
+    if type(value) is not int or value <= 0:
         raise ValueError(f"`{name}` must be a positive integer.")
     return value
 
@@ -80,10 +144,29 @@ def _drop_none_values(value: dict[str, Any]) -> dict[str, Any]:
     return {key: item for key, item in value.items() if item is not None}
 
 
+def _url_origin(url: str) -> tuple[str, str, int]:
+    parsed = urlsplit(url)
+    if (parsed.scheme not in {"http", "https"} or not parsed.hostname
+            or parsed.username is not None or parsed.password is not None
+            or parsed.fragment or "\\" in url or any(c.isspace() for c in url)):
+        raise ValueError("URLs must use HTTP(S) without embedded credentials, fragments, or whitespace.")
+    port = parsed.port if parsed.port is not None else (443 if parsed.scheme == "https" else 80)
+    return parsed.scheme, parsed.hostname.lower(), port
+
+
 def _build_url(base_url: str, path: str) -> str:
-    if path.startswith(("http://", "https://")):
-        return path
-    return base_url.rstrip("/") + "/" + path.lstrip("/")
+    """Keep relative paths and absolute same-origin URLs within the approved base."""
+    origin = _url_origin(base_url)
+    if urlsplit(base_url).query:
+        raise ValueError("`base_url` must not include a query; use `params` instead.")
+    parsed_path = urlsplit(path)
+    if parsed_path.scheme or parsed_path.netloc:
+        url = urljoin(base_url.rstrip("/") + "/", path)
+    else:
+        url = base_url.rstrip("/") + "/" + path.lstrip("/")
+    if _url_origin(url) != origin:
+        raise ValueError("`path` must use the same origin as `base_url`; cross-origin headers are refused.")
+    return url
 
 
 def _get_by_path(value: Any, path: str) -> Any:
@@ -158,6 +241,7 @@ def _save_raw_output(
 ) -> str:
     path = (Path(raw_output_path) if raw_output_path else
             Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / f"{_service_name(base_url)}-raw.{suffix}")
+    _check_output_parent(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as stream:
         stream.write(raw_output)
@@ -257,9 +341,9 @@ def execute(payload: Any) -> dict[str, Any]:
     if requests is None:
         return error("missing_dependency", f"`requests` is required: {REQUESTS_IMPORT_ERROR}")
     config = parse_input(payload)
+    url = _build_url(config["base_url"], config["path"])
     session = requests.Session()
     session.headers.update(config["headers"])
-    url = _build_url(config["base_url"], config["path"])
 
     request_kwargs: dict[str, Any] = {"params": config["params"], "timeout": config["timeout_sec"]}
     if config["json_body"] is not None:
@@ -268,7 +352,7 @@ def execute(payload: Any) -> dict[str, Any]:
         request_kwargs["data"] = config["form_body"]
 
     try:
-        response = session.request(config["method"], url, **request_kwargs)
+        response = _bounded_request(session.request, config["method"], url, **request_kwargs)
         response.raise_for_status()
         content_type = (response.headers.get("content-type") or "").lower()
         wants_json = config["response_format"] == "json"
@@ -338,19 +422,25 @@ def execute(payload: Any) -> dict[str, Any]:
             "raw_output_path": raw_output_path,
             "warnings": [],
         }
-    except ValueError as exc:
-        return error("invalid_response", str(exc))
     except requests.HTTPError as exc:
-        response = exc.response
-        if response is None:
-            return error("http_error", f"Request failed: {exc}")
+        if exc.response is None:
+            return error("http_error", f"Request failed ({type(exc).__name__}).")
         message = _extract_error_message(response)
+        # Upstream diagnostics can reflect caller-supplied credentials.
+        sensitive_values = list(config["headers"].values())
+        sensitive_values.extend(value for key, value in config["params"].items()
+                                if any(word in key.lower() for word in ("key", "token", "auth", "password")))
+        for value in sensitive_values:
+            if isinstance(value, str) and value:
+                message = message.replace(value, "[redacted]")
         return error(
             "http_error",
-            f"HTTP {response.status_code} for {config['path']}: {message}",
+            f"HTTP {response.status_code}: {message}",
         )
     except requests.RequestException as exc:
-        return error("network_error", f"Request failed: {exc}")
+        return error("network_error", f"Request failed ({type(exc).__name__}).")
+    except ValueError as exc:
+        return error("invalid_response", str(exc))
     finally:
         session.close()
 

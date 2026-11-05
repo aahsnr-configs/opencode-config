@@ -8,7 +8,7 @@ description: Submit compact Ensembl REST API requests for lookup, overlap, cross
 - Use `base_url=https://rest.ensembl.org`.
 - The script accepts `max_items`; object lookups usually do not need it, but `overlap` and `xrefs` are better with `max_items=10`.
 - Send JSON-friendly headers such as `Accept: application/json` and `Content-Type: application/json`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the true request.
 
 ## Execution behavior

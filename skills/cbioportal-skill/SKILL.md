@@ -9,7 +9,7 @@ description: Submit compact cBioPortal API requests for studies, molecular profi
 - Collection endpoints are better with `pageSize=10` and `max_items=10`; single study or profile lookups usually do not need `max_items`.
 - Use `method=POST` plus `json_body` for fetch-style endpoints such as mutation fetches.
 - Send `Accept: application/json` in `headers`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

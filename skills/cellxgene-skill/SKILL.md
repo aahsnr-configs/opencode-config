@@ -8,7 +8,7 @@ description: Submit compact CELLxGENE Discover API requests for public collectio
 - Use `base_url=https://api.cellxgene.cziscience.com/curation/v1`.
 - Prefer targeted collection detail lookups rather than full archive dumps by default.
 - The public `collections` list can be large and may require a higher `timeout_sec`; collection detail lookups are usually the better first call.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

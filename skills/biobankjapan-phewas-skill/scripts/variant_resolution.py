@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import urlsplit
 
 import requests
 
@@ -10,6 +12,7 @@ ENSEMBL_GRCH38 = "https://rest.ensembl.org"
 ENSEMBL_GRCH37 = "https://grch37.rest.ensembl.org"
 
 DEFAULT_TIMEOUT_S = 15
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
 USER_AGENT = "variant-coordinate-finder/1.0 (+requests)"
 
 SEP_RE = re.compile(r"[-:_/\s]+")
@@ -132,13 +135,37 @@ def _assembly_cmp(build: str) -> str:
 
 
 def _get_json(url: str, *, timeout: int = DEFAULT_TIMEOUT_S) -> Any:
+    if type(timeout) is not int or timeout <= 0:
+        raise VariantResolutionError("invalid_input", "Timeout must be a positive integer.")
+    try:
+        parsed = urlsplit(url)
+        origin = (parsed.scheme, parsed.hostname, parsed.port if parsed.port is not None else 443)
+        allowed = {("https", "rest.ensembl.org", 443), ("https", "grch37.rest.ensembl.org", 443)}
+        if (origin not in allowed or parsed.username is not None or parsed.password is not None
+                or parsed.fragment or "\\" in url or any(character.isspace() for character in url)):
+            raise ValueError("Unsupported Ensembl URL")
+    except (TypeError, ValueError) as exc:
+        raise VariantResolutionError("invalid_input", "Use an Ensembl HTTPS URL without embedded credentials.") from exc
     headers = {
         "Accept": "application/json",
         "User-Agent": USER_AGENT,
     }
-    response = requests.get(url, headers=headers, timeout=timeout)
-    response.raise_for_status()
-    return response.json()
+    response = requests.get(url, headers=headers, timeout=timeout, allow_redirects=False, stream=True)
+    try:
+        if 300 <= response.status_code < 400:
+            raise VariantResolutionError("redirect_refused", "Ensembl redirected the request; refusing another endpoint.")
+        response.raise_for_status()
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise VariantResolutionError("response_too_large", "Ensembl response exceeds the 5 MiB limit.")
+            body.extend(chunk)
+        try:
+            return json.loads(body)
+        except (ValueError, RecursionError) as exc:
+            raise VariantResolutionError("invalid_response", "Ensembl returned invalid or excessively nested JSON.") from exc
+    finally:
+        response.close()
 
 
 def lookup_rsid(rsid: str, build: str = "GRCh38") -> Coord | None:

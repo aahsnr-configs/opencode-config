@@ -9,7 +9,7 @@ description: Submit compact Open Targets Platform GraphQL requests for target, d
 - The script accepts `max_items`; for nested GraphQL results, start with `max_items=3` to `5`.
 - Keep GraphQL selection sets narrow and page connection-style fields conservatively.
 - Use `query_path` for long GraphQL documents instead of pasting large inline query strings.
-- Re-run requests in long conversations instead of relying on earlier tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the real query.
 
 ## Execution behavior

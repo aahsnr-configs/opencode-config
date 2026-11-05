@@ -8,7 +8,7 @@ description: Submit compact BindingDB REST API requests for ligand-target bindin
 - Use `base_url=https://bindingdb.org`.
 - Add `response=application/json` in `params` when you want structured output; some empty-result cases may still return an empty body.
 - For broad lookup endpoints, start around `max_items=10`; similarity-style queries are better with `5-10`.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

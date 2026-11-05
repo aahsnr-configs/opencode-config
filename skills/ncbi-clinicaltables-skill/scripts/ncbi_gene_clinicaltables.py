@@ -20,6 +20,69 @@ else:
 ENDPOINT = "https://clinicaltables.nlm.nih.gov/api/ncbi_genes/v3/search"
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {"ok": False, "error": {"code": code, "message": message}, "warnings": warnings or []}
 
@@ -65,7 +128,7 @@ def parse_input(payload: Any) -> dict[str, Any]:
         "max_depth": max_depth,
         "timeout_sec": timeout_sec,
     }.items():
-        if not isinstance(value, int) or value <= 0:
+        if type(value) is not int or value <= 0:
             raise ValueError(f"`{name}` must be a positive integer.")
     if not isinstance(save_raw, bool):
         raise ValueError("`save_raw` must be a boolean.")
@@ -92,7 +155,7 @@ def execute(payload: Any) -> dict[str, Any]:
         config = parse_input(payload)
         params = {"terms": config["terms"], "count": config["max_items"]}
         params.update(config["params"])
-        response = requests.get(ENDPOINT, params=params, timeout=config["timeout_sec"])
+        response = _bounded_request(requests.get, ENDPOINT, params=params, timeout=config["timeout_sec"])
         response.raise_for_status()
         data = response.json()
         if not isinstance(data, list) or len(data) < 4:
@@ -104,6 +167,7 @@ def execute(payload: Any) -> dict[str, Any]:
             raw_text = json.dumps(data, indent=2)
             path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
                     Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "ncbi-gene-search.json")
+            _check_output_parent(path)
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("x", encoding="utf-8") as stream:
                 stream.write(raw_text)
@@ -119,7 +183,7 @@ def execute(payload: Any) -> dict[str, Any]:
             "total": total,
             "record_count_returned": len(display_rows[: config["max_items"]]),
             "record_count_available": len(display_rows),
-            "truncated": len(display_rows) < total if isinstance(total, int) else False,
+            "truncated": len(display_rows) > config["max_items"] or (len(display_rows[: config["max_items"]]) < total if type(total) is int else False),
             "codes": codes[: config["max_items"]],
             "display_rows": _compact(
                 display_rows[: config["max_items"]], config["max_items"], config["max_depth"]
@@ -128,10 +192,10 @@ def execute(payload: Any) -> dict[str, Any]:
             "raw_output_path": raw_output_path,
             "warnings": [],
         }
+    except requests.RequestException as exc:
+        return error("network_error", f"Request failed ({type(exc).__name__}).")
     except ValueError as exc:
         return error("invalid_input", str(exc))
-    except requests.RequestException as exc:
-        return error("network_error", f"Request failed: {exc}")
 
 
 def main() -> int:

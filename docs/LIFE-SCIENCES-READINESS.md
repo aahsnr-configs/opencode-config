@@ -25,7 +25,7 @@ execution, OpenChamber behavior and scientific accuracy remain unverified.
 
 Original hashes remain unchanged in `life-sciences/upstream-lock.json`.
 `life-sciences/opencode-adaptations.json` records the original and installed
-hashes and reasons for all 53 adapted helpers. The integrity test requires exact
+hashes and reasons for all adapted files, including instructions, helpers and bundled tests. See [the complete audit](CONFIGURATION-AUDIT-COMPLETE.md) for current totals. The integrity test requires exact
 recorded hashes, unique adaptation paths, a matching upstream commit and original
 hashes, and no unexplained changes. The other 108 files remain byte-identical to
 the pinned snapshot. Upstream attribution and bundled upstream tests are retained.

@@ -7,7 +7,7 @@ description: Submit compact Genebass gene burden requests for one Ensembl gene I
 - Use `scripts/genebass_gene_burden.py` for all Genebass calls.
 - This skill accepts one Ensembl gene ID per invocation.
 - `max_results` is flexible; start around `25` for broad summaries and increase only if the user explicitly wants more associations.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

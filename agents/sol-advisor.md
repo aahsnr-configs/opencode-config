@@ -34,6 +34,9 @@ permissions:
   - action: read
     resource: "*/.config/*/auth.json"
     effect: deny
+  - action: read
+    resource: "*auth.json"
+    effect: deny
 ---
 
 Advise on the specific difficult decision. Examine only relevant non-secret files, identify risks and alternatives, and recommend a concise approach. Do not edit files, execute commands, use the network, call MCP tools, or delegate. The primary agent retains responsibility for implementation and verification.

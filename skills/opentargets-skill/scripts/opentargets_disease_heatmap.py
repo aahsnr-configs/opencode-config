@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import sys
 import tempfile
 from pathlib import Path
@@ -83,19 +84,81 @@ PREFERRED_COLUMN_ORDER = [
 ]
 
 
+MAX_RESPONSE_BYTES = 5 * 1024 * 1024
+
+
+def _decode_json(raw):
+    """Reject excessive response nesting before recursive summary processing."""
+    try:
+        result = json.loads(raw)
+    except RecursionError as exc:
+        raise ValueError("JSON response nesting exceeds the supported depth.") from exc
+    pending = [(iter((result,)), 0)]
+    while pending:
+        values, depth = pending[-1]
+        try:
+            value = next(values)
+        except StopIteration:
+            pending.pop()
+            continue
+        if depth > 64:
+            raise ValueError("JSON response nesting exceeds the supported depth of 64.")
+        if isinstance(value, dict):
+            pending.append((iter(value.values()), depth + 1))
+        elif isinstance(value, list):
+            pending.append((iter(value), depth + 1))
+    return result
+
+
+def _bounded_request(request, *args, **kwargs):
+    """Read one bounded response; never forward a request across redirects."""
+    from types import SimpleNamespace
+    kwargs.update(stream=True, allow_redirects=False)
+    response = request(*args, **kwargs)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("HTTP redirect refused; use the verified final endpoint explicitly.")
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            if not chunk:
+                continue
+            if len(body) + len(chunk) > MAX_RESPONSE_BYTES:
+                raise ValueError("Response exceeds the 5 MiB download limit; narrow the query.")
+            body.extend(chunk)
+        raw = bytes(body)
+        try:
+            text = raw.decode(response.encoding or "utf-8", errors="replace")
+        except LookupError:
+            text = raw.decode("utf-8", errors="replace")
+        return SimpleNamespace(content=raw, text=text, headers=response.headers,
+            status_code=response.status_code, json=lambda: _decode_json(raw),
+            raise_for_status=response.raise_for_status)
+    finally:
+        response.close()
+
+
+def _check_output_parent(path):
+    """Reject linked ancestors; use canonical paths for intentional directory links.
+
+    This preflight does not protect against concurrent filesystem replacement.
+    """
+    for parent in Path(path).absolute().parents:
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise OSError("Raw output parent must be a real directory, not a symlink.")
+
+
 def error(code: str, message: str, warnings: list[str] | None = None) -> dict[str, Any]:
     return {"ok": False, "error": {"code": code, "message": message}, "warnings": warnings or []}
 
 
 def safe_float(value: Any) -> float | None:
-    if isinstance(value, (int, float)):
-        return float(value)
-    if isinstance(value, str):
-        try:
-            return float(value)
-        except ValueError:
-            return None
-    return None
+    if type(value) not in (int, float, str):
+        return None
+    try:
+        result = float(value)
+    except (ValueError, OverflowError):
+        return None
+    return result if math.isfinite(result) else None
 
 
 def prettify_datasource_id(datasource_id: str) -> str:
@@ -130,9 +193,9 @@ def parse_input(payload: Any) -> dict[str, Any]:
         raise ValueError("Provide `ensembl_id`.")
     page_size = payload.get("page_size", payload.get("size", 50))
     max_pages = payload.get("max_pages", 10)
-    if not isinstance(page_size, int) or page_size <= 0:
+    if type(page_size) is not int or page_size <= 0:
         raise ValueError("`page_size` must be a positive integer.")
-    if not isinstance(max_pages, int) or max_pages <= 0:
+    if type(max_pages) is not int or max_pages <= 0:
         raise ValueError("`max_pages` must be a positive integer.")
     disease_filter = payload.get("disease_name_filter") or payload.get("diseaseNameFilter")
     if disease_filter is not None and not isinstance(disease_filter, str):
@@ -156,7 +219,7 @@ def parse_input(payload: Any) -> dict[str, Any]:
 
 
 def fetch_page(ensembl_id: str, page_size: int, page_index: int) -> dict[str, Any]:
-    response = requests.post(
+    response = _bounded_request(requests.post,
         ENDPOINT,
         json={
             "query": QUERY,
@@ -166,6 +229,8 @@ def fetch_page(ensembl_id: str, page_size: int, page_index: int) -> dict[str, An
     )
     response.raise_for_status()
     data = response.json()
+    if not isinstance(data, dict):
+        raise ValueError("GraphQL response must be an object.")
     if "errors" in data:
         raise RuntimeError(json.dumps(data["errors"])[:500])
     payload = data.get("data")
@@ -223,6 +288,11 @@ def execute(payload: Any) -> dict[str, Any]:
             rows = associated.get("rows") or []
             if not isinstance(rows, list):
                 raise RuntimeError("`associatedDiseases.rows` was not a list.")
+            if any(not isinstance(row, dict) for row in rows):
+                raise ValueError("Associated disease rows must be objects.")
+            for row in rows:
+                if not isinstance(row.get("disease") or {}, dict) or not isinstance(row.get("datasourceScores") or [], list):
+                    raise ValueError("Disease metadata must be an object and datasource scores an array.")
             fetched_rows.extend(rows)
             raw_pages.append({"index": page_index, "rows": rows})
             if not rows or len(rows) < config["page_size"]:
@@ -233,10 +303,10 @@ def execute(payload: Any) -> dict[str, Any]:
             warnings.append(
                 f"Stopped after `max_pages={config['max_pages']}` before exhausting associated disease pages."
             )
+    except requests.RequestException as exc:
+        return error("network_error", f"GraphQL request failed ({type(exc).__name__}).", warnings=warnings)
     except ValueError as exc:
         return error("invalid_response", str(exc), warnings=warnings)
-    except requests.RequestException as exc:
-        return error("network_error", f"GraphQL request failed: {exc}", warnings=warnings)
     except RuntimeError as exc:
         return error("graphql_error", str(exc), warnings=warnings)
 
@@ -295,6 +365,7 @@ def execute(payload: Any) -> dict[str, Any]:
         )
         path = (Path(config["raw_output_path"]) if config["raw_output_path"] else
                 Path(tempfile.mkdtemp(prefix="opencode-life-science-")) / "opentargets-associated-diseases.json")
+        _check_output_parent(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("x", encoding="utf-8") as stream:
             stream.write(raw_text)

@@ -8,7 +8,7 @@ description: Submit compact PRIDE Archive API requests for proteomics project di
 - Use `base_url=https://www.ebi.ac.uk/pride/ws/archive/v2`.
 - Start with `projects` for discovery and keep page sizes modest.
 - Prefer project-level metadata lookups over broad archive dumps.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 
 ## Execution behavior
 - Return concise markdown summaries from the script JSON by default.

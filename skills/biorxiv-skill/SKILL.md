@@ -8,7 +8,7 @@ description: Submit compact bioRxiv and medRxiv API requests for details, public
 - Use `base_url=https://api.biorxiv.org`.
 - The script accepts `max_items`; for `details` and `pubs` pages, start around `max_items=10`.
 - Prefer one cursor page at a time instead of increasing page size or pasting long collections into chat.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not part of the true request.
 
 ## Execution behavior

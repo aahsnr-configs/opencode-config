@@ -9,7 +9,7 @@ description: Submit compact ENCODE REST API requests for object lookups, portal-
 - Object lookups usually do not need `max_items`; portal-style search endpoints are better with `limit=10` and `max_items=10`.
 - Send `Accept: application/json` in `headers` and add `format=json` in `params` when needed.
 - Keep request volume modest and avoid large unfiltered searches.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior

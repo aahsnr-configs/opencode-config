@@ -9,6 +9,14 @@ import tempfile
 import urllib.parse
 
 
+def _check_directory_path(path):
+    """Reject linked parents; intentional links need canonical paths, not a race-free sandbox."""
+    path = path.absolute()
+    for ancestor in reversed((path, *path.parents)):
+        if ancestor.is_symlink() or (ancestor.exists() and not ancestor.is_dir()):
+            raise ValueError('Refusing a symlink or non-directory configuration parent')
+
+
 def configure(config, url):
     u = urllib.parse.urlsplit(url)
     if u.scheme != 'https' or not u.hostname or u.username or u.password or u.fragment or u.query:
@@ -33,6 +41,10 @@ def main():
     args = parser.parse_args()
     if not args.provider_confirmed:
         parser.error('Obtain provider confirmation, then supply --provider-confirmed; a third-party directory listing is insufficient')
+    try:
+        _check_directory_path(args.config.parent)
+    except ValueError as exc:
+        parser.error(str(exc))
     if args.config.is_symlink():
         parser.error('Refusing a symlink configuration')
     try:

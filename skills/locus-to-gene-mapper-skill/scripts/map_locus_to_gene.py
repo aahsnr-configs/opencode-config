@@ -200,7 +200,20 @@ def now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
 
+def check_new_output(path: Path) -> None:
+    """Refuse existing outputs and linked parents; intentional links need canonical paths.
+
+    This preflight does not prevent concurrent filesystem changes.
+    """
+    for parent in (path.parent, *path.parent.parents):
+        if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+            raise ValueError(f"Unsafe output parent: {parent}")
+    if path.exists() or path.is_symlink():
+        raise FileExistsError(f"Output already exists: {path}")
+
+
 def ensure_parent(path: Path) -> None:
+    check_new_output(path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
 
@@ -299,21 +312,36 @@ def lexical_match_score(text: str, term: str) -> float:
 def safe_get_json(
     url: str, params: dict[str, Any] | None = None, timeout: int = 45
 ) -> dict[str, Any]:
-    response = requests.get(url, params=params, timeout=timeout)
-    response.raise_for_status()
-    payload = response.json()
+    payload = bounded_json_request(requests.get, url, params=params, timeout=timeout)
     if isinstance(payload, dict):
         return payload
     return {"results": payload}
 
 
 def safe_post_json(url: str, payload: dict[str, Any], timeout: int = 60) -> dict[str, Any]:
-    response = requests.post(url, json=payload, timeout=timeout)
-    response.raise_for_status()
-    data = response.json()
+    data = bounded_json_request(requests.post, url, json=payload, timeout=timeout)
     if isinstance(data, dict):
         return data
     return {"results": data}
+
+
+def bounded_json_request(request, url: str, **kwargs: Any) -> Any:
+    response = request(url, **kwargs, allow_redirects=False, stream=True)
+    try:
+        if 300 <= response.status_code < 400:
+            raise ValueError("Scientific API redirect refused")
+        response.raise_for_status()
+        body = bytearray()
+        for chunk in response.iter_content(chunk_size=65536):
+            body.extend(chunk)
+            if len(body) > 5 * 1024 * 1024:
+                raise ValueError("Scientific API response exceeds 5 MiB; narrow the query")
+        try:
+            return json.loads(body)
+        except RecursionError as exc:
+            raise ValueError("Scientific JSON nesting exceeds the supported depth") from exc
+    finally:
+        response.close()
 
 
 def run_json_skill_script(
@@ -596,10 +624,10 @@ def coordinate_from_placement(placement: dict[str, Any]) -> dict[str, Any] | Non
         return None
 
     positions = {spdi.get("position") for spdi in spdis if spdi.get("position") is not None}
-    if not positions:
-        return None
+    if len(positions) != 1:
+        raise ValueError("Ambiguous RefSNP allele positions")
     try:
-        pos = int(sorted(positions)[0]) + 1
+        pos = int(next(iter(positions))) + 1
     except Exception:
         return None
 
@@ -610,6 +638,8 @@ def coordinate_from_placement(placement: dict[str, Any]) -> dict[str, Any] | Non
     ]
     if not deleted_sequences:
         return None
+    if len(set(deleted_sequences)) != 1:
+        raise ValueError("Ambiguous RefSNP reference alleles")
     ref = deleted_sequences[0]
 
     alternate_alleles = sorted(
@@ -620,7 +650,9 @@ def coordinate_from_placement(placement: dict[str, Any]) -> dict[str, Any] | Non
             and str(spdi.get("inserted_sequence") or "") != str(spdi.get("deleted_sequence") or "")
         }
     )
-    alt = alternate_alleles[-1] if alternate_alleles else ref
+    if len(alternate_alleles) != 1:
+        raise ValueError("Ambiguous RefSNP alternate alleles; an allele-specific variant is required")
+    alt = alternate_alleles[0]
 
     assembly_name = str(traits[0].get("assembly_name") or "")
     return {
@@ -653,17 +685,31 @@ def resolve_refsnp_coordinates(
         return {}
 
     coords: dict[str, dict[str, Any]] = {}
+    ambiguous: set[str] = set()
     snapshot = coerce_dict(payload.get("primary_snapshot_data"))
     for placement in coerce_list_of_dicts(snapshot.get("placements_with_allele")):
         traits = coerce_list_of_dicts(
             coerce_dict(placement.get("placement_annot")).get("seq_id_traits_by_assembly")
         )
         assembly_key = assembly_key_from_traits(traits)
-        if not assembly_key or assembly_key in coords:
+        if not assembly_key:
             continue
-        coord = coordinate_from_placement(placement)
+        try:
+            coord = coordinate_from_placement(placement)
+        except ValueError as exc:
+            ambiguous.add(assembly_key)
+            warnings.append(f"Ambiguous {assembly_key} placement for {rsid}: {exc}")
+            continue
         if coord:
-            coords[assembly_key] = coord
+            old = coords.get(assembly_key)
+            if old and any(old[key] != coord[key] for key in ("chr", "pos", "ref", "alt")):
+                ambiguous.add(assembly_key)
+                warnings.append(f"Ambiguous {assembly_key} placements for {rsid}; no coordinate selected.")
+            else:
+                coords[assembly_key] = coord
+
+    for assembly_key in ambiguous:
+        coords.pop(assembly_key, None)
 
     if "grch38" not in coords:
         warnings.append(f"Coordinate lookup did not find a GRCh38 top-level placement for {rsid}.")
@@ -1375,7 +1421,8 @@ def generate_optional_figures(
         fallback = "graph LR\nA[GWAS anchors] --> B[Open Targets L2G/coloc]\nB --> C[Candidate gene scoring]\nC --> D[Per-locus ranking]\nD --> E[Cross-locus ranking]"
         return [], fallback
 
-    ensure_parent(figure_output_dir / "dummy.txt")
+    check_new_output(figure_output_dir)
+    figure_output_dir.mkdir(parents=True, exist_ok=False)
     figure_entries: list[dict[str, Any]] = []
 
     # Heatmap: top genes x evidence components
@@ -1396,9 +1443,7 @@ def generate_optional_figures(
                 1.0
                 if evidence.get("rare_variant_support") == "strong"
                 else (0.6 if evidence.get("rare_variant_support") == "nominal" else 0.0),
-                1.0
-                if evidence.get("coding_support") == "coding"
-                else (0.3 if evidence.get("coding_support") == "noncoding" else 0.0),
+                coding_component(str(evidence.get("coding_support")), str(evidence.get("clinvar_support"))),
             ]
             heat_rows.append((label[:50], row))
 
@@ -1460,9 +1505,7 @@ def generate_optional_figures(
         coding_vals.append(
             0.10
             * (
-                1.0
-                if evidence.get("coding_support") == "coding"
-                else (0.3 if evidence.get("coding_support") == "noncoding" else 0.0)
+                coding_component(str(evidence.get("coding_support")), str(evidence.get("clinvar_support")))
             )
         )
 
@@ -1730,6 +1773,16 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
     )
     figure_output_dir = Path(str(normalized_input.get("figure_output_dir") or "./output/figures"))
 
+    check_new_output(mapping_output_path)
+    check_new_output(summary_output_path)
+    if mapping_output_path.absolute() == summary_output_path.absolute():
+        raise ValueError("Mapping and summary outputs must use different paths")
+    if include_figures:
+        check_new_output(figure_output_dir)
+    limitations.append("ClinVar clinical support is not assessed; RefSNP gene annotations are not clinical evidence.")
+    limitations.append("Locus-level colocalisation lacks verified gene attribution and is excluded from gene scores.")
+    limitations.append("Ranking scores and confidence labels are heuristic, not calibrated causal probabilities.")
+
     efo_payload = resolve_efo(trait_query, warnings, limitations)
     if efo_id_input:
         efo_payload["efo_id"] = efo_id_input
@@ -1840,7 +1893,7 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
             coloc_values: list[float] = []
             eqtl_tissues: set[str] = set()
             mapped_hit = False
-            clinvar_present = False
+            annotation_present = False
             coding_hit = False
 
             for anchor in anchors_in_locus:
@@ -1858,13 +1911,7 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
                 ]
                 l2g_scores.extend(matched_l2g)
 
-                if matched_l2g:
-                    for coloc_row in coerce_list_of_dicts(support.get("coloc")):
-                        h4 = safe_float(coloc_row.get("h4"))
-                        clpp = safe_float(coloc_row.get("clpp"))
-                        coloc_values.append(
-                            h4 if h4 is not None else (clpp if clpp is not None else 0.0)
-                        )
+                # Unassigned locus colocalisation cannot support a particular gene.
 
                 tissues = coerce_dict(gtex_support.get(rsid, {})).get(symbol)
                 if isinstance(tissues, set):
@@ -1876,7 +1923,7 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
                 genes = {g.upper() for g in as_string_list(annot.get("genes"))}
                 coding_genes = {g.upper() for g in as_string_list(annot.get("coding_genes"))}
                 if symbol.upper() in genes:
-                    clinvar_present = True
+                    annotation_present = True
                 if symbol.upper() in coding_genes:
                     coding_hit = True
 
@@ -1895,12 +1942,12 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
 
             if coding_hit:
                 coding_support = "coding"
-            elif clinvar_present or mapped_hit:
+            elif annotation_present or mapped_hit:
                 coding_support = "noncoding"
             else:
                 coding_support = "none"
 
-            clinvar_support = "present" if clinvar_present else "none"
+            clinvar_support = "not_assessed"
             coding_comp = coding_component(coding_support, clinvar_support)
 
             overall = clamp01(
@@ -1990,6 +2037,12 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
                 "locus_id": locus.get("locus_id"),
                 "lead_rsid": locus.get("lead_rsid"),
                 "candidate_genes": gene_rows,
+                "unassigned_colocalisation": [
+                    row for anchor in anchors_in_locus
+                    for row in coerce_list_of_dicts(coerce_dict(
+                        coerce_dict(ot_support.get("per_anchor")).get(str(anchor.get("rsid") or ""))
+                    ).get("coloc"))
+                ],
             }
         )
 
@@ -2056,15 +2109,13 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
                 "opentargets-skill",
                 "gtex-eqtl-skill",
                 "genebass-gene-burden-skill",
-                "clinvar-variation-skill"
+                "ncbi-refsnp-annotations"
                 if include_clinvar
-                else "clinvar-variation-skill(skipped)",
+                else "ncbi-refsnp-annotations(skipped)",
                 "gnomad-graphql-skill"
                 if include_gnomad_context
                 else "gnomad-graphql-skill(skipped)",
-                "human-protein-atlas-skill"
-                if include_hpa_tissue_context
-                else "human-protein-atlas-skill(skipped)",
+                "human-protein-atlas-skill(not-implemented)",
             ],
         },
         "anchors": anchors,
@@ -2101,8 +2152,10 @@ def map_locus_to_gene(input_json: dict[str, Any]) -> dict[str, Any]:
     ensure_parent(mapping_output_path)
     ensure_parent(summary_output_path)
 
-    mapping_output_path.write_text(json.dumps(mapping_payload, indent=2), encoding="utf-8")
-    summary_output_path.write_text(summary, encoding="utf-8")
+    with mapping_output_path.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(mapping_payload, indent=2))
+    with summary_output_path.open("x", encoding="utf-8") as stream:
+        stream.write(summary)
 
     critical_limitations = [
         item for item in limitations if item.startswith("Unresolved GRCh38 coordinates")

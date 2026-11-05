@@ -8,7 +8,7 @@ description: Submit compact Reactome ContentService requests for pathway, event,
 - Use `base_url=https://reactome.org/ContentService`.
 - Single pathway or event lookups usually do not need `max_items`; list-style pathway membership calls are better with `max_items=10`.
 - Send `Accept: application/json` in `headers` when requesting JSON.
-- Re-run requests in long conversations instead of relying on older tool output.
+- Reuse saved results with source and retrieval time. Repeat requests only when inputs change, freshness matters, or the user requests a refresh.
 - Treat displayed `...` in tool previews as UI truncation, not literal request content.
 
 ## Execution behavior
