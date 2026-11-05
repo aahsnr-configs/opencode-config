@@ -33,10 +33,10 @@ In the CLI, use `/connect` and the model selector as documented. ChatGPT sign-in
 
 To run local sanity checks after installing the CLI: `bash doctor.sh`. Use `bash script.sh` instead of `./script.sh` when your archive extractor does not preserve Unix executable bits. For full online JSON Schema verification (optional), install Python package `jsonschema`, then run `python3 scripts/validate_against_live_schema.py`.
 
-If `bash doctor.sh` reports a CLI error, run `bash doctor.sh --details` locally for more information. The output may include sensitive configuration; redact before sharing. See `docs/V2-DIAGNOSTIC-FIX.md`.
+If `bash doctor.sh` reports a CLI error, run `bash doctor.sh --details` locally for more information. The output may include sensitive configuration; redact before sharing. See [docs/V2-DIAGNOSTIC-FIX.md](docs/ITERATION-ARCHIVE.md#v2-diagnostic-fix).
 
 
-**If schema verification reports HTTP 403:** the current script handles this without falsely reporting a configuration error. For full validation, open `https://opencode.ai/config.json` in your browser, save its JSON as `~/Downloads/config.json`, and run `python3 scripts/validate_against_live_schema.py --schema-file ~/Downloads/config.json`. See `docs/SCHEMA-403-FIX.md`.
+**If schema verification reports HTTP 403:** the current script handles this without falsely reporting a configuration error. For full validation, open `https://opencode.ai/config.json` in your browser, save its JSON as `~/Downloads/config.json`, and run `python3 scripts/validate_against_live_schema.py --schema-file ~/Downloads/config.json`. See [docs/SCHEMA-403-FIX.md](docs/ITERATION-ARCHIVE.md#schema-403-fix).
 
 
 ## Four added agents
@@ -45,4 +45,4 @@ Run `opencode models` and `python3 scripts/model_audit.py` (requires PyYAML) to 
 
 If upgrading from the Firecrawl package, read `docs/MIGRATE-TO-EXA.md` to retire the obsolete `/firecrawl-research` command after installing the new `/exa-research`.
 
-**Audit:** See `docs/CONTEXT7-AUDIT.md`. Avoid client auto-approval or saved Allow-always permissions when using the manual-only MCP workflow.
+**Audit:** See [docs/CONTEXT7-AUDIT.md](docs/ITERATION-ARCHIVE.md#context7-audit). Avoid client auto-approval or saved Allow-always permissions when using the manual-only MCP workflow.

@@ -170,4 +170,4 @@ by Git. The record schema is schemas/research-run.schema.json.
 - Revision conflict: reload state before updating; never silently overwrite it.
 - Citation lacking full text: label the evidence limitation; do not invent pages.
 
-See RESEARCH-AUDIT.md for actual validation results and remaining live-test gates.
+See [RESEARCH-AUDIT.md](ITERATION-ARCHIVE.md#research-audit) for actual validation results and remaining live-test gates.

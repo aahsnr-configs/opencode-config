@@ -59,16 +59,16 @@ python3 scripts/validate_against_live_schema.py   # optional; handles HTTP 403 w
 # For browser-downloaded schema: --schema-file ~/Downloads/config.json
 ```
 
-For the exact verification scope and limitations, see `docs/VERIFICATION.md`. The installer does not delete retired agent files from previous kits; see `docs/UPGRADE.md`.
+For the exact verification scope and limitations, see [docs/VERIFICATION.md](docs/ITERATION-ARCHIVE.md#verification). The installer does not delete retired agent files from previous kits; see `docs/UPGRADE.md`.
 
 ## 2026-11-01 doctor.sh correction
 
-The prior doctor used `opencode agent list` and `opencode debug skill`, which are legacy commands absent from the documented OpenCode V2 CLI. This release uses `opencode debug agents`; see `docs/V2-DIAGNOSTIC-FIX.md`.
+The prior doctor used `opencode agent list` and `opencode debug skill`, which are legacy commands absent from the documented OpenCode V2 CLI. This release uses `opencode debug agents`; see [docs/V2-DIAGNOSTIC-FIX.md](docs/ITERATION-ARCHIVE.md#v2-diagnostic-fix).
 
 
 ## HTTP 403 when fetching the schema (2026-11-01 fix)
 
-The OpenCode site may block Python requests to `https://opencode.ai/config.json` even though the configuration is fine. The revised validator tries browser-like headers, then reuses a saved schema, and only then offers a clearly labeled *partial* CLI check. It will **never** label that fallback as full JSON Schema validation. Read [docs/SCHEMA-403-FIX.md](docs/SCHEMA-403-FIX.md) for commands and a manual browser-download route.
+The OpenCode site may block Python requests to `https://opencode.ai/config.json` even though the configuration is fine. The revised validator tries browser-like headers, then reuses a saved schema, and only then offers a clearly labeled *partial* CLI check. It will **never** label that fallback as full JSON Schema validation. Read [docs/SCHEMA-403-FIX.md](docs/ITERATION-ARCHIVE.md#schema-403-fix) for commands and a manual browser-download route.
 
 
 ## Explicit-only MCP quick commands
@@ -112,15 +112,15 @@ This release removes the Firecrawl MCP definition and replaces the old research 
 
 ## Latest audit and MCP-controller hardening
 
-See [docs/CONTEXT7-AUDIT.md](docs/CONTEXT7-AUDIT.md). The MCP controller now refuses a second connection during pending authentication/initialization and rejects malformed status responses. Static checks do not guarantee runtime compatibility.
+See [docs/CONTEXT7-AUDIT.md](docs/ITERATION-ARCHIVE.md#context7-audit). The MCP controller now refuses a second connection during pending authentication/initialization and rejects malformed status responses. Static checks do not guarantee runtime compatibility.
 
 ## Life-sciences research
 
-The integration includes the complete 50-skill public OpenAI Life Science Research plugin 1.0.3 snapshot with all 161 skill files, plus recorded local correctness and output-safety adaptations. See [setup and scope](docs/LIFE-SCIENCES.md) and the [current readiness audit](docs/LIFE-SCIENCES-READINESS.md). Hosted OpenAI platform features and scientific validation remain outside this port.
+The integration includes the complete 50-skill public OpenAI Life Science Research plugin 1.0.3 snapshot with all 161 skill files, plus recorded local correctness and output-safety adaptations. See [setup and scope](docs/LIFE-SCIENCES.md) and the [current readiness audit](docs/ITERATION-ARCHIVE.md#life-sciences-readiness). Hosted OpenAI platform features and scientific validation remain outside this port.
 
 ## Research integrations and learning
 
-Zotero, optional provider-confirmed SciSpace access, resumable deep research and learning workflows are documented in [RESEARCH-SETUP.md](docs/RESEARCH-SETUP.md). See [RESEARCH-AUDIT.md](docs/RESEARCH-AUDIT.md) for tested behavior and live-access limits.
+Zotero, optional provider-confirmed SciSpace access, resumable deep research and learning workflows are documented in [RESEARCH-SETUP.md](docs/RESEARCH-SETUP.md). See [RESEARCH-AUDIT.md](docs/ITERATION-ARCHIVE.md#research-audit) for tested behavior and live-access limits.
 
 ## Mathematics and numerical methods
 
