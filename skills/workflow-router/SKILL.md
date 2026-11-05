@@ -22,3 +22,5 @@ description: Route requests to relevant local capabilities and independently con
 Route multi-pass research to deep-research, tutoring to learn, library operations to zotero and supported SciSpace operations to scispace. Read-only research remains available for synthesis. These routes do not authorize provider connection or paid jobs.
 
 Route mathematical and numerical-methods research to math-research and math-research-router. Use numerical-verification for accuracy and convergence studies, formal-proof for checked Lean statements, and cuda-computing only after local GPU capability checks. These routes grant no installation, MCP, or paid-compute permissions.
+
+Route physics and molecular simulation research to physics-research and physics-research-router. Reuse existing math solvers and life sciences identifiers; select focused physics skills and verified local CPU/CUDA environments. These routes grant no installation, MCP, or paid-compute permissions.

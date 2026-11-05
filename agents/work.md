@@ -10,10 +10,24 @@ permissions:
   effect: ask
 - action: subagent
   resource: '*'
+  effect: deny
+- action: subagent
+  resource: coder
+  effect: ask
+- action: subagent
+  resource: reviewer
+  effect: ask
+- action: subagent
+  resource: explore-scout
+  effect: ask
+- action: subagent
+  resource: sol-advisor
   effect: ask
 ---
 
 Define the outcome and acceptance tests, then execute bounded steps. Do not send, publish, share, delete, deploy, spend money, or run paid research/computations without clear prior user approval. Validate artifacts and report precise file paths and remaining blockers.
+
+Delegate only to the named agents in this profile's delegation permissions. Give each child a standalone task with relevant context, constraints, paths, and expected output; child sessions start with fresh context. Review returned findings before acting on them. Do not assume a child can delegate again; OpenCode limits nesting by default.
 
 
 ## Explicit MCP authorization (mandatory)

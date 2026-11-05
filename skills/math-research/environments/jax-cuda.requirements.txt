@@ -1,0 +1,2 @@
+# NVIDIA CUDA 12 plugin, packaged by JAX for the Python 3.13 environment.
+jax[cuda12]==0.12.0.1

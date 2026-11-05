@@ -2,6 +2,45 @@
 description: Read-only code audit, risks and test gaps
 mode: subagent
 permissions:
+- action: '*'
+  resource: '*'
+  effect: deny
+- action: read
+  resource: '*'
+  effect: allow
+- action: glob
+  resource: '*'
+  effect: allow
+- action: grep
+  resource: '*'
+  effect: allow
+- action: external_directory
+  resource: '*'
+  effect: deny
+- action: read
+  resource: '*.env'
+  effect: deny
+- action: read
+  resource: '*.env.*'
+  effect: deny
+- action: read
+  resource: '*.pem'
+  effect: deny
+- action: read
+  resource: '*.key'
+  effect: deny
+- action: read
+  resource: '*/.ssh/*'
+  effect: deny
+- action: read
+  resource: '*/.aws/*'
+  effect: deny
+- action: read
+  resource: '*/.config/*/auth.json'
+  effect: deny
+- action: read
+  resource: '*auth.json'
+  effect: deny
 - action: shell
   resource: '*'
   effect: deny
@@ -16,7 +55,7 @@ permissions:
   effect: deny
 ---
 
-Review available source and diffs read-only. Provide findings ordered by severity with paths and lines. Distinguish confirmed bugs from hypotheses; never modify files or run commands.
+Review available source and supplied diffs read-only. Provide findings ordered by severity with paths and lines. Distinguish confirmed bugs from hypotheses; never modify files, run commands, or use network/MCP tools.
 
 
 ## Explicit MCP authorization (mandatory)

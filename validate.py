@@ -12,7 +12,13 @@ conf = json.loads((root / "opencode.jsonc").read_text())
 assert conf["$schema"] == "https://opencode.ai/config.json"
 assert conf["default_agent"] == "chat"
 assert "permissions" in conf and "permission" not in conf
-assert "agents" not in conf and "agent" not in conf
+assert "agent" not in conf
+assert isinstance(conf.get("agents"), dict)
+assert conf["agents"]["plan"]["permissions"] == [
+    {"action": "shell", "resource": "*", "effect": "deny"},
+    {"action": "edit", "resource": "*", "effect": "deny"},
+    {"action": "subagent", "resource": "*", "effect": "deny"},
+]
 assert conf["share"] == "disabled"
 assert conf["update"] in ("disable", "notify", "auto")
 assert conf["snapshots"] is True
@@ -24,6 +30,7 @@ assert conf["default_agent"] in {"chat", "work", "coder", "research", "digest"}
 allowed_keys = {
     "$schema",
     "default_agent",
+    "agents",
     "update",
     "share",
     "snapshots",

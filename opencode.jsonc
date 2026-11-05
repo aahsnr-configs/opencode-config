@@ -1,235 +1,270 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "chat",
+  "websearch": {
+    "provider": "exa",
+  },
+  "agents": {
+    "plan": {
+      "permissions": [
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny",
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny",
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "ask",
+        },
+      ],
+    },
+  },
   "update": "notify",
   "share": "disabled",
   "snapshots": true,
   "plugins": [
-    "superpowers@git+https://github.com/obra/superpowers.git#v7.0.2",
-    "opencode-supermemory@2.0.17"
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "opencode-rtk-plugin",
+    "opencode-todo",
+    "/var/home/ahsan/.config/opencode/plugins/caveman",
+    {
+      "package": "@plannotator/opencode@latest",
+      "options": {
+        "workflow": "plan-agent",
+        "planningAgents": [
+          "plan"
+        ],
+      },
+    },
   ],
   "compaction": {
     "auto": true,
     "keep": {
-      "tokens": 8000
+      "tokens": 8000,
     },
-    "buffer": "15%"
+    "buffer": "15%",
   },
   "tool_output": {
     "max_lines": 300,
-    "max_bytes": 16000
+    "max_bytes": 16000,
   },
   "permissions": [
     {
       "action": "*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "read",
       "resource": "*",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "read",
       "resource": "*.env",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*.env.*",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*.pem",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*.key",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*/.ssh/*",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*/.aws/*",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*/.config/*/auth.json",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "read",
       "resource": "*auth.json",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "glob",
       "resource": "*",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "grep",
       "resource": "*",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "skill",
       "resource": "*",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "question",
       "resource": "*",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "external_directory",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "edit",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "shell",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "shell",
       "resource": "git status *",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "shell",
       "resource": "git diff *",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "shell",
       "resource": "git log *",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "shell",
       "resource": "git diff --stat",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "shell",
       "resource": "git diff --name-only",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "shell",
       "resource": "git log --oneline -10",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "shell",
       "resource": "git push *",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "shell",
       "resource": "git push --*",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "shell",
       "resource": "rm -rf *",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "subagent",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "webfetch",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "websearch",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "execute",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "context7_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "exa_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "consensus_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "alphaxiv_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "undermind_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "tamarind_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "github_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "ticktick_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "playwright_*",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "opencode_list_mcp_resources",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "opencode_read_mcp_resource",
       "resource": "*",
-      "effect": "ask"
+      "effect": "ask",
     },
     {
       "action": "zotero_*",
       "resource": "*",
-      "effect": "ask"
-    }
+      "effect": "ask",
+    },
   ],
   "mcp": {
     "servers": {
@@ -237,50 +272,50 @@
         "type": "remote",
         "url": "https://mcp.context7.com/mcp",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "exa": {
         "type": "remote",
         "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,agent_run",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "consensus": {
         "type": "remote",
         "url": "https://mcp.consensus.app/mcp",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "alphaxiv": {
         "type": "remote",
         "url": "https://api.alphaxiv.org/mcp/v1",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "undermind": {
         "type": "remote",
         "url": "https://mcp.undermind.ai/mcp",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "tamarind": {
         "type": "remote",
         "url": "https://mcp.tamarind.bio/mcp",
         "disabled": true,
         "protocol": "auto",
-        "codemode": false
+        "codemode": false,
       },
       "github": {
         "type": "remote",
         "url": "https://api.githubcopilot.com/mcp/readonly",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "ticktick": {
         "type": "remote",
         "url": "https://mcp.ticktick.com",
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "playwright": {
         "type": "local",
@@ -292,7 +327,7 @@
           "--isolated"
         ],
         "disabled": true,
-        "codemode": false
+        "codemode": false,
       },
       "zotero": {
         "type": "local",
@@ -301,65 +336,65 @@
           "serve-zotero"
         ],
         "disabled": true,
-        "codemode": false
-      }
-    }
+        "codemode": false,
+      },
+    },
   },
   "policies": [
     {
       "action": "mcp.use",
       "resource": "*",
-      "effect": "deny"
+      "effect": "deny",
     },
     {
       "action": "mcp.use",
       "resource": "context7",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "exa",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "consensus",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "alphaxiv",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "undermind",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "tamarind",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "github",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "ticktick",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "playwright",
-      "effect": "allow"
+      "effect": "allow",
     },
     {
       "action": "mcp.use",
       "resource": "zotero",
-      "effect": "allow"
-    }
-  ]
+      "effect": "allow",
+    },
+  ],
 }

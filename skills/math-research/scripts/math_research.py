@@ -17,7 +17,8 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = {
-    "python": ("docker.io/library/python:3.13.5-slim-bookworm", ["python", "-c", "import numpy,scipy,sympy,flint,cvxpy; assert abs(float(numpy.linalg.solve([[2.,0.],[0.,3.]],[2.,3.])[0])-1)<1e-12"]),
+    "python": ("docker.io/library/python:3.13.5-slim-bookworm", ["python", "-c", "import numpy,scipy,sympy,flint,cvxpy,jax; assert abs(float(numpy.linalg.solve([[2.,0.],[0.,3.]],[2.,3.])[0])-1)<1e-12; assert float(jax.jit(lambda x:x*x)(3.0))==9.0"]),
+    "jax-cuda": ("@python", ["python", "-c", "import jax,jax.numpy as jnp; assert jax.default_backend() == \"gpu\"; x=jax.jit(lambda a:jnp.sum(a*a))(jnp.arange(8,dtype=jnp.float32)); x.block_until_ready(); assert float(x)==140.0; print(jax.devices())"]),
     "sage": ("docker.io/sagemath/sagemath:10.6", ["sage", "-c", "assert list(factor(10403)) == [(101, 1), (103, 1)]"]),
     "lean": ("docker.io/library/ubuntu:22.04", ["bash", "-c", "cd /opt/mathlib && lake env lean --version"]),
     "fenics": ("ghcr.io/fenics/dolfinx/dolfinx:stable", ["python3", "-c", "import dolfinx,gmsh; from petsc4py import PETSc; from slepc4py import SLEPc; assert PETSc.Sys.getVersion()[0] == 3"]),
@@ -25,7 +26,7 @@ PROFILES = {
     "cuda": ("docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04", ["python", "-c", "import cupy as c; x=c.arange(8,dtype=c.float64); assert float(x.sum())==28; c.cuda.Stream.null.synchronize(); print(c.cuda.runtime.getDeviceProperties(0)['name'])"]),
     "petsc-cuda": ("docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04", ["python", "-c", "from petsc4py import PETSc; v=PETSc.Vec().createSeq(4); v.setType('cuda'); v.set(1); assert abs(v.norm()-2)<1e-12; print(v.getType())"]),
 }
-GPU = {"cuda", "petsc-cuda"}
+GPU = {"cuda", "petsc-cuda", "jax-cuda"}
 
 
 class RuntimeErrorSafe(Exception):
@@ -142,7 +143,7 @@ def profile_names(args):
         names = [name for name in names if name not in GPU]
     if not names:
         raise RuntimeErrorSafe("GPU profiles require --cuda")
-    if "sundials" in names and "python" not in names:
+    if ("sundials" in names or "jax-cuda" in names) and "python" not in names:
         names.insert(0, "python")
     return names
 
@@ -151,13 +152,15 @@ def source_fingerprint(name):
     files = [ROOT / "environments" / (name + ".Containerfile")]
     if name in {"python", "cuda"}:
         files.append(ROOT / "environments/python.requirements.txt")
+    if name == "jax-cuda":
+        files.append(ROOT / "environments/jax-cuda.requirements.txt")
     h = hashlib.sha256()
     for path in files:
         if path.is_file():
             h.update(path.name.encode())
             h.update(path.read_bytes())
     h.update(name.encode())
-    if name == "sundials":
+    if name in {"sundials", "jax-cuda"}:
         h.update(source_fingerprint("python").encode())
     return h.hexdigest()
 
@@ -178,7 +181,7 @@ def container_command(image, command, *, inputs=None, output=None, gpu=False,
     cmd = ["podman", "run", "--rm", "--pull=never", "--network=none", "--read-only",
            "--cap-drop=all", "--security-opt=no-new-privileges", "--pids-limit=256",
            "--cpus=4", "--memory=8g", "--userns=keep-id", "--user", f"{os.getuid()}:{os.getgid()}",
-           "--tmpfs", "/tmp:rw,nosuid,nodev,size=1g", "--env", "HOME=/tmp",
+           "--tmpfs", "/tmp:rw,nosuid,nodev,size=1g,notmpcopyup", "--env", "HOME=/tmp",
            "--env", "OMP_NUM_THREADS=4", "--env", "OPENBLAS_NUM_THREADS=4",
            "--env", "CUDA_CACHE_PATH=/tmp/cuda-cache"]
     if petsc_gpu:

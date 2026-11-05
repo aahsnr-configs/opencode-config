@@ -17,12 +17,21 @@ class TestMigratedAgents(unittest.TestCase):
         self.assertEqual(front["mode"], "subagent")
         self.assertIn({"action": "*", "resource": "*", "effect": "deny"}, front["permissions"])
 
-    def test_coder_requires_approval_for_reviewer(self):
+    def test_coder_delegation_is_denied_by_default_and_scoped(self):
         front = yaml.safe_load(
             (ROOT / "agents/coder.md").read_text().split("---", 2)[1]
         )
         rules = [p for p in front["permissions"] if p["action"] == "subagent"]
-        self.assertEqual(rules, [{"action": "subagent", "resource": "*", "effect": "ask"}])
+        self.assertEqual(
+            rules,
+            [
+                {"action": "subagent", "resource": "*", "effect": "deny"},
+                {"action": "subagent", "resource": "reviewer", "effect": "ask"},
+                {"action": "subagent", "resource": "explore-scout", "effect": "ask"},
+                {"action": "subagent", "resource": "sol-advisor", "effect": "ask"},
+                {"action": "subagent", "resource": "git-gh", "effect": "ask"},
+            ],
+        )
 
     def test_all_agents_exist(self):
         for name in NAMES:

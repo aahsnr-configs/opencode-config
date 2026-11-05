@@ -6,6 +6,8 @@ Use `/memory` to review or update `PROJECT-MEMORY.md` in the current project. Th
 
 For cross-project preferences, [Supermemory's OpenCode plugin](https://github.com/supermemoryai/opencode-supermemory) is configured at `2.0.17`. Its global profile provides cross-project context; project memories are scoped to a repository container. Its cloud integration captures conversation batches automatically, and setting `captureEveryNTurns` to `0` still captures remaining turns at session end. Its optional codebase indexing is separately invoked. See [the capture implementation](https://github.com/supermemoryai/opencode-supermemory/blob/main/src/services/capture.ts) and the provider's [privacy policy](https://supermemory.ai/privacy/). Plugin hooks can write automatically without individual agent tool prompts. Authentication and usage limits are separate from OpenCode; follow the plugin's login instructions after installing the configuration.
 
+Custom agent files in this repository’s `agents/` directory are installed under the OpenCode agents directory. The built-in Plan agent is configured in `opencode.jsonc`; it denies shell, edit, and subagent actions.
+
 The `coder` agent selects `openai/gpt-6.1-terra#medium`; `explore-scout` and `web-researcher` use Luna, and `sol-advisor` uses `openai/gpt-6.1-sol#high`. Model availability and variants depend on the provider account. Obtain prior approval for each subagent call. Web research through the configured `web-researcher` also requires the explicit Exa authorization in [FOUR-AGENTS.md](FOUR-AGENTS.md).
 
 ## Plugins and Git
@@ -18,10 +20,6 @@ RTK is installed as a separate binary. The OpenCode rewrite plugin has not been 
 
 For compact Git inspection, RTK provides `rtk git` and `rtk gh`; `/git-inspect` invokes the existing read-only Git agent after approval. Check `rtk git --help` and `rtk gh --help` for supported commands. This uses the installed tool rather than an additional unverified Git plugin.
 
-## Vim
+## External editor
 
-The V2 CLI configuration `cli.json` enables the [OpenCode Vim plugin](https://github.com/leohenon/opencode-vim-plugin) for modal prompt editing. It requires OpenCode 2.0.25 or newer and uses the moving `beta` channel. Use `/vim` to toggle it. It does not provide modal navigation throughout the interface. Plugin download and operation have not been verified in this environment.
-
-OpenCode also supports Vim or Neovim as an external editor: set `EDITOR=vim` or `EDITOR=nvim` in the environment that starts OpenCode, then use `/editor`. See the [OpenCode TUI documentation](https://docs.opencode.ai/docs/tui/).
-
-OpenChamber's published [chat input documentation](https://docs.openchamber.dev/chat-input/) describes keyboard shortcuts but does not document Vim mode. An OpenChamber-specific Vim mode has not been configured or verified.
+OpenCode supports Vim or Neovim as an external editor: set `EDITOR=vim` or `EDITOR=nvim` in the environment that starts OpenCode, then use `/editor`. See the [OpenCode TUI documentation](https://docs.opencode.ai/docs/tui/). OpenCode’s modal Vim plugin is not enabled.

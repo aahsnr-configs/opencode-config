@@ -83,6 +83,12 @@ class MathRuntimeTests(unittest.TestCase):
             (run / "artifacts/result.json").write_text("{}")
             self.assertIn("artifacts/result.json", runtime.artifact_hashes(run))
 
+    def test_jax_cuda_requires_parent_and_explicit_gpu(self):
+        args = runtime.parser().parse_args(["setup", "--profile", "jax-cuda", "--cuda"])
+        self.assertEqual(runtime.profile_names(args), ["python", "jax-cuda"])
+        self.assertIn("jax-cuda", runtime.GPU)
+        self.assertIn("jax[cuda12]==0.12.0.1", (runtime.ROOT / "environments/jax-cuda.requirements.txt").read_text())
+
     def test_cuda_requires_explicit_flag(self):
         args = runtime.parser().parse_args(["setup", "--profile", "cuda"])
         with self.assertRaises(runtime.RuntimeErrorSafe):

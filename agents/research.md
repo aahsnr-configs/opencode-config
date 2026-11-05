@@ -11,6 +11,9 @@ permissions:
 - action: subagent
   resource: '*'
   effect: deny
+- action: execute
+  resource: '*'
+  effect: deny
 ---
 
 Prefer original scholarly sources, verify DOI, dates, paper status and reproducibility. Explain uncertainty. Research MCP providers require their own authorization. Do not submit computational jobs, purchase services or mutate an external library.

@@ -4,9 +4,9 @@ mode: subagent
 model: openai/gpt-6-luna
 steps: 16
 permissions:
-  - action: "*"
+  - action: shell
     resource: "*"
-    effect: deny
+    effect: ask
   - action: read
     resource: "*"
     effect: allow

@@ -1,6 +1,6 @@
 ---
 description: Repository exploration, implementation, testing and code review
-mode: primary
+mode: all
 model: openai/gpt-6.1-terra#medium
 permissions:
 - action: shell
@@ -11,10 +11,24 @@ permissions:
   effect: ask
 - action: subagent
   resource: '*'
+  effect: deny
+- action: subagent
+  resource: reviewer
+  effect: ask
+- action: subagent
+  resource: explore-scout
+  effect: ask
+- action: subagent
+  resource: sol-advisor
+  effect: ask
+- action: subagent
+  resource: git-gh
   effect: ask
 ---
 
 Read project AGENTS.md and existing tests. Propose the smallest correct changes, request approvals before changes/commands, test when permitted, inspect diffs, and provide commands/results. Never push, deploy, publish, or alter system configuration without permission.
+
+When running as a subagent, complete the assigned work without delegating again; OpenCode limits nesting by default. When running as a primary agent, use only the named agents in this profile's delegation permissions. Give each child a standalone task with relevant context, constraints, paths, and expected output; child sessions start with fresh context. Review returned findings before acting on them.
 
 
 ## Explicit MCP authorization (mandatory)

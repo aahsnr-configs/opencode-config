@@ -13,6 +13,7 @@ The suite provides workflows and runnable local experiments, not a claim of gene
 | SUNDIALS | Official Python bindings for stiff ODE, DAE, and nonlinear solvers |
 | Lean | Lean 4, Lake, matching mathlib |
 | PDE/HPC | FEniCSx, Gmsh, PETSc, SLEPc, compatible MPI |
+| JAX | CPU JIT in the Python profile; CUDA 12 GPU JIT in the separate `jax-cuda` profile | Pin `0.12.0.1` requires Python 3.12 or newer; recheck the pin when changing interpreter versions.
 | CUDA | CUDA development tools, CuPy, CUDA-enabled PETSc; CDI runs disable SELinux labels for GPU access |
 
 Actual availability is determined by the installed environment manifest and doctor results. A profile definition or built image alone does not demonstrate successful execution.
@@ -53,7 +54,7 @@ The machine has an RTX 2080 Ti with 11 GiB VRAM. Read-only checks outside the sa
 
 CUDA libraries and development tools run inside rootless Podman containers. A functioning compatible NVIDIA driver and Container Toolkit/CDI remain host prerequisites. Do not automatically replace drivers, change kernel modules, disable SELinux, or run privileged containers. Expose only the selected GPU using CDI. An SELinux labeling exception, if required, needs explicit review.
 
-The compatibility starting point is CUDA 12.8.1 with the detected Turing GPU. The entire actual combination must be checked and locked: image, compiler, toolkit libraries, GPU architecture, driver compatibility, CuPy, CUDA.jl, and PETSc. Resolve all package artifacts during setup; computations must not fetch missing libraries. GPU matrix/vector types and device identity must be checked to prevent CPU fallback from passing GPU tests.
+The compatibility starting point is CUDA 12.8.1 with the detected Turing GPU. The entire actual combination must be checked and locked: image, compiler, toolkit libraries, GPU architecture, driver compatibility, CuPy and PETSc. Resolve all package artifacts during setup; computations must not fetch missing libraries. GPU matrix/vector types and device identity must be checked to prevent CPU fallback from passing GPU tests.
 
 Default execution limits are four CPUs, 8 GiB host RAM, 256 processes, and no network. Setup, smoke checks, normal runs, and benchmarks have separate budgets. VRAM budgets are application checks, not hard isolation; host memory cgroups do not cap GPU allocations. Serialize GPU benchmarks and preserve allocation failures.
 

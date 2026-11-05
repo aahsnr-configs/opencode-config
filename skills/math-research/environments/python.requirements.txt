@@ -7,3 +7,5 @@ python-flint==0.8.0
 cvxpy==1.6.5
 matplotlib==3.10.3
 jupyterlab==4.4.3
+# JAX CPU runtime and JIT smoke support; Python 3.12+ wheels.
+jax==0.12.0.1

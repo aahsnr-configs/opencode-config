@@ -1,11 +1,3 @@
 {
-  "plugins": [
-    {
-      "package": "@leohenon/opencode-vim-plugin@beta",
-      "options": {
-        "enabled": true,
-        "vim_initial_mode": "normal"
-      }
-    }
-  ]
+  "plugins": []
 }

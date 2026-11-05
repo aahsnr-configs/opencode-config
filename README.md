@@ -100,7 +100,7 @@ The `coder` agent uses `openai/gpt-6.1-terra#medium`; confirm that your provider
 
 For project-specific context across sessions, use `/memory` to review or update a `PROJECT-MEMORY.md` file at the project root. This is a user-managed file, not automatic model memory. Review its contents before sharing or committing it; never store secrets.
 
-See [workflow setup](docs/WORKFLOW-SETUP.md) for plugin status, compact Git inspection, and Vim editor support.
+See [workflow setup](docs/WORKFLOW-SETUP.md) for plugin status, compact Git inspection, and external editor support.
 
 **Manual Exa activation:** All nine servers remain `disabled: true` on disk, including `exa`. Only connect Exa via the human-operated `/mcps` UI or `python3 scripts/mcpctl.py session exa`; then explicitly ask for **Exa** research and choose **Allow once** for every search/fetch call. A user request for generic web research must *not* activate Exa automatically. The previous `/firecrawl-research` command must be retired from an older installation (see `docs/MIGRATE-TO-EXA.md`).
 
@@ -125,3 +125,7 @@ Zotero, optional provider-confirmed SciSpace access, resumable deep research and
 ## Mathematics and numerical methods
 
 See [Math Research](docs/MATH-RESEARCH.md) for `/math-research`, `/numerical-research`, isolated CPU/CUDA environments, and the deterministic terminal installer. Installation invokes no models or AI APIs; planning and requested troubleshooting still use tokens.
+
+## Physics and molecular simulation
+
+See [Physics Research](docs/PHYSICS-RESEARCH.md) for `/physics-research`, `/molecular-dynamics`, isolated simulation/analysis environments, and CPU/CUDA installation and acceptance commands. The deterministic installer makes no model or MCP calls. Runtime availability and scientific checks must be verified on the target machine.

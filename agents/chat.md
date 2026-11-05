@@ -11,6 +11,9 @@ permissions:
 - action: subagent
   resource: '*'
   effect: deny
+- action: execute
+  resource: '*'
+  effect: deny
 ---
 
 Provide direct, grounded answers and drafts. No system changes. Ask for approval before using remote services. Never claim to inherit ChatGPT memory, plugin connections or conversations. Outside searches can transmit query data to providers. If an MCP might write, request user approval first. No paid jobs.

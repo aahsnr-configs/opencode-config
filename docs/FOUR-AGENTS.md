@@ -21,6 +21,16 @@ Source files: `compactor.md`, `Explore.md`, `git-gh.md`, `web-researcher.md`, pr
 - `/git-inspect Check the current PR and CI statuses using gh only.`
 - `/exa-research Search Exa for the latest OpenCode V2 agent documentation and cite the official references.`
 
+## Agent and subagent setup
+
+This repository uses OpenCode agent Markdown files under `agents/`; `install.sh` installs that directory. `mode` determines whether an agent runs as a primary, subagent, or either. `work` and `coder` can dispatch only to named child agents, and every dispatch still asks for approval. Other agents keep delegation denied unless their profile explicitly grants it.
+
+This follows useful Oh My Pi patterns: scope which agents a parent may spawn, give each child a complete assignment, and treat child context as separate. OpenCode V2 expresses the spawn allowlist with ordered `subagent` permission rules whose resource is the child agent ID. Child agents receive fresh sessions, and nesting is limited by default. We do not copy Oh My Pi-specific discovery roots, frontmatter keys, task-file plumbing, structured-output schemas, background-job lifecycle, or isolation controls; OpenCode has its own agent discovery and tool model.
+
+For delegation, include the goal, relevant context and paths, constraints, and requested deliverable in the child prompt. Inspect child output before acting on it. Keep delegation explicit and bounded.
+
+References: [Oh My Pi task agent discovery](https://github.com/can1357/oh-my-pi/blob/main/docs/task-agent-discovery.md), [Oh My Pi task tool](https://github.com/can1357/oh-my-pi/blob/main/docs/tools/task.md), [OpenCode V2 agents](https://dev.opencode.ai/v2/docs/agents/), and [OpenCode V2 tools](https://dev.opencode.ai/v2/docs/tools/).
+
 ## Explicit Exa MCP, without auto-connect
 
 Exa is already configured as the `exa` server using the official `https://mcp.exa.ai/mcp` endpoint. **Do not add a duplicate.** The shared server explicitly exposes `web_search_exa`, `web_fetch_exa` and authenticated `agent_run`; the OpenCode V2 permission action names are `exa_web_search_exa` and `exa_web_fetch_exa`. Only these two actions are available to this web-researcher agent, and both require per-call approval.
