@@ -121,3 +121,7 @@ The integration includes the complete 50-skill public OpenAI Life Science Resear
 ## Research integrations and learning
 
 Zotero, optional provider-confirmed SciSpace access, resumable deep research and learning workflows are documented in [RESEARCH-SETUP.md](docs/RESEARCH-SETUP.md). See [RESEARCH-AUDIT.md](docs/RESEARCH-AUDIT.md) for tested behavior and live-access limits.
+
+## Mathematics and numerical methods
+
+See [Math Research](docs/MATH-RESEARCH.md) for `/math-research`, `/numerical-research`, isolated CPU/CUDA environments, and the deterministic terminal installer. Installation invokes no models or AI APIs; planning and requested troubleshooting still use tokens.

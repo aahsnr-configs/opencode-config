@@ -1,0 +1,13 @@
+{
+  "symbolic": {"profile": "python", "source": "python_core.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"], "parameters": {"experiment": "symbolic"}},
+  "sage-exact": {"profile": "sage", "source": "sage_exact.py", "command": ["sage", "-python", "/inputs/model.py", "/inputs/input.json"]},
+  "lean-proof": {"profile": "lean", "source": "lean_check.py", "files": ["theorem.lean"], "command": ["python3", "/inputs/model.py", "/inputs/input.json"]},
+  "stiff-ode-python": {"profile": "python", "source": "python_core.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"], "parameters": {"experiment": "stiff_ode"}},
+  "poisson": {"profile": "fenics", "source": "poisson.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"]},
+  "optimization-python": {"profile": "python", "source": "python_core.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"], "parameters": {"experiment": "optimization"}},
+  "sparse": {"profile": "python", "source": "python_core.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"], "parameters": {"experiment": "sparse"}},
+  "approximation": {"profile": "python", "source": "python_core.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"], "parameters": {"experiment": "approximation"}},
+  "cuda-python": {"profile": "cuda", "source": "cuda_python.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"]},
+  "cuda-petsc": {"profile": "petsc-cuda", "source": "cuda_petsc.py", "command": ["python3", "/inputs/model.py", "/inputs/input.json"]},
+  "cuda-kernel": {"profile": "cuda", "source": "cuda_kernel.py", "files": ["vector_add.cu"], "command": ["python3", "/inputs/model.py", "/inputs/input.json"]}
+}
