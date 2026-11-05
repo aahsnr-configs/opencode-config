@@ -28,11 +28,46 @@
   "update": "notify",
   "share": "disabled",
   "snapshots": true,
+  "experimental": {
+    "todo": true,
+  },
+  "providers": {
+    "openai": {
+      "models": {
+        "gpt-6-luna-claude-smart": {
+          "modelID": "gpt-6-luna",
+          "settings": {
+            "reasoningEffort": "low",
+          },
+          "capabilities": {
+            "tools": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ],
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "low"
+              ],
+            },
+          },
+          "limit": {
+            "context": 1050000,
+            "output": 128000,
+          },
+        },
+      },
+    },
+  },
   "plugins": [
     "superpowers@git+https://github.com/obra/superpowers.git",
     "opencode-rtk-plugin",
-    "opencode-openwork@0.1.0",
-    "opencode-todo",
+    "opencode-openwork",
+    "opencode-skills-collection@latest",
     "/var/home/ahsan/.config/opencode/plugins/caveman",
     {
       "package": "@plannotator/opencode@latest",
@@ -41,6 +76,13 @@
         "planningAgents": [
           "plan"
         ],
+      },
+    },
+    {
+      "package": "@leohenon/opencode-vim-plugin@beta",
+      "options": {
+        "enabled": true,
+        "vim_initial_mode": "normal",
       },
     },
   ],

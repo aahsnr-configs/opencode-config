@@ -1,3 +1,25 @@
 {
-  "plugins": []
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "keybinds": {
+    "leader": "ctrl+x",
+    "session.interrupt": "ctrl+g"
+  },
+  "leader": {
+    "timeout": 2000
+  },
+  "plugins": [
+    "-opencode.sidebar.context",
+    "-opencode.sidebar.mcp",
+    {
+      "package": "opencode-tui-extras",
+      "options": {
+        "context": true,
+        "sidebarScrollbar": false,
+        "transparent": true,
+        "mcp": true,
+        "skills": true,
+        "powerline": true
+      }
+    }
+  ]
 }
